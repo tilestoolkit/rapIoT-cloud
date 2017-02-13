@@ -1,107 +1,259 @@
 <html>
-	<head>
-		<title>Tiles API</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/stylesheets/style.css">
-		
-		<!-- AngularJS -->
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-		
-		<!-- AngularJS modules -->
-		<script src="/javascripts/app.js"></script>
-		<script src="/javascripts/controllers.js"></script>
-		<script src="/javascripts/services.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-	</head>
-	<body ng-app="tilesApi">
-		<div class="row">
-			<div class="col-xs-10 col-xs-offset-1">
-				<ui-view></ui-view>
-			</div>
+<head>
+	<title>Tiles API</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/stylesheets/style.css">
+
+	<!-- JQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- JQuery Confirm-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.0.3/jquery-confirm.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.0.3/jquery-confirm.min.js"></script>
+
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+	<!-- AngularJS modules -->
+	<script src="/javascripts/app.js"></script>
+	<script src="/javascripts/controllers.js"></script>
+	<script src="/javascripts/services.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+</head>
+<body ng-app="tilesApi">
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1">
+			<ui-view></ui-view>
 		</div>
-		<div id="appInfoLabel">
-			<span>Version: <%= appVersion %></span><br/>
-			<span>Build date: <%= buildDate %></span>
+	</div>
+	<div id="appInfoLabel">
+		<span>Version: <%= appVersion %></span><br/>
+		<span>Build date: <%= buildDate %></span>
+	</div>
+
+	<!-- Users template -->
+	<script type="text/ng-template" id="/users.html">
+		<div class="page-header">
+			<h1>Users</h1>
 		</div>
-		<script type="text/ng-template" id="/users.html">
-			<div class="page-header">
-				<h1>Users</h1>
+		<div ng-repeat="user in users">
+			<a href="#/users/{{user._id}}"><span class="glyphicon glyphicon-user"></span>&nbsp;{{user._id}}</a>
+		</div>
+		<form ng-submit="addUser()" style="margin-top:30px;">
+			<h3>Add a new user</h3>
+			<div class="form-group">
+				<input type="text" placeholder="Username" ng-model="username">
 			</div>
-			<div ng-repeat="user in users">
-				<a href="#/users/{{user._id}}"><span class="glyphicon glyphicon-user"></span>&nbsp;{{user._id}}</a>
+			<button type="submit" class="btn btn-primary">Post</button>
+		</form>
+		<br/><br/>
+		<a href="#/applications">apps</a>
+	</script>
+
+	<!-- User template -->
+	<script type="text/ng-template" id="/user.html">
+		<div class="page-header">
+			<h1>{{user._id}}</h1>
+		</div>
+		<h3>Tiles</h3>
+		<div ng-hide="tiles.length">No Tiles registered for this user.</div>
+		<table ng-show="tiles.length" class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Active</th>
+					<th>State</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="tile in tiles">
+					<td><a href="#/users/{{user._id}}/{{tile._id}}">{{tile._id}}</td>
+					<td>{{tile.name}}</td>
+					<td>{{tile.active}}</td>
+					<td>{{tile.state}}</td>
+					<td><button type="button" class="btn btn-default" ng-click="removeTile(tile)"><span class="glyphicon glyphicon-trash"></span></button</td>
+				</tr>
+			</tbody>
+		</table>
+	</script>
+
+	<!-- Tile template -->
+	<script type="text/ng-template" id="/tile.html">
+		<div class="page-header">
+			<h1>{{userId}}</h1>
+			<h2>{{tileName}} ({{tileId}})</h2>
+		</div>
+		<h3>Webhooks</h3>
+		<div ng-hide="webhooks.length">No Webhooks registered for this Tile and user.</div>
+		<table ng-show="webhooks.length" class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Callback URL</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="webhook in webhooks">
+					<td>{{webhook._id}}</td>
+					<td>{{webhook.postUrl}}</td>
+					<td><button type="button" class="btn btn-sm btn-danger" ng-click="deleteWebhook(webhook)"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button></td>
+				</tr>
+			</tbody>
+		</table>
+		<form ng-submit="addWebhook()" style="margin-top:30px;">
+			<h4>Register a new webhook</h4>
+			<div class="form-group">
+				<input type="text" placeholder="URL" ng-model="webhookUrl">
 			</div>
-			<form ng-submit="addUser()" style="margin-top:30px;">
-				<h3>Add a new user</h3>
-				<div class="form-group">
-					<input type="text" placeholder="Username" ng-model="username">
-				</div>
-				<button type="submit" class="btn btn-primary">Post</button>
-			</form>
-		</script>
-		<script type="text/ng-template" id="/user.html">
-			<div class="page-header">
-				<h1>{{user._id}}</h1>
+			<button type="submit" class="btn btn-primary">Register</button>
+		</form>
+	</script>
+
+	<!-- Applications template -->
+	<script type="text/ng-template" id="/applications.html">
+		<div class="page-header">
+			<h1>Applications</h1>
+		</div>
+		<div ng-hide="applications.length">
+			<span>No TILES Application created.</span>
+		</div>
+
+		<table ng-show="applications.length" class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Application owner</th>
+					<th># of TILES</th>
+					<th>Local</th>
+					<!--<th>Host repository</th>-->
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="app in applications">
+					<td><a href="#/applications/{{app._id}}">{{app.name}}</td>
+					<td><a href="#/users/{{app.user}}"><span class="glyphicon glyphicon-user"></span>&nbsp;{{app.user}}</a></td>
+					<td>{{app.virtualTiles.length}}</td>
+					<td>{{app.devEnvironment}}</td>
+					<!--<td>{{app.online}}</td>-->
+					<!--<td>
+						<button ng-disabled="app.devEnvironment != 'Cloud'" ng-click="workspaceClick(app)" class="btn" ng-class="{'btn-success': !app.environmentOnline, 'btn-danger': app.environmentOnline}">
+						{{applicationState(app)}}
+					</button>
+					</td>-->
+					<td><button class="confirm btn btn-default" type="button" ng-click="deleteApp(app)">
+						<span class="glyphicon glyphicon-trash"></span></button</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<br/>
+
+		<button ng-hide="showNew" ng-click="reset()" class="btn btn-primary">Create new applicatoin</button>
+						<div ng-show="showNew">
+							<form novalidate="novalidate" name="application_form" ng-submit="addApplication()" class="my-form box">
+								<h3>Add a new application</h3>
+
+								<label for="name">Application name</label>
+								<input type="text" name="name" id="name" placeholder="Application name" ng-pattern="/^[a-zA-Z0-9-_]*$/" ng-model="name" required>
+								<span class="text-danger" ng-show="application_form.$submitted && application_form.name.$invalid">
+				Please select a valid application name (no whitespace or special character allowed)</span>
+								<span class="text-danger" ng-show="newName">Application name must be unique</span>
+
+								<label for="environment">Select development environment</label>
+								<select name="environment" id="environment" ng-model="env.selected" ng-options="env.name for env in env.envs"></select>
+								<span class="text-danger" ng-show="noEnv">Please select a development environment</span>
+
+								<label for="user">Select application owner</label>
+								<select name="user" id="user" ng-model="user.selected" ng-options="u._id for u in user.users"></select>
+								<span class="text-danger" ng-show="noAppOwner">Please select an application owner</span>
+
+								<button type="submit" class="btn btn-success">Create</button>
+								<button type="reset" ng-click="reset()" class="btn btn-danger">Cancel</button>
+						</div>
+						</form>
+						</div>
+	</script>
+
+	<!-- Application template -->
+	<script type="text/ng-template" id="/application.html">
+		<div class="page-header">
+			<h1>{{application.name}}</h1>
+		</div>
+		<table class="info-table">
+			<tr>
+				<td class="first">Application owner</td>
+				<td class="second"><a href="#/users/{{application.user._id}}"><span class="glyphicon glyphicon-user"></span>&nbsp;{{application.user._id}}</a></td>
+			</tr>
+			<tr>
+				<td class="first">Dev environment</td>
+				<td class="second">{{application.devEnvironment}}</td>
+			</tr>
+			<tr ng-show="application.devEnvironment == 'Cloud'">
+				<td class="first">Workspace</td>
+				<td class="second">
+					<button ng-click="workspaceClick()" class="btn" ng-class="{'btn-success': !application.environmentOnline, 'btn-danger': application.environmentOnline}">
+						{{workspaceState()}}
+					</button>
+				</td>
+			</tr>
+			<tr ng-show="application.devEnvironment == 'Cloud' && application.environmentOnline">
+				<td class="first">Workspace URL</td>
+				<td class="second"><a href="{{workspaceUrl}}">{{workspaceUrl}}</a></td>
+			</tr>
+			<tr ng-show="application.devEnvironment == 'Cloud'">
+				<td class="first">Application</td>
+				<td class="second">
+					<button ng-click="toggleRunApplication()" class="btn" ng-class="{'btn-success': !application.appOnline, 'btn-danger': application.appOnline}">
+						{{applicationState()}}
+					</button>
+				</td>
+			</tr>
+
+		</table>
+
+		<br/><br/>
+
+		<h3>Virtual tiles</h3>
+		<div ng-hide="application.virtualTiles.length">No Tiles registered for this application.</div>
+		<table ng-show="application.virtualTiles.length" class="table">
+			<thead>
+				<tr>
+					<th>Virtual Tile name</th>
+					<th>Tile ID</th>
+					<th>Tile Name</th>
+					<th>Active</th>
+					<th>State</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="vt in application.virtualTiles">
+					<td>{{vt.virtualName}}</td>
+					<td ng-class="{unpaired: !vt.tile}"><a ng-if="vt.tile" href="#/users/{{application.user._id}}/{{vt.tile._id}}">{{vt.tile._id}}</a>{{vt.tile?'':'unpaired'}}</td>
+					<td ng-class="{unpaired: !vt.tile}">{{vt.tile?vt.tile.name:'unpaired'}}</td>
+					<td ng-class="{unpaired: !vt.tile}">{{vt.tile?vt.tile.active:'unpaired'}}</td>
+					<td ng-class="{unpaired: !vt.tile}">{{vt.tile?vt.tile.state:'unpaired'}}</td>
+					<td><button type="button" class="btn btn-default" ng-click="removeVirtualTile(vt)"><span class="glyphicon glyphicon-trash"></span></button</td>
+				</tr>
+			</tbody>
+		</table>
+		<br/>
+		<hr/>
+		<form novalidate="novalidate" class="my-form" name="virtualTile_form" ng-submit="addVirtualTile()" style="margin-top:30px;">
+			<h4>Register a new Virtual Tile</h4>
+			<div class="form-group">
+				<input type="text" name="name" placeholder="Virtual name" ng-pattern="/^[a-zA-Z0-9-_]*$/" ng-model="vtName">
+				<span class="text-danger" 
+				ng-show="virtualTile_form.$submitted && virtualTile_form.name.$invalid">
+				Please select a valid name (no whitespace or special character allowed)</span>
 			</div>
-			<h3>Tiles</h3>
-			<div ng-hide="tiles.length">No Tiles registered for this user.</div>
-			<table ng-show="tiles.length" class="table">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Active</th>
-						<th>State</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="tile in tiles">
-						<td><a href="#/users/{{user._id}}/{{tile._id}}">{{tile._id}}</td>
-						<td>{{tile.name}}</td>
-						<td>{{tile.active}}</td>
-						<td>{{tile.state}}</td>
-						<td><button type="button" class="btn btn-default" ng-click="removeTile(tile)"><span class="glyphicon glyphicon-trash"></span></button</td>
-					</tr>
-				</tbody>
-			</table>
-			<form ng-submit="addTile()" style="margin-top:30px;">
-				<h4>Register a new Tile</h4>
-				<div class="form-group">
-					<input type="text" placeholder="Tile Device ID" ng-model="tileDeviceId">
-				</div>
-				<button type="submit" class="btn btn-primary">Post</button>
-			</form>
-		</script>
-		<script type="text/ng-template" id="/tile.html">
-			<div class="page-header">
-				<h1>{{userId}}</h1>
-				<h2>{{tileName}} ({{tileId}})</h2>
-			</div>
-			<h3>Webhooks</h3>
-			<div ng-hide="webhooks.length">No Webhooks registered for this Tile and user.</div>
-			<table ng-show="webhooks.length" class="table">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Callback URL</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="webhook in webhooks">
-						<td>{{webhook._id}}</td>
-						<td>{{webhook.postUrl}}</td>
-						<td><button type="button" class="btn btn-sm btn-danger" ng-click="deleteWebhook(webhook)"><span class="glyphicon glyphicon-trash"></span>&nbsp;Delete</button></td>
-					</tr>
-				</tbody>
-			</table>
-			<form ng-submit="addWebhook()" style="margin-top:30px;">
-				<h4>Register a new webhook</h4>
-				<div class="form-group">
-					<input type="text" placeholder="URL" ng-model="webhookUrl">
-				</div>
-				<button type="submit" class="btn btn-primary">Register</button>
-			</form>
-		</script>
-	</body>
+			<button type="submit" class="btn btn-primary">Post</button>
+						</form>
+	</script>
+</body>
+
 </html>

@@ -11,11 +11,14 @@ require('./models/Users');
 require('./models/Tiles');
 require('./models/Webhooks');
 require('./models/EventMappings');
+require('./models/Applications');
+require('./models/VirtualTiles');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var webhooks = require('./routes/webhooks');
 var eventMappings = require('./routes/eventMappings');
+var applications = require('./routes/applications');
 
 var ponteServer = require('./ponteServer');
 
@@ -40,6 +43,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/webhooks', webhooks);
 app.use('/eventmappings', eventMappings);
+app.use('/applications', applications);
 app.use('/cmd/*', function (req, res, next) {
   var resourceUrl = 'http://' + req.hostname + ':8080/resources/tiles/cmd/' + req.params[0];
   console.log('Redirect to ' + resourceUrl);
