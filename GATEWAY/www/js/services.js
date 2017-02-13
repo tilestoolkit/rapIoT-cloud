@@ -142,7 +142,7 @@ angular.module('tiles.services', [])
 	var o = {
 		username: $localstorage.get('username', 'TestUser'),
 		host: {
-			address: $localstorage.get('hostAddress', 'cloud.tilestoolkit.io'),
+			address: $localstorage.get('hostAddress', '138.68.144.206'),
 			mqttPort: $localstorage.get('mqttPort', 8080),
 			apiPort: 3000
 		}
@@ -215,7 +215,7 @@ angular.module('tiles.services', [])
 		return $http.get(url).then(function(resp) {
 		    var fetchedEventMappings = resp.data;
 		    console.log('Success. Fetched data:' + JSON.stringify(fetchedEventMappings));
-		    
+
 		    $localstorage.setEventMappings(tileId, o.username, fetchedEventMappings);
 		    if (eventMappings[o.username] == null) eventMappings[o.username] = {};
 		    eventMappings[o.username][tileId] = extend(defaultEventMappings, fetchedEventMappings);
