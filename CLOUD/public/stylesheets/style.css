@@ -13,3 +13,42 @@ a {
     right: 10px;
     text-align: end;
 }
+
+.my-form{
+  width:auto;
+  margin-top:2em;
+  padding:0 2em 2em 2em;
+}
+.my-form.box{
+  border-style: solid;
+  border-width: 1px; 
+}
+.my-form input[type=text], .my-form select{
+  min-width: 250px;
+  padding:4px 10px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.my-form button{
+  min-width: 50px;
+}
+.my-form span{
+  display:block;
+}
+td.unpaired{
+  color:grey;
+}
+
+.info-table td{
+  /*border-bottom: 1px solid #ddd;*/
+  padding: 0.3em 0.8em;
+}
+.info-table .first{
+  text-align: right;
+}
+.info-table .second{
+  font-weight: bold;
+}
