@@ -139,7 +139,9 @@ angular.module('tilesApi.controllers', [])
 
 	.controller('ApplicationCtrl', ['$scope', '$location', 'application', 'applications', function ($scope, $location, application, applications) {
 		$scope.application = application;
-		$scope.workspaceUrl = "http://" + $location.host() + ":" + application.port + "/ide.html";
+		$scope.workspaceUrl = function(){
+			return "http://" + $location.host() + ":" + $scope.application.port + "/ide.html";
+		}
 
 		$scope.workspaceState = function () {
 			if ($scope.application.environmentOnline) {

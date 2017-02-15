@@ -70,11 +70,11 @@ var startApplication = function (workspace, applicationId, callback) {
   }
 }
 // Helper: Stop application
-var stopApplication = function (applicationId) {
+var stopApplication = function (applicationId, callback) {
   var uid = "app:" + applicationId;
 
   if (process.platform === "linux") {
-    exec("forever stop uid", callback);
+    exec("forever stop " + uid, callback);
   } else {
     callback("ERROR: Application hosting only on linux");
   }
@@ -200,7 +200,7 @@ router.get('/:app/host/app', function (req, res, next) {
         console.log(error);
         return;
       }
-      Application.findByIdAndUpdate(app.id, { appOnline: true }, { new: true }, function (err, application) {
+      return Application.findByIdAndUpdate(app.id, { appOnline: true }, { new: true }, function (err, application) {
         if (err) return next(error);
         res.json(application);
       });
@@ -213,7 +213,7 @@ router.get('/:app/host/app', function (req, res, next) {
         console.log(error);
         return;
       }
-      Application.findByIdAndUpdate(app._id, { appOnline: false }, { new: true }, function (err, application) {
+      return Application.findByIdAndUpdate(app._id, { appOnline: false }, { new: true }, function (err, application) {
         if (err) return next(error);
         res.json(application);
       });

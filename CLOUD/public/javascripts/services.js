@@ -129,9 +129,11 @@ angular.module('tilesApi.services', [])
 
 				application.port = res.data.port;
 				application.environmentOnline = res.data.environmentOnline;
-
-				o.applications[index].port = res.data.port;
-				o.applications[index].environmentOnline = res.data.environmentOnline;
+				
+				if (o.applications[index]) {
+					o.applications[index].port = res.data.port;
+					o.applications[index].environmentOnline = res.data.environmentOnline;
+				}
 
 				return res.data;
 			});
@@ -141,9 +143,11 @@ angular.module('tilesApi.services', [])
 			return $http.get('/applications/' + application._id + '/host/app').then(function (res) {
 				var index = o.applications.indexOf(application);
 
-				application.appOnline = res.data.appOnline
-
-				o.applications[index].appOnline = res.data.appOnline;
+				application.appOnline = res.data.appOnline;
+				
+				if (o.applications[index]) {
+					o.applications[index].appOnline = res.data.appOnline;
+				}
 
 				return res.data;
 			});
