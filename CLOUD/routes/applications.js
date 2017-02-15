@@ -6,6 +6,7 @@ var User = mongoose.model('User');
 var VirtualTile = mongoose.model('VirtualTile');
 var Tile = mongoose.model('Tile');
 var exec = require('child_process').exec;
+var portfinder = require('portfinder');
 
 // Helper: Start hosting workspace
 var startHostingWorkspace = function (workspace, port, applicationId, callback) {
@@ -159,18 +160,21 @@ router.get('/:app/host/workspace', function (req, res, next) {
   }
 
   if (!app.environmentOnline) {  // Start hosting workspace
-    var port = 8282; //TODO: Find port!
-    var callback = function (error) {
-      if (error) {
-        console.log(error);
-        return;
+    portfinder.getPort(function (err, port) {
+      if (err) return next(err);
+
+      var callback = function (error) {
+        if (error) {
+          console.log(error);
+          return;
+        }
+        Application.findByIdAndUpdate(app.id, { environmentOnline: true, port: port }, { new: true }, function (err, application) {
+          if (err) return next(error);
+          res.json(application);
+        });
       }
-      Application.findByIdAndUpdate(app.id, { environmentOnline: true, port: port }, { new: true }, function (err, application) {
-        if (err) return next(error);
-        res.json(application);
-      });
-    }
-    startHostingWorkspace(app.name, port, app._id, callback);
+      startHostingWorkspace(app.name, port, app._id, callback);
+    });
 
   } else {  // Stop hosting workspace
     var callback = function (error) {
