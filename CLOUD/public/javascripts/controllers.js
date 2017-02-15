@@ -159,10 +159,7 @@ angular.module('tilesApi.controllers', [])
 			return "Start application"
 		}
 		$scope.toggleRunApplication = function(){
-			$scope.application.appOnline = !$scope.application.appOnline;
-
-			// TODO: toggle run application
-			// applications.toggleRunApplication($scope.application);
+			applications.toggleRunApplication($scope.application);
 		}
 
 		$scope.addVirtualTile = function () {

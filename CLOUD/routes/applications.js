@@ -43,7 +43,7 @@ var createWorkspace = function (workspace, callback) {
         callback(error);
         return;
       }
-      exec("cp /tiles-lib/templates/* /home/c9sdk/" + workspace, callback);
+      exec("sudo -H -u c9sdk bash -c 'cp /tiles-lib/templates/* /home/c9sdk/" + workspace + "'", callback);
     });
   }
   else {
