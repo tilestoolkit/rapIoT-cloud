@@ -14,7 +14,7 @@ var startHostingWorkspace = function (workspace, port, applicationId, callback) 
   if (process.platform === "linux") {  // Only run on linux
     var usr = "admin";
     var pwd = "admin";
-    exec("sudo -H -u c9sdk bash -c 'forever start --uid " + uid
+    exec("sudo -H -u c9sdk bash -c 'forever start --uid " + uid + " -a "
       + " /home/c9sdk/c9sdk/server.js -p " + port
       + " -w /home/c9sdk/" + workspace
       + "/ -l 0.0.0.0 --auth " + usr + ":" + pwd + "'",
@@ -25,30 +25,35 @@ var startHostingWorkspace = function (workspace, port, applicationId, callback) 
   }
 }
 // Helper: Stop hosting workspace
-var stopHostingWorkspace = function (applicationId) {
+var stopHostingWorkspace = function (applicationId, callback) {
   var uid = "wrk:" + applicationId;
 
-  if (process.platfomr === "linux") {
-    exec("sudo -H -u c0sdk bash -c 'forever stop " + uid + "'");
+  if (process.platform === "linux") {
+    exec("sudo -H -u c9sdk bash -c 'forever stop " + uid + "'", callback);
   }
   else {
     callback("ERROR: Hosting only for linux");
   }
 }
 // Helper: Create workspace
-var createWorkspace = function (workspace) {
+var createWorkspace = function (workspace, callback) {
   if (process.platform === "linux") {
-    exec("sudo -H -u c9sdk bash -c 'mkdir /home/c9sdk/" + workspace + "'", callback);
-    // TODO: Copy template to workspace as tiles.js and template-api.js from root
+    exec("sudo -H -u c9sdk bash -c 'mkdir /home/c9sdk/" + workspace + "'", function (error) {
+      if (error) {
+        callback(error);
+        return;
+      }
+      exec("cp /tiles-lib/templates/* /home/c9sdk/" + workspace, callback);
+    });
   }
   else {
     callback("ERROR: Workspace only for linux");
   }
 }
 // Helper: Remove workspace
-var removeWorkspace = function (workspace) {
+var removeWorkspace = function (workspace, callback) {
   if (process.platform === "linux") {
-    exec("rm -r /home/c9sdk/" + workspace + "'", callback);
+    exec("rm -r /home/c9sdk/" + workspace, callback);
   }
   else {
     callback("ERROR: Workspace only for linux");
@@ -59,7 +64,7 @@ var startApplication = function (workspace, applicationId, callback) {
   var uid = "app:" + applicationId;
 
   if (process.platform === "linux") {
-    exec("forever start --uid " + uid + " /home/c9sdk/" + workspace + "/tiles.js", callback);
+    exec("forever start --uid " + uid + " -a /home/c9sdk/" + workspace + "/tiles.js", callback);
   } else {
     callback("ERROR: Application hosting only on linux");
   }
@@ -85,16 +90,16 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
   var application = new Application(req.body);
 
+  if (req.body.devEnvironment === "Cloud") {
+    createWorkspace(req.body.name, function (error) {
+      if (error) console.log(error);
+    });
+  }
+
   application.save(function (err, user) {
     if (err) { return next(err); }
     res.json(application);
   });
-
-  if (req.body.devEnvironment === "Cloud") {
-    createWorkspace(req.body.name, function (error) {
-      console.log(error);
-    });
-  }
 });
 
 router.param('app', function (req, res, next, id) {
@@ -137,11 +142,11 @@ router.delete('/:app', function (req, res, next) {
           console.log(error);
           return;
         }
-        removeWorkspace(req.application.workspace, callback);
+        removeWorkspace(req.application.name, callback);
       });
     }
     else { // Workspace is not hosted, just delete workspace
-      removeWorkspace(req.application.workspace, callback);
+      removeWorkspace(req.application.name, callback);
     }
   }
 });
@@ -160,9 +165,9 @@ router.get('/:app/host/workspace', function (req, res, next) {
         console.log(error);
         return;
       }
-      return Application.findByIdAndUpdate(app.id, { environmentOnline: true, port: port }, { new: true }, function (err, application) {
+      Application.findByIdAndUpdate(app.id, { environmentOnline: true, port: port }, { new: true }, function (err, application) {
         if (err) return next(error);
-        return res.json(application);
+        res.json(application);
       });
     }
     startHostingWorkspace(app.name, port, app._id, callback);
@@ -173,14 +178,49 @@ router.get('/:app/host/workspace', function (req, res, next) {
         console.log(error);
         return;
       }
-      return Application.findByIdAndUpdate(app._id, { environmentOnline: false, port: 0 }, { new: true }, function (err, application) {
+      Application.findByIdAndUpdate(app._id, { environmentOnline: false, port: 0 }, { new: true }, function (err, application) {
         if (err) return next(error);
-        return res.json(application);
+        res.json(application);
       });
     }
     stopHostingWorkspace(app._id, callback);
   }
 });
+
+router.get('/:app/host/app', function (req, res, next) {
+  var app = req.application;
+  if (app.devEnvironment !== 'Cloud') {
+    res.status(400).end;
+    return;
+  }
+
+  if (!app.appOnline) {  // Start hosting app
+    var callback = function (error) {
+      if (error) {
+        console.log(error);
+        return;
+      }
+      Application.findByIdAndUpdate(app.id, { appOnline: true }, { new: true }, function (err, application) {
+        if (err) return next(error);
+        res.json(application);
+      });
+    }
+    startApplication(app.name, app._id, callback);
+
+  } else {  // Stop hosting app
+    var callback = function (error) {
+      if (error) {
+        console.log(error);
+        return;
+      }
+      Application.findByIdAndUpdate(app._id, { appOnline: false }, { new: true }, function (err, application) {
+        if (err) return next(error);
+        res.json(application);
+      });
+    }
+    stopApplication(app._id, callback);
+  }
+})
 
 router.post('/:app/virtualTile', function (req, res) {
   var virtualName = req.body.virtualName;

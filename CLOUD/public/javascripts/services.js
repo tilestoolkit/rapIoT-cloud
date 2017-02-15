@@ -137,6 +137,17 @@ angular.module('tilesApi.services', [])
 			});
 		}
 
+		o.toggleRunApplication = function(application){
+			return $http.get('/applications/' + application._id + '/host/app').then(function (res) {
+				var index = o.applications.indexOf(application);
+
+				application.appOnline = res.data.appOnline
+
+				o.applications[index].appOnline = res.data.appOnline;
+
+				return res.data;
+		}
+
 		// o.addTile = function(user, tileDeviceId) {
 		// 	return $http.post('/tiles', {tileId: tileDeviceId, userId: user._id}).success(function(data){
 		//     	user.tiles.push(data)
