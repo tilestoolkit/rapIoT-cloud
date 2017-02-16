@@ -26,13 +26,14 @@ function TilesAscoltatore(settings) {
     wildcard_some: settings.wildcardSome || '*'
   });
 
+  // Default context
   this._matcher.add('tiles/evt/+/+/active', function(topic, message, options){
     var splitTopic = topic.split('/');
     var username = splitTopic[2];
     var deviceId = splitTopic[3];
     var active = (arrayBufferToString(message) === 'true');
     console.log(tag + "Set active state for " + deviceId + ": " + active);
-    TilesApi.setDeviceState(deviceId, username, null, active);
+    TilesApi.setDeviceState(deviceId, username, null, null, active);
   });
 
   this._matcher.add('tiles/evt/+/+/name', function(topic, message, options){
@@ -41,7 +42,7 @@ function TilesAscoltatore(settings) {
     var deviceId = splitTopic[3];
     var name = arrayBufferToString(message);
     console.log(tag + "Register device with ID: " + deviceId + " and name: " + name);
-    TilesApi.setDeviceState(deviceId, username, null, null, name);
+    TilesApi.setDeviceState(deviceId, username, null, null, null, name);
   });
 
   this._matcher.add('tiles/evt/+/+', function(topic, message, options){
@@ -50,7 +51,38 @@ function TilesAscoltatore(settings) {
     var deviceId = splitTopic[3];
     var state = arrayBufferToString(message);
     console.log(tag + "Set event state for " + deviceId + ": " + state);
-    TilesApi.setDeviceState(deviceId, username, state, null);
+    TilesApi.setDeviceState(deviceId, username, null, state, null);
+  });
+  
+  // Application context
+  this._matcher.add('tiles/evt/+/+/+/active', function(topic, message, options){
+    var splitTopic = topic.split('/');
+    var username = splitTopic[2];
+    var appid = splitTopic[3];
+    var deviceId = splitTopic[4];
+    var active = (arrayBufferToString(message) === 'true');
+    console.log(tag + "Set active state for " + deviceId + ": " + active + " (app)");
+    TilesApi.setDeviceState(deviceId, username, appid, null, active);
+  });
+
+  this._matcher.add('tiles/evt/+/+/+/name', function(topic, message, options){
+    var splitTopic = topic.split('/');
+    var username = splitTopic[2];
+    var appid = splitTopic[3];
+    var deviceId = splitTopic[4];
+    var name = arrayBufferToString(message);
+    console.log(tag + "Register device with ID: " + deviceId + " and name: " + name + " (app)");
+    TilesApi.setDeviceState(deviceId, username, appid, null, null, name);
+  });
+
+  this._matcher.add('tiles/evt/+/+/+', function(topic, message, options){
+    var splitTopic = topic.split('/');
+    var username = splitTopic[2];
+    var appid = splitTopic[3];
+    var deviceId = aplitTopic[4];
+    var state = arrayBufferToString(message);
+    console.log(tag + "Set event state for " + deviceId + ": " + state + " (app)");
+    TilesApi.setDeviceState(deviceId, username, appid, state, null);
   });
 
   this.emit("ready");
@@ -86,9 +118,8 @@ TilesAscoltatore.prototype.unsubscribe = function unsubscribe(topic, callback, d
 
   debug("deregistered subscriber for topic " + topic);
   console.log(tag + " Deregistered subscriber for topic '" + topic + "'");
-
+  
   this._matcher.remove(topic, callback);
-
   defer(done);
 };
 

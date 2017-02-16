@@ -64,6 +64,7 @@
 					<th>Name</th>
 					<th>Active</th>
 					<th>State</th>
+					<th>Timestamp</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -73,6 +74,7 @@
 					<td>{{tile.name}}</td>
 					<td>{{tile.active}}</td>
 					<td>{{tile.state}}</td>
+					<td>{{tile.timestamp}}</td>
 					<td><button type="button" class="btn btn-default" ng-click="removeTile(tile)"><span class="glyphicon glyphicon-trash"></span></button</td>
 				</tr>
 			</tbody>
@@ -124,7 +126,7 @@
 		<table ng-show="applications.length" class="table">
 			<thead>
 				<tr>
-					<th>Name</th>
+					<th>Id</th>
 					<th>Application owner</th>
 					<th># of TILES</th>
 					<th>Environment</th>
@@ -134,7 +136,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="app in applications">
-					<td><a href="#/applications/{{app._id}}">{{app.name}}</td>
+					<td><a href="#/applications/{{app._id}}">{{app._id}}</a></td>
 					<td><a href="#/users/{{app.user}}"><span class="glyphicon glyphicon-user"></span>&nbsp;{{app.user}}</a></td>
 					<td>{{app.virtualTiles.length}}</td>
 					<td>{{app.devEnvironment}}</td>
@@ -145,7 +147,7 @@
 					</button>
 					</td>-->
 					<td><button class="confirm btn btn-default" type="button" ng-click="deleteApp(app)">
-						<span class="glyphicon glyphicon-trash"></span></button</td>
+						<span class="glyphicon glyphicon-trash"></span></button></td>
 				</tr>
 			</tbody>
 		</table>
@@ -153,35 +155,35 @@
 		<br/>
 
 		<button ng-hide="showNew" ng-click="reset()" class="btn btn-primary">Create new applicatoin</button>
-						<div ng-show="showNew">
-							<form novalidate="novalidate" name="application_form" ng-submit="addApplication()" class="my-form box">
-								<h3>Add a new application</h3>
+		<div ng-show="showNew">
+			<form novalidate="novalidate" name="application_form" ng-submit="addApplication()" class="my-form box">
+				<h3>Add a new application</h3>
 
-								<label for="name">Application name</label>
-								<input type="text" name="name" id="name" placeholder="Application name" ng-pattern="/^[a-zA-Z0-9-_]*$/" ng-model="name" required>
-								<span class="text-danger" ng-show="application_form.$submitted && application_form.name.$invalid">
-				Please select a valid application name (no whitespace or special character allowed)</span>
-								<span class="text-danger" ng-show="newName">Application name must be unique</span>
+				<label for="name">Application name</label>
+				<input type="text" name="name" id="name" placeholder="Application name" ng-pattern="/^[a-zA-Z0-9-_]*$/" ng-model="_id" required />
+				<span class="text-danger" ng-show="application_form.$submitted && application_form.name.$invalid">
+					Please select a valid application name (no whitespace or special character allowed)
+				</span>
+				<span class="text-danger" ng-show="newName">Application name must be unique</span>
 
-								<label for="environment">Select development environment</label>
-								<select name="environment" id="environment" ng-model="env.selected" ng-options="env.name for env in env.envs"></select>
-								<span class="text-danger" ng-show="noEnv">Please select a development environment</span>
+				<label for="environment">Select development environment</label>
+				<select name="environment" id="environment" ng-model="env.selected" ng-options="env.name for env in env.envs"></select>
+				<span class="text-danger" ng-show="noEnv">Please select a development environment</span>
 
-								<label for="user">Select application owner</label>
-								<select name="user" id="user" ng-model="user.selected" ng-options="u._id for u in user.users"></select>
-								<span class="text-danger" ng-show="noAppOwner">Please select an application owner</span>
+				<label for="user">Select application owner</label>
+				<select name="user" id="user" ng-model="user.selected" ng-options="u._id for u in user.users"></select>
+				<span class="text-danger" ng-show="noAppOwner">Please select an application owner</span>
 
-								<button type="submit" class="btn btn-success">Create</button>
-								<button type="reset" ng-click="reset()" class="btn btn-danger">Cancel</button>
-						</div>
-						</form>
-						</div>
+				<button type="submit" class="btn btn-success">Create</button>
+				<button type="reset" ng-click="reset()" class="btn btn-danger">Cancel</button>
+			</form>
+		</div>
 	</script>
 
 	<!-- Application template -->
 	<script type="text/ng-template" id="/application.html">
 		<div class="page-header">
-			<h1>{{application.name}}</h1>
+			<h1>{{application._id}}</h1>
 		</div>
 		<table class="info-table">
 			<tr>

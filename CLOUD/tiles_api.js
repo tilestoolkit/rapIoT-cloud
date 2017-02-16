@@ -6,13 +6,20 @@ var Webhook = mongoose.model('Webhook');
 
 var tilesApi = {};
 
-tilesApi.setDeviceState = function(tileId, userId, state, active, name){
+tilesApi.getTimestamp = function(){
+	var d = new Date();
+	return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear() + ', '
+		+ d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds() + '.' + d.getMilliseconds();
+}
+
+tilesApi.setDeviceState = function(tileId, userId, appid, state, active, name){
 	if (tileId == null) {
 		console.log("Tile ID can't be undefined or null");
 		return;	
-	} 
+	}
 
 	var fieldsToSend = {}; // Only send fields that are defined and not null
+	fieldsToSend.timestamp = tilesApi.getTimestamp();
 	fieldsToSend.tileId = tileId;
   	if (userId != null) fieldsToSend.userId = userId;
   	if (state != null) {
@@ -26,7 +33,7 @@ tilesApi.setDeviceState = function(tileId, userId, state, active, name){
   	if (active != null) fieldsToSend.active = active;
   	if (name != null) fieldsToSend.name = name;
 
-  	tilesApi.triggerMatchingWebhooks(userId, tileId, fieldsToSend);
+  	tilesApi.triggerMatchingWebhooks(userId, tileId, appId, fieldsToSend);
 
 	var data = JSON.stringify(fieldsToSend);
 	console.log('POST: Sending device data: '+data);
@@ -52,9 +59,9 @@ tilesApi.setDeviceState = function(tileId, userId, state, active, name){
 	req.end();
 }
 
-tilesApi.triggerMatchingWebhooks = function(username, deviceId, event){
+tilesApi.triggerMatchingWebhooks = function(username, deviceId, appid, event){
 	console.log("Trigger matching webhooks called!")
-	Webhook.find({user: username, tile: deviceId}, function(err, docs) {
+	Webhook.find({user: username, tile: deviceId, applicaton: appid}, function(err, docs) {
 		if (!err){ 
 	        console.log(docs);
 	        for (var i = 0;i<docs.length;i++){

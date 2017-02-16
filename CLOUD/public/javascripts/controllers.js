@@ -61,7 +61,7 @@ angular.module('tilesApi.controllers', [])
 		$scope.showNew = false;
 
 		$scope.reset = function () {
-			$scope.name = "";
+			$scope._id = "";
 			$scope.showNew = !$scope.showNew;
 			$scope.user.selected = $scope.user.users[0];
 			$scope.env.selected = $scope.env.envs[0];
@@ -96,7 +96,7 @@ angular.module('tilesApi.controllers', [])
 			}
 			var check = false;
 			$scope.applications.forEach(function (app) {
-				if ($scope.name.toLowerCase() == app.name.toLowerCase()) {
+				if ($scope._id.toLowerCase() == app._id.toLowerCase()) {
 					$scope.newName = true;
 					check = true;
 				}
@@ -106,7 +106,7 @@ angular.module('tilesApi.controllers', [])
 			}
 
 			// Create application
-			applications.create($scope.name, $scope.env.selected.name, $scope.user.selected._id);
+			applications.create($scope._id, $scope.env.selected.name, $scope.user.selected._id);
 
 			// reset view
 			$scope.reset();

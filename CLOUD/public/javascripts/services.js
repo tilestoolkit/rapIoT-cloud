@@ -97,8 +97,8 @@ angular.module('tilesApi.services', [])
 			});
 		}
 
-		o.create = function (appname, environment, username) {
-			return $http.post('/applications', { name: appname, devEnvironment: environment, user: username, environmentOnline: false, appOnline: false, port: 0 }).success(function (data) {
+		o.create = function (appid, environment, username) {
+			return $http.post('/applications', { _id: appid, devEnvironment: environment, user: username, environmentOnline: false, appOnline: false, port: 0 }).success(function (data) {
 				o.applications.push(data);
 			});
 		}

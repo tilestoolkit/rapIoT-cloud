@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var ApplicationSchema = new mongoose.Schema({
-  name: String,
+  _id: String,
   devEnvironment: String,
   environmentOnline: Boolean,
   appOnline: Boolean,

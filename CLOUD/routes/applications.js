@@ -92,7 +92,7 @@ router.post('/', function (req, res, next) {
   var application = new Application(req.body);
 
   if (req.body.devEnvironment === "Cloud") {
-    createWorkspace(req.body.name, function (error) {
+    createWorkspace(req.body._id, function (error) {
       if (error) console.log(error);
     });
   }
@@ -143,11 +143,11 @@ router.delete('/:app', function (req, res, next) {
           console.log(error);
           return;
         }
-        removeWorkspace(req.application.name, callback);
+        removeWorkspace(req.application._id, callback);
       });
     }
     else { // Workspace is not hosted, just delete workspace
-      removeWorkspace(req.application.name, callback);
+      removeWorkspace(req.application._id, callback);
     }
   }
 });
@@ -173,7 +173,7 @@ router.get('/:app/host/workspace', function (req, res, next) {
           res.json(application);
         });
       }
-      startHostingWorkspace(app.name, port, app._id, callback);
+      startHostingWorkspace(app._id, port, app._id, callback);
     });
 
   } else {  // Stop hosting workspace
@@ -204,12 +204,12 @@ router.get('/:app/host/app', function (req, res, next) {
         console.log(error);
         return;
       }
-      return Application.findByIdAndUpdate(app.id, { appOnline: true }, { new: true }, function (err, application) {
+      return Application.findByIdAndUpdate(app._id, { appOnline: true }, { new: true }, function (err, application) {
         if (err) return next(error);
         res.json(application);
       });
     }
-    startApplication(app.name, app._id, callback);
+    startApplication(app._id, app._id, callback);
 
   } else {  // Stop hosting app
     var callback = function (error) {

@@ -17,6 +17,7 @@ router.get('/tiles', function(req, res, next) {
 });
 
 router.post('/tiles', function(req, res, next) {
+  var timestamp = req.body.timestamp;
   var tileId = req.body.tileId;  
   var userId = req.body.userId;
   var active = req.body.active;
@@ -24,6 +25,7 @@ router.post('/tiles', function(req, res, next) {
   var name = req.body.name;
 
   var fieldsToUpdate = {}; // Only update fields that are defined and not null
+  if (timestamp != null) fieldsToUpdate.timestamp = timestamp;
   if (userId != null) fieldsToUpdate.user = userId;
   if (active != null) fieldsToUpdate.active = active;
   if (state != null) fieldsToUpdate.state = state;
