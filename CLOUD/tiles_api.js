@@ -8,7 +8,7 @@ var tilesApi = {};
 
 tilesApi.getTimestamp = function(){
 	var d = new Date();
-	return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear() + ', '
+	return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + 'T'
 		+ d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds() + '.' + d.getMilliseconds();
 }
 
@@ -33,7 +33,7 @@ tilesApi.setDeviceState = function(tileId, userId, appid, state, active, name){
   	if (active != null) fieldsToSend.active = active;
   	if (name != null) fieldsToSend.name = name;
 
-  	tilesApi.triggerMatchingWebhooks(userId, tileId, appId, fieldsToSend);
+  	tilesApi.triggerMatchingWebhooks(userId, tileId, appid, fieldsToSend);
 
 	var data = JSON.stringify(fieldsToSend);
 	console.log('POST: Sending device data: '+data);

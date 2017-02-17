@@ -79,7 +79,7 @@ function TilesAscoltatore(settings) {
     var splitTopic = topic.split('/');
     var username = splitTopic[2];
     var appid = splitTopic[3];
-    var deviceId = aplitTopic[4];
+    var deviceId = splitTopic[4];
     var state = arrayBufferToString(message);
     console.log(tag + "Set event state for " + deviceId + ": " + state + " (app)");
     TilesApi.setDeviceState(deviceId, username, appid, state, null);
@@ -118,7 +118,7 @@ TilesAscoltatore.prototype.unsubscribe = function unsubscribe(topic, callback, d
 
   debug("deregistered subscriber for topic " + topic);
   console.log(tag + " Deregistered subscriber for topic '" + topic + "'");
-  
+
   this._matcher.remove(topic, callback);
   defer(done);
 };

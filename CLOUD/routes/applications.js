@@ -136,19 +136,31 @@ router.delete('/:app', function (req, res, next) {
     }); // Application removed from mongoDB
   }
 
-  if (req.application.devEnvironment == 'Cloud') {
-    if (req.application.environmentOnline) { // If workspace is being hosted, shut down first, then delete
-      stopHostingWorkspace(req.application._id, function (error, stdout, stderr) {
-        if (error) {
-          console.log(error);
-          return;
-        }
+  var stopWorkspaceAndDelete = function (error) {
+    if (req.application.devEnvironment == 'Cloud') {
+      if (error) {
+        console.log(error);
+        return;
+      }
+      if (req.application.environmentOnline) { // If workspace is being hosted, shut down first, then delete
+        stopHostingWorkspace(req.application._id, function (error, stdout, stderr) {
+          if (error) {
+            console.log(error);
+            return;
+          }
+          removeWorkspace(req.application._id, callback);
+        });
+      }
+      else { // Workspace is not hosted, just delete workspace
         removeWorkspace(req.application._id, callback);
-      });
+      }
     }
-    else { // Workspace is not hosted, just delete workspace
-      removeWorkspace(req.application._id, callback);
-    }
+  }
+
+  if (req.application.appOnline) {  // If application is being hosted, shut down first, then delete
+    stopApplication(req.application._id, stopWorkspaceAndDelete)
+  } else {
+    stopWorkspaceAndDelete();
   }
 });
 
@@ -248,45 +260,5 @@ router.delete('/:app/virtualTile/:id', function (req, res, next) {
       res.json({ "error": true, "message": "Couldn't find Tile to remove" });
   });
 })
-
-// router.post('/:app/tiles', function (req, res) {
-//   var tileDeviceId = req.body.deviceId;
-//   req.application.addTile(tileDeviceId);
-//   res.json(req.application.tiles);
-// });
-
-// router.get('/:app/tiles', function (req, res, next) {
-//   res.json(req.application.tiles);
-// });
-
-// router.get('/:app/tiles/:id', function (req, res, next) {
-//   for (var index in req.application.tiles)//loop through application Tiles, to see if any tiles are found matching current ID
-//   {
-//     if (req.application.tiles[index]['_id'] === req.params.id) {
-//       res.json(req.application.tiles[index]);
-//       return;
-//     }
-//   }
-//   res.json({ "error": true, "message": "No tile found" });
-// });
-
-// router.delete('/:app/tiles/:id', function (req, res, next) {
-//   Application.update({ _id: req.application._id }, { $pull: { 'tiles': req.params.id } }, function (error, data) {//remove tile from application
-//     if (data.nModified)
-//       res.json({ "success": true, "message": "Tile removed" });
-//     else
-//       res.json({ "error": true, "message": "Couldn't find Tile to remove" });
-//   });
-// });
-
-// router.get('/:user/tiles/name/:name', function (req, res, next) {
-//   for (var i = 0; i < req.user.tiles.length; i++) {
-//     if (req.user.tiles[i]['name'] === req.params.name) {
-//       res.json(req.user.tiles[i]);
-//       return;
-//     }
-//   }
-//   return next(err);
-// });
 
 module.exports = router;
