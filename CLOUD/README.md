@@ -22,6 +22,7 @@ v2.0: 2017
 2. Open a new console and navigate to the project directory and start the API server:
    ```sh
    cd "CLOUD"
+   cd "v0.0" //use 'v1.0' or 'v2.0'
    npm start
    ```
 
