@@ -7,6 +7,7 @@ var VirtualTile = mongoose.model('VirtualTile');
 var Tile = mongoose.model('Tile');
 var exec = require('child_process').exec;
 var portfinder = require('portfinder');
+var replace = require('replace');
 
 // Helper: Start hosting workspace
 var startHostingWorkspace = function (workspace, port, applicationId, callback) {
@@ -44,7 +45,21 @@ var createWorkspace = function (workspace, callback) {
         callback(error);
         return;
       }
-      exec("sudo -H -u c9sdk bash -c 'cp /tiles-lib/templates/* /home/c9sdk/" + workspace + "'", callback);
+      var renameApp = function (error, callback) {
+        if (error) {
+          callback(error);
+          return;
+        }
+        replace({
+          regex: '{{appNameHolder}}',
+          replacement: workspace,
+          paths: ['/home/c9sdk/' + workspace],
+          recursive: true,
+          silent: true
+        });
+        callback();
+      }
+      exec("sudo -H -u c9sdk bash -c 'cp /tiles-lib/templates/* /home/c9sdk/" + workspace + "'", renameApp);
     });
   }
   else {
