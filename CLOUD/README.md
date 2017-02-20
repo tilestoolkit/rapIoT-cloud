@@ -3,7 +3,7 @@
 ## Versions
 v1.0: 2016
 
-V2.0: 2017
+v2.0: 2017
 
 ## Installation
 
