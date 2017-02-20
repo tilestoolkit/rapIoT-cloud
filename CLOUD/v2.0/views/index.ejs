@@ -72,7 +72,7 @@
 				<tr ng-repeat="tile in tiles">
 					<td><a href="#/users/{{user._id}}/{{tile._id}}">{{tile._id}}</td>
 					<td>{{tile.name}}</td>
-					<td>{{tile.active}}</td>
+					<td class="color-active" ng-class="{active: tile.active}">{{tile.active}}</td>
 					<td>{{tile.state}}</td>
 					<td>{{tile.timestamp}}</td>
 					<td><button type="button" class="btn btn-default" ng-click="removeTile(tile)"><span class="glyphicon glyphicon-trash"></span></button</td>
@@ -197,7 +197,7 @@
 			<tr ng-show="application.devEnvironment == 'Cloud'">
 				<td class="first">Workspace</td>
 				<td class="second">
-					<button ng-click="workspaceClick()" class="btn" ng-class="{'btn-success': !application.environmentOnline, 'btn-danger': application.environmentOnline}">
+					<button ng-click="workspaceClick()" class="btn btn-fixed" ng-class="{'btn-success': !application.environmentOnline, 'btn-danger': application.environmentOnline}">
 						{{workspaceState()}}
 					</button>
 				</td>
@@ -209,12 +209,11 @@
 			<tr ng-show="application.devEnvironment == 'Cloud'">
 				<td class="first">Application</td>
 				<td class="second">
-					<button ng-click="toggleRunApplication()" class="btn" ng-class="{'btn-success': !application.appOnline, 'btn-danger': application.appOnline}">
+					<button ng-click="toggleRunApplication()" class="btn btn-fixed" ng-class="{'btn-success': !application.appOnline, 'btn-danger': application.appOnline}">
 						{{applicationState()}}
 					</button>
 				</td>
 			</tr>
-
 		</table>
 
 		<br/><br/>
@@ -226,9 +225,9 @@
 				<tr>
 					<th>Virtual Tile name</th>
 					<th>Tile ID</th>
-					<th>Tile Name</th>
 					<th>Active</th>
 					<th>State</th>
+					<th>Timestamp</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -236,9 +235,11 @@
 				<tr ng-repeat="vt in application.virtualTiles">
 					<td>{{vt.virtualName}}</td>
 					<td ng-class="{unpaired: !vt.tile}"><a ng-if="vt.tile" href="#/users/{{application.user._id}}/{{vt.tile._id}}">{{vt.tile._id}}</a>{{vt.tile?'':'unpaired'}}</td>
-					<td ng-class="{unpaired: !vt.tile}">{{vt.tile?vt.tile.name:'unpaired'}}</td>
-					<td ng-class="{unpaired: !vt.tile}">{{vt.tile?vt.tile.active:'unpaired'}}</td>
+					<td class="color-active" ng-class="{unpaired: !vt.tile, active: vt.tile.active}">
+						{{vt.tile?vt.tile.active:'unpaired'}}
+						</td>
 					<td ng-class="{unpaired: !vt.tile}">{{vt.tile?vt.tile.state:'unpaired'}}</td>
+					<td ng-class="{unpaired: !vt.tile}">{{vt.tile?vt.tile.timestamp:'unpaired'}}</td>
 					<td><button type="button" class="btn btn-default" ng-click="removeVirtualTile(vt)"><span class="glyphicon glyphicon-trash"></span></button</td>
 				</tr>
 			</tbody>

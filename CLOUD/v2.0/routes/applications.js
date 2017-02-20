@@ -45,7 +45,7 @@ var createWorkspace = function (workspace, callback) {
         callback(error);
         return;
       }
-      var renameApp = function (error, callback) {
+      var renameApp = function (error) {
         if (error) {
           callback(error);
           return;
@@ -125,9 +125,22 @@ router.param('app', function (req, res, next, id) {
     if (err) { return next(err); }
     if (!app) { return next(new Error('Can\'t find application.')); }
 
-    req.application = app;
-    console.log("app", app);
-    return next();
+    var opts = {
+      path: 'virtualTiles.tile',
+      model: Tile
+    }
+
+    VirtualTile.populate(app, opts, function (err, fullApp) {
+      if (err) { return next(err); }
+      if (!fullApp) {
+        req.application = app;
+        return next(new Error('Can\'t populate virtual tiles in application'));
+      }
+
+      req.application = fullApp;
+      console.log("app", fullApp);
+      return next();
+    });
   });
 });
 
@@ -274,6 +287,16 @@ router.delete('/:app/virtualTile/:id', function (req, res, next) {
     else
       res.json({ "error": true, "message": "Couldn't find Tile to remove" });
   });
-})
+});
+
+router.post('/:app/:id', function (req, res) {
+  var virtualTileId = req.params.id;
+  var tileId = req.body.tile;
+  VirtualTile.findByIdAndUpdate(virtualTileId, { tile: tileId }, { new: true }, function (err, virtualTile) {
+    if (err) return next(error);
+    return res.json(virtualTile);
+  })
+});
+
 
 module.exports = router;

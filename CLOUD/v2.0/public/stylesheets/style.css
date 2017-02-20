@@ -42,6 +42,10 @@ td.unpaired{
   color:grey;
 }
 
+.btn-fixed{
+  min-width: 130px;
+}
+
 .info-table td{
   /*border-bottom: 1px solid #ddd;*/
   padding: 0.3em 0.8em;
@@ -52,3 +56,21 @@ td.unpaired{
 .info-table .second{
   font-weight: bold;
 }
+
+.color-active.active{
+  color: green;
+}
+.color-active{
+  color: red;
+}
+
+/*.round-btn.active{
+  background: green;
+}
+
+.round-btn{
+  width: 40%;
+  padding-bottom: 40%;
+  border-radius: 50%;
+  background: red;
+}*/
