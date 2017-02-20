@@ -32,7 +32,11 @@ var stopHostingWorkspace = function (applicationId, callback) {
   var uid = "wrk:" + applicationId;
 
   if (process.platform === "linux") {
-    exec("sudo -H -u c9sdk bash -c 'forever stop " + uid + "'", callback);
+    var cb = function(error){
+      if(error) console.log(error);
+      callback();
+    }
+    exec("sudo -H -u c9sdk bash -c 'forever stop " + uid + "'", cb);
   }
   else {
     callback("ERROR: Hosting only for linux");
@@ -53,7 +57,7 @@ var createWorkspace = function (workspace, callback) {
         }
         var ipAddress = os.networkInterfaces().eth0[0].address;
         console.log(ipAddress);
-        if(!ipAddress) ipAddress = '138.68.144.206';
+        if (!ipAddress) ipAddress = '138.68.144.206';
         replace({
           regex: '{{appNameHolder}}',
           replacement: workspace,
@@ -64,7 +68,7 @@ var createWorkspace = function (workspace, callback) {
         replace({
           regex: '{{ipAddressHolder}}',
           replacement: ipAddress,
-          paths: ['/home/c9sdk/'+workspace],
+          paths: ['/home/c9sdk/' + workspace],
           recursive: true,
           silent: true
         })
@@ -101,7 +105,13 @@ var stopApplication = function (applicationId, callback) {
   var uid = "app:" + applicationId;
 
   if (process.platform === "linux") {
-    exec("forever stop " + uid, callback);
+    var cb = function (error) {
+      if (error) {
+        if (error) console.log(error);
+        callback();
+      }
+    }
+    exec("forever stop " + uid, cb);
   } else {
     callback("ERROR: Application hosting only on linux");
   }

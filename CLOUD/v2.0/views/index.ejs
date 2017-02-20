@@ -72,7 +72,7 @@
 				<tr ng-repeat="tile in tiles">
 					<td><a href="#/users/{{user._id}}/{{tile._id}}">{{tile._id}}</td>
 					<td>{{tile.name}}</td>
-					<td class="color-active" ng-class="{active: tile.active}">{{tile.active}}</td>
+					<td class="color-active" ng-class="{active-tile: tile.active}">{{tile.active}}</td>
 					<td>{{tile.state}}</td>
 					<td>{{tile.timestamp}}</td>
 					<td><button type="button" class="btn btn-default" ng-click="removeTile(tile)"><span class="glyphicon glyphicon-trash"></span></button</td>
@@ -235,7 +235,7 @@
 				<tr ng-repeat="vt in application.virtualTiles">
 					<td>{{vt.virtualName}}</td>
 					<td ng-class="{unpaired: !vt.tile}"><a ng-if="vt.tile" href="#/users/{{application.user._id}}/{{vt.tile._id}}">{{vt.tile._id}}</a>{{vt.tile?'':'unpaired'}}</td>
-					<td class="color-active" ng-class="{unpaired: !vt.tile, active: vt.tile.active}">
+					<td class="color-active" ng-class="{unpaired: !vt.tile, active-tile: vt.tile.active}">
 						{{vt.tile?vt.tile.active:'unpaired'}}
 						</td>
 					<td ng-class="{unpaired: !vt.tile}">{{vt.tile?vt.tile.state:'unpaired'}}</td>
