@@ -8,6 +8,7 @@ var Tile = mongoose.model('Tile');
 var exec = require('child_process').exec;
 var portfinder = require('portfinder');
 var replace = require('replace');
+var os = require('os');
 
 // Helper: Start hosting workspace
 var startHostingWorkspace = function (workspace, port, applicationId, callback) {
@@ -50,6 +51,8 @@ var createWorkspace = function (workspace, callback) {
           callback(error);
           return;
         }
+        var ipAddress = os.networkInterfaces().eth0[0].address
+        if(!ipAddress) ipAddress = '138.68.144.206';
         replace({
           regex: '{{appNameHolder}}',
           replacement: workspace,
@@ -57,6 +60,13 @@ var createWorkspace = function (workspace, callback) {
           recursive: true,
           silent: true
         });
+        replace({
+          regex: '{{ipAddressHolder}}',
+          replacement: ipAddress,
+          paths: ['/home/c9sdk/'+workspace],
+          recursive: true,
+          silent: true
+        })
         callback();
       }
       exec("sudo -H -u c9sdk bash -c 'cp /tiles-lib/templates/* /home/c9sdk/" + workspace + "'", renameApp);
