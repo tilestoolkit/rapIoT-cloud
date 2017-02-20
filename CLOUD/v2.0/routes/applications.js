@@ -51,7 +51,8 @@ var createWorkspace = function (workspace, callback) {
           callback(error);
           return;
         }
-        var ipAddress = os.networkInterfaces().eth0[0].address
+        var ipAddress = os.networkInterfaces().eth0[0].address;
+        console.log(ipAddress);
         if(!ipAddress) ipAddress = '138.68.144.206';
         replace({
           regex: '{{appNameHolder}}',
