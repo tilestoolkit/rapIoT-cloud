@@ -1,5 +1,9 @@
 # Tiles API Server
 
+## Versions
+v1.0: 2016
+V2.0: 2017
+
 ## Installation
 
 1. Install [Node.js](http://nodejs.org/) and [MongoDB](https://www.mongodb.org/).
