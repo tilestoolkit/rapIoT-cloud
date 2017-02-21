@@ -204,6 +204,9 @@ router.delete('/:app', function (req, res, next) {
         removeWorkspace(req.application._id, callback);
       }
     }
+    else{
+      callback();
+    }
   }
 
   if (req.application.appOnline) {  // If application is being hosted, shut down first, then delete
