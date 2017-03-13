@@ -216,7 +216,7 @@ router.delete('/:app', function (req, res, next) { // Delete app and elements re
   Tilehook.remove({ application: req.application._id }, function (err) { if (err) return next(err); }); // Remove Tilehooks for this app
   VirtualTile.remove({ application: req.application._id }, function (err) { if (err) return next(err); }); // Remove Virtual Tiles for this app
 
-  if (req.applicaiton.devEnvironment == 'Cloud') {
+  if (req.application.devEnvironment == 'Cloud') {
     if (req.application.environmentOnline) { // If workspace environment is being hosted, shut down before workspace is removed
       stopHostingWorkspace(req.application._id, function () { // Helper method
         removeWorkspace(req.application._id); // Helper method
