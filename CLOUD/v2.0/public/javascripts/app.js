@@ -63,6 +63,12 @@ angular.module('tilesApi', ['ui.router', 'tilesApi.controllers', 'tilesApi.servi
 				resolve: {
 					application: ['$stateParams', 'applications', function($stateParams, applications){
 						return applications.get($stateParams.applicationId);
+					}],
+					ifttthooksPromise: ['$stateParams', 'apphooks', function($stateParams, apphooks){
+						return apphooks.getIfttthooks($stateParams.applicationId);
+					}],
+					tilehooksPromise: ['$stateParams', 'apphooks', function($stateParams, apphooks){
+						return apphooks.getTilehooks($stateParams.applicationId);
 					}]
 				}
 			});

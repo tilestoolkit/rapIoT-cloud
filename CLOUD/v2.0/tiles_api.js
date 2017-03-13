@@ -3,6 +3,7 @@ var request = require('request');
 
 var mongoose = require('mongoose');
 var Webhook = mongoose.model('Webhook');
+var Ifttthook = mongoose.model('Ifttthook');
 
 var tilesApi = {};
 
@@ -33,7 +34,9 @@ tilesApi.setDeviceState = function(tileId, userId, appid, state, active, name){
   	if (active != null) fieldsToSend.active = active;
   	if (name != null) fieldsToSend.name = name;
 
-  	tilesApi.triggerMatchingWebhooks(userId, tileId, appid, fieldsToSend);
+  	tilesApi.triggerMatchingWebhooks(tileId, userId, appid, fieldsToSend);
+	tilesApi.triggerMatchingIfttthooks(tileId, appid, fieldsToSend);
+	// tilesApi.triggerMatchingTilehooks(tileId, appid, fieldsToSend);
 
 	var data = JSON.stringify(fieldsToSend);
 	console.log('POST: Sending device data: '+data);
@@ -59,9 +62,39 @@ tilesApi.setDeviceState = function(tileId, userId, appid, state, active, name){
 	req.end();
 }
 
-tilesApi.triggerMatchingWebhooks = function(username, deviceId, appid, event){
+tilesApi.deregister = function(topic){
+	var splitTopic = topic.split('/');
+	var tileId = splitTopic[splitTopic.length-1];
+
+	var fieldsToSend = {tileId: tileId, timestamp: tilesApi.getTimestamp(), active: false, upsert: false};
+
+	var data = JSON.stringify(fieldsToSend);
+	console.log('POST: Sending device data: '+data);
+
+	var options = {
+	    port: 3000,
+	    path: '/tiles',
+	    method: 'POST',
+	    headers: {
+	        'Content-Type': 'application/json',
+	        'Content-Length': Buffer.byteLength(data)
+	    }
+	};
+
+	var req = http.request(options, function(res) {
+	    res.setEncoding('utf8');
+	    res.on('data', function (chunk) {
+	        console.log("Response Body: " + chunk);
+	    });
+	});
+
+	req.write(data);
+	req.end();
+}
+
+tilesApi.triggerMatchingWebhooks = function(tileId, username, appid, event){
 	console.log("Trigger matching webhooks called!")
-	Webhook.find({user: username, tile: deviceId, applicaton: appid}, function(err, docs) {
+	Webhook.find({user: username, tile: tileId, applicaton: appid}, function(err, docs) {
 		if (!err){ 
 	        console.log(docs);
 	        for (var i = 0;i<docs.length;i++){
@@ -80,6 +113,95 @@ tilesApi.triggerWebhook = function(url, data){
 		console.log("Sent " + JSON.stringify(data) + " to " + url);
 		console.log("Response Body: " + body);
 	});
+}
+
+tilesApi.triggerMatchingIfttthooks = function(tileId, appid, event){
+	console.log("Trigger matching IFTTThooks called!");
+	var query = Ifttthook.find({application: appid, outgoing: true}).populate('virtualTile').populate("application");
+	
+	query.exec(function(err, hooks){
+		if(err){ console.log(err); }
+		else{
+			for(var i = 0;i<hooks.length;i++){
+				if(hooks[i].virtualTile.tile == tileId){
+					if(tilesApi.matchEventTrigger(hooks[i], event)){
+						// TODO: Make sure this works....
+						var postUrl = hooks[i].getPostUrl();
+						console.log(postUrl);
+						tilesApi.triggerWebhook(postUrl, event);
+					}
+				}
+			}
+		}
+	});
+}
+
+tilesApi.triggerMatchingTilehooks = function(tileId, appid, event){
+	console.log("Trigger matching Tilehooks called!");
+	
+	var query = Tilehook.find({application: appid}).populate('virtualTile').populate('outputVirtualTile');
+
+	query.exec(function(err, hook){
+		if(err) console.log(err);
+		else{
+			for(var i = 0;i<hooks.length;i++){
+				if(hooks[i].virtualTile.tile == tileId){
+					if(tilesApi.matchEventTrigger(hooks[i], event)){
+						// TODO: Make sure this works....
+						tilesApi.triggerTilehook(hook);
+					}
+				}
+			}
+		}
+	});
+}
+
+tilesApi.triggerTilehook = function(tilehook){
+	var data = JSON.stringify({
+      name: hook.outputTrigger,
+      properties: hook.outputProperties
+    });
+
+    var application = '';
+    if (hook.application._id) application = hook.application._id + '/';
+
+    var options = {
+      port: 8080,
+      path: '/resources/tiles/cmd/' + hook.application.user + '/' + hook.application._id + '/' + hook.outputVirtualTile.tile,
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(data)
+      }
+    };
+    var hreq = http.request(options, function (res) {
+      res.setEncoding('utf8');
+      res.on('data', function (chunk) {
+        console.log("Response Body: " + chunk);
+      });
+    });
+
+    hreq.write(data);
+    res.json(hook);
+}
+
+tilesApi.matchEventTrigger = function(hook, event){
+	console.log(event);
+	if(!event || !event.state || !event.state.properties || !hook.properties[0] || !hook.properties[1]) return false;
+
+	var properties = event.state.properties;
+
+	if(properties[0]){
+		if(properties[0].trim() != hook.properties[0].trim()) {
+			return false;
+		}
+	}
+	if(properties[1]){
+		if(properties[1].trim() != hook.properties[1].trim()){
+			return false;
+		}
+	}
+	return true;
 }
 
 module.exports = tilesApi;

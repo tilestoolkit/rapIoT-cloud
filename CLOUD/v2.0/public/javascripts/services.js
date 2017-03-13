@@ -103,6 +103,21 @@ angular.module('tilesApi.services', [])
 			});
 		}
 
+		o.update = function (application, fieldsToUpdate) {
+			return $http.post('/applications/' + application._id, fieldsToUpdate).success(function (data) {
+				var index = o.applications.indexOf(application);
+
+				for (k in data) {
+					if (k != "user" && k != "virtualTiles") {
+						if (o.applications[index]) o.applications[index][k] = data[k];
+						if (application) application[k] = data[k];
+					}
+				}
+
+				return data;
+			});
+		}
+
 		o.delete = function (applicatoin) {
 			return $http.delete('/applications/' + applicatoin._id).then(function (res) {
 				var index = o.applications.indexOf(applicatoin);
@@ -129,7 +144,7 @@ angular.module('tilesApi.services', [])
 
 				application.port = res.data.port;
 				application.environmentOnline = res.data.environmentOnline;
-				
+
 				if (o.applications[index]) {
 					o.applications[index].port = res.data.port;
 					o.applications[index].environmentOnline = res.data.environmentOnline;
@@ -144,7 +159,7 @@ angular.module('tilesApi.services', [])
 				var index = o.applications.indexOf(application);
 
 				application.appOnline = res.data.appOnline;
-				
+
 				if (o.applications[index]) {
 					o.applications[index].appOnline = res.data.appOnline;
 				}
@@ -153,6 +168,7 @@ angular.module('tilesApi.services', [])
 			});
 		}
 
+		// TODO: Remove?
 		// o.addTile = function(user, tileDeviceId) {
 		// 	return $http.post('/tiles', {tileId: tileDeviceId, userId: user._id}).success(function(data){
 		//     	user.tiles.push(data)
@@ -165,6 +181,51 @@ angular.module('tilesApi.services', [])
 		// 		user.tiles.splice(index, 1);
 		// 	});
 		// }
+
+		return o;
+	}])
+
+	.factory('apphooks', ['$http', function ($http) {
+		var o = {
+			tilehooks: [],
+			ifttthooks: []
+		}
+
+		o.getIfttthooks = function (appid) {
+			return $http.get('/ifttt/' + appid).then(function (res) {
+				angular.copy(res.data, o.ifttthooks);
+				// return res.data;
+			});
+		}
+		o.addIfttthook = function (appid, virtualTile, triggerName, trigger, properties, outgoing) {
+			var data = JSON.stringify({
+				triggerName: triggerName,
+				properties: properties,
+				trigger: trigger,
+				outgoing: outgoing
+			});
+			return $http.post('/ifttt/' + appid + '/' + virtualTile, data).then(function (res) {
+				o.ifttthooks.push(res.data);
+			});
+		}
+		o.deleteIfttthook = function (ifttthook) {
+			return $http.delete('/ifttt/' + ifttthook.application + '/hook/' + ifttthook._id).then(function (res) {
+				var index = o.ifttthooks.indexOf(ifttthook);
+				o.ifttthooks.splice(index, 1);
+			});
+		}
+
+		o.getTilehooks = function (appid) {
+			// return $http.get('/tilehooks/' + appid).then(function (res) {
+			// 	angular.copy(res.data, o.tilehooks);
+			// });
+		}
+		o.addTilehook = function (appid, virtualTile) {
+
+		}
+		o.deleteTilehook = function (hookId) {
+
+		}
 
 		return o;
 	}]);

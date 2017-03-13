@@ -9,7 +9,7 @@ var ascoltatori = require('ascoltatori/lib/ascoltatori');
 
 var TilesApi = require('./tiles_api');
 
-var tag = '[TILES Ascoltatore]'; // Log tag
+var tag = '[TILES Ascoltatore] '; // Log tag
 
 function arrayBufferToString(buf){
   return String.fromCharCode.apply(null, new Uint16Array(buf));
@@ -26,33 +26,33 @@ function TilesAscoltatore(settings) {
     wildcard_some: settings.wildcardSome || '*'
   });
 
-  // Default context
-  this._matcher.add('tiles/evt/+/+/active', function(topic, message, options){
-    var splitTopic = topic.split('/');
-    var username = splitTopic[2];
-    var deviceId = splitTopic[3];
-    var active = (arrayBufferToString(message) === 'true');
-    console.log(tag + "Set active state for " + deviceId + ": " + active);
-    TilesApi.setDeviceState(deviceId, username, null, null, active);
-  });
+  // // Default context
+  // this._matcher.add('tiles/evt/+/+/active', function(topic, message, options){
+  //   var splitTopic = topic.split('/');
+  //   var username = splitTopic[2];
+  //   var deviceId = splitTopic[3];
+  //   var active = (arrayBufferToString(message) === 'true');
+  //   console.log(tag + "Set active state for " + deviceId + ": " + active);
+  //   TilesApi.setDeviceState(deviceId, username, null, null, active);
+  // });
 
-  this._matcher.add('tiles/evt/+/+/name', function(topic, message, options){
-    var splitTopic = topic.split('/');
-    var username = splitTopic[2];
-    var deviceId = splitTopic[3];
-    var name = arrayBufferToString(message);
-    console.log(tag + "Register device with ID: " + deviceId + " and name: " + name);
-    TilesApi.setDeviceState(deviceId, username, null, null, null, name);
-  });
+  // this._matcher.add('tiles/evt/+/+/name', function(topic, message, options){
+  //   var splitTopic = topic.split('/');
+  //   var username = splitTopic[2];
+  //   var deviceId = splitTopic[3];
+  //   var name = arrayBufferToString(message);
+  //   console.log(tag + "Register device with ID: " + deviceId + " and name: " + name);
+  //   TilesApi.setDeviceState(deviceId, username, null, null, null, name);
+  // });
 
-  this._matcher.add('tiles/evt/+/+', function(topic, message, options){
-    var splitTopic = topic.split('/');
-    var username = splitTopic[2];
-    var deviceId = splitTopic[3];
-    var state = arrayBufferToString(message);
-    console.log(tag + "Set event state for " + deviceId + ": " + state);
-    TilesApi.setDeviceState(deviceId, username, null, state, null);
-  });
+  // this._matcher.add('tiles/evt/+/+', function(topic, message, options){
+  //   var splitTopic = topic.split('/');
+  //   var username = splitTopic[2];
+  //   var deviceId = splitTopic[3];
+  //   var state = arrayBufferToString(message);
+  //   console.log(tag + "Set event state for " + deviceId + ": " + state);
+  //   TilesApi.setDeviceState(deviceId, username, null, state, null);
+  // });
   
   // Application context
   this._matcher.add('tiles/evt/+/+/+/active', function(topic, message, options){
@@ -80,9 +80,11 @@ function TilesAscoltatore(settings) {
     var username = splitTopic[2];
     var appid = splitTopic[3];
     var deviceId = splitTopic[4];
-    var state = arrayBufferToString(message);
-    console.log(tag + "Set event state for " + deviceId + ": " + state + " (app)");
-    TilesApi.setDeviceState(deviceId, username, appid, state, null);
+    // if(deviceId != 'name' && deviceId != 'active'){ //already handled by non-application context
+      var state = arrayBufferToString(message);
+      console.log(tag + "Set event state for " + deviceId + ": " + state + " (app)");
+      TilesApi.setDeviceState(deviceId, username, appid, state, null);
+    // }
   });
 
   this.emit("ready");
@@ -93,7 +95,7 @@ TilesAscoltatore.prototype = Object.create(AbstractAscoltatore.prototype);
 TilesAscoltatore.prototype.subscribe = function subscribe(topic, callback, done) {
   this._raiseIfClosed();
   debug("registered new subscriber for topic " + topic);
-  console.log(tag + " Registered new subscriber for topic '" + topic + "'");
+  console.log(tag + "Registered new subscriber for topic '" + topic + "'");
 
   this._matcher.add(topic, callback);
   defer(done);
@@ -117,7 +119,9 @@ TilesAscoltatore.prototype.unsubscribe = function unsubscribe(topic, callback, d
   this._raiseIfClosed();
 
   debug("deregistered subscriber for topic " + topic);
-  console.log(tag + " Deregistered subscriber for topic '" + topic + "'");
+  console.log(tag + "Deregistered subscriber for topic '" + topic + "'");
+
+  TilesApi.deregister(topic);
 
   this._matcher.remove(topic, callback);
   defer(done);
@@ -128,14 +132,14 @@ TilesAscoltatore.prototype.close = function close(done) {
   this.emit("closed");
 
   debug("closed");
-  console.log(tag + " Closed");
+  console.log(tag + "Closed");
 
   defer(done);
 };
 
 TilesAscoltatore.prototype.registerDomain = function(domain) {
   debug("registered domain");
-  console.log(tag + " Registered domain: " + domain);
+  console.log(tag + "Registered domain: " + domain);
 
   if (!this._publish) {
     this._publish = this.publish;

@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Tile = mongoose.model('Tile')
-var User = mongoose.model('User')
+var Tile = mongoose.model('Tile');
+var User = mongoose.model('User');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -24,6 +24,9 @@ router.post('/tiles', function(req, res, next) {
   var state = req.body.state;
   var name = req.body.name;
 
+  var upsert = req.body.upsert;
+  if(upsert == null) upsert = true;
+
   var fieldsToUpdate = {}; // Only update fields that are defined and not null
   if (timestamp != null) fieldsToUpdate.timestamp = timestamp;
   if (userId != null) fieldsToUpdate.user = userId;
@@ -31,7 +34,7 @@ router.post('/tiles', function(req, res, next) {
   if (state != null) fieldsToUpdate.state = state;
   if (name != null) fieldsToUpdate.name = name;
 
-  Tile.findByIdAndUpdate(tileId, fieldsToUpdate, {upsert: true, new: true}, function(err, tile){
+  Tile.findByIdAndUpdate(tileId, fieldsToUpdate, {upsert: upsert, new: true}, function(err, tile){
     if (err) return next(err);
     if (userId) {
       User.findByIdAndUpdate(userId, {}, {upsert: true, new: true}, function(err, user){

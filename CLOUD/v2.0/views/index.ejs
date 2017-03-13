@@ -151,7 +151,7 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<br/>
 
 		<button ng-hide="showNew" ng-click="reset()" class="btn btn-primary">Create new applicatoin</button>
@@ -160,7 +160,7 @@
 				<h3>Add a new application</h3>
 
 				<label for="name">Application name</label>
-				<input type="text" name="name" id="name" placeholder="Application name" ng-pattern="/^[a-zA-Z0-9-_]*$/" ng-model="_id" required />
+				<input type="text" name="name" id="name" placeholder="Application name" ng-pattern="/^[a-zA-Z0-9-_]*$/" ng-model="_id" required/>
 				<span class="text-danger" ng-show="application_form.$submitted && application_form.name.$invalid">
 					Please select a valid application name (no whitespace or special character allowed)
 				</span>
@@ -185,6 +185,7 @@
 		<div class="page-header">
 			<h1>{{application._id}}</h1>
 		</div>
+		<!-- Application Info -->
 		<table class="info-table">
 			<tr>
 				<td class="first">Application owner</td>
@@ -194,6 +195,24 @@
 				<td class="first">Dev environment</td>
 				<td class="second">{{application.devEnvironment}}</td>
 			</tr>
+
+			<!-- IFTTT Key -->
+			<tr ng-show="application.devEnvironment == 'Rule engine'">
+				<td class="first">IFTTT key</td>
+				<td class="second">
+					<span ng-show="!editIftttkey">{{application.iftttkey}}</span>
+					<form ng-show="editIftttkey" novalidate="novalidate" name="iftttkey_form" ng-submit="setIftttkey()" style="display: inline">
+						<input type="text" name="name" placeholder="IFTTT key" ng-model="iftttkey">
+						<button type="submit" class="btn btn-primary">Register</button>
+					</form>
+					<button type="button" class="btn btn-warning" ng-click="toggleEditIftttkey()">
+						<span ng-show="!editIftttkey">Edit</span>
+						<span ng-show="editIftttkey">Cancel</span>
+					</button>
+				</td>
+			</tr>
+
+			<!-- Button: Host workspace -->
 			<tr ng-show="application.devEnvironment == 'Cloud'">
 				<td class="first">Workspace</td>
 				<td class="second">
@@ -206,7 +225,9 @@
 				<td class="first">Workspace URL</td>
 				<td class="second"><a href="{{workspaceUrl()}}">{{workspaceUrl()}}</a></td>
 			</tr>
-			<tr ng-show="application.devEnvironment == 'Cloud'">
+
+			<!-- Button: Start application -->
+			<tr ng-show="application.devEnvironment == 'Cloud' || application.devEnvironment == 'Rule engine'">
 				<td class="first">Application</td>
 				<td class="second">
 					<button ng-click="toggleRunApplication()" class="btn btn-fixed" ng-class="{'btn-success': !application.appOnline, 'btn-danger': application.appOnline}">
@@ -219,7 +240,7 @@
 		<br/><br/>
 
 		<h3>Virtual tiles</h3>
-		<div ng-hide="application.virtualTiles.length">No Tiles registered for this application.</div>
+		<div ng-hide="application.virtualTiles.length">No Tiles registered for this application.<br/><br/></div>
 		<table ng-show="application.virtualTiles.length" class="table">
 			<thead>
 				<tr>
@@ -237,25 +258,110 @@
 					<td ng-class="{unpaired: !vt.tile}"><a ng-if="vt.tile" href="#/users/{{application.user._id}}/{{vt.tile._id}}">{{vt.tile._id}}</a>{{vt.tile?'':'unpaired'}}</td>
 					<td ng-class="{'unpaired': !vt.tile, 'color-active': vt.tile, 'active-tile': vt.tile.active}">
 						{{vt.tile?vt.tile.active:'unpaired'}}
-						</td>
+					</td>
 					<td ng-class="{unpaired: !vt.tile}">{{vt.tile?vt.tile.state:'unpaired'}}</td>
 					<td ng-class="{unpaired: !vt.tile}">{{vt.tile?vt.tile.timestamp:'unpaired'}}</td>
-					<td><button type="button" class="btn btn-default" ng-click="removeVirtualTile(vt)"><span class="glyphicon glyphicon-trash"></span></button</td>
+					<td><button type="button" class="btn btn-default" ng-click="removeVirtualTile(vt)"><span class="glyphicon glyphicon-trash"></span></button></td>
 				</tr>
 			</tbody>
 		</table>
-		<br/>
+		<button ng-show="!addVirtualTileVisible" type="button" class="btn btn-primary" ng-click="toggleAddVirtualTile()">+ new Virtual Tile</button>
+
+		<form ng-show="addVirtualTileVisible" novalidate="novalidate" class="form-hook" name="virtualTile_form" ng-submit="addVirtualTile()">
+			<input type="text" name="name" placeholder="Virtual name" ng-pattern="/^[a-zA-Z0-9-_]*$/" ng-model="vtName">
+			<span class="text-danger" ng-show="virtualTile_form.$submitted && virtualTile_form.name.$invalid">
+					Please select a valid name (no whitespace or special character allowed)</span>
+			<br/>
+			<button type="submit" class="btn btn-primary">Create</button>
+			<button type="button" class="btn btn-danger" ng-click="toggleAddVirtualTile()">Cancel</button>
+		</form>
 		<hr/>
-		<form novalidate="novalidate" class="my-form" name="virtualTile_form" ng-submit="addVirtualTile()" style="margin-top:30px;">
-			<h4>Register a new Virtual Tile</h4>
-			<div class="form-group">
-				<input type="text" name="name" placeholder="Virtual name" ng-pattern="/^[a-zA-Z0-9-_]*$/" ng-model="vtName">
-				<span class="text-danger" 
-				ng-show="virtualTile_form.$submitted && virtualTile_form.name.$invalid">
-				Please select a valid name (no whitespace or special character allowed)</span>
-			</div>
-			<button type="submit" class="btn btn-primary">Post</button>
-						</form>
+		<!-- Only for devEnvironment == 'Rule engine' -->
+		<div ng-show="application.devEnvironment == 'Rule engine'">
+			<!--IFTTT RULES-->
+			<h3>IFTTT rules</h3>
+			<div ng-hide="ifttthooks.length">No Ifttthooks registered for this application.<br/><br/></div>
+			<table class="table rules-table">
+				<tbody>
+					<tr ng-repeat="hook in ifttthooks">
+						<td ng-show="hook.outgoing"><span class="glyphicon glyphicon-arrow-up" style="color: red"></span></td>
+						<td ng-show="hook.outgoing"><b>IF </b>{{hook.properties[1]}} {{hook.properties[0]}} <b>ON </b> {{hook.virtualTile.virtualName}}</td>
+						<td ng-show="hook.outgoing"><b>THEN </b>IFTTT: {{hook.triggerName}}</td>
+
+						<td ng-show="!hook.outgoing"><span class="glyphicon glyphicon-arrow-down" style="color: green"></span></td>
+						<td ng-show="!hook.outgoing"><b>IF </b>IFTTT {{hook.triggerName}}</td>
+						<td ng-show="!hook.outgoing"><b>THEN </b>{{hook.trigger}} {{hook.properties[0]}} {{hook.properties[1]}} <b>ON</b> {{hook.virtualTile.virtualName}}</td>
+
+						<td><button type="button" class="btn btn-default" ng-click="removeIfttthook(hook)"><span class="glyphicon glyphicon-trash"></span></button></td>
+						<td ng-show="!hook.outgoing">Triggered by posts to: <span style="color:grey;"><i>{{getHookUrl(hook)}}</i></span></td>
+					</tr>
+				</tbody>
+			</table>
+			<button ng-show="!addIfttthookVisible" type="button" class="btn btn-primary" ng-click="toggleAddIfttthook()">+ new IFTTT rule</button>
+
+			<form ng-show="addIfttthookVisible" class="form-hook" novalidate="novalidate" name="addifttthookform" ng-submit="addIfttthook()">
+				<!-- Select Ruletype -->
+				<select name="ruletype" id="ruletype" ng-model="iftttRule.selected" ng-options="rule.name for rule in iftttRule.rules"></select>
+
+				<!-- if RULETYPE is TILE -->
+				<div style="display:inline" ng-show="iftttRule.selected.name == 'Tile'">
+					<!-- Select Input Trigger -->
+					<span><b> IF </b></span>
+					<select name="ifttttrigger" id="ifttttrigger" ng-model="iftttTrigger.selected" ng-options="trigger.name for trigger in iftttTrigger.triggers"></select>
+
+					<!-- Select Virtual Tile -->
+					<span><b>ON </b></span>
+					<select name="ifttttile" id="ifttttile" ng-model="iftttTile.selected" ng-options="tile.virtualName for tile in iftttTile.tiles"></select>
+
+					<!-- Enter Trigger Name -->
+					<span><b>THEN </b></span>
+					<span>IFTTT post to </span>
+					<input type="text" name="ifttttriggername" id="ifttttriggername" placeholder="IFTTT Trigger name" ng-model="iftttTriggerName">
+				</div>
+				<!-- if RULETYPE is IFTTT -->
+				<div style="display:inline" ng-show="iftttRule.selected.name == 'IFTTT'">
+					<!-- Select Operation -->
+					<span><b>IF </b>IFTTT<b> THEN </b></span>
+					<select name="iftttoperation" id="iftttoperation" ng-model="iftttOperation.selected" ng-options="op.name for op in iftttOperation.ops"></select>
+
+					<!--Select Property-->
+					<div style="display:inline" ng-show="iftttOperation.selected.name == 'LED'">
+						<select name="iftttpropertyled" id="iftttpropertyled" ng-model="iftttPropertyLed.selected" ng-options="prop.name for prop in iftttPropertyLed.props"></select>
+						<input ng-show="iftttPropertyLed.selected.name == 'on'" type="text" name="iftttpropertycolor" id="iftttpropertycolor" placeholder="Color (HEX value)"
+						 ng-model="iftttPropertyColor">
+					</div>
+					<div style="display:inline" ng-show="iftttOperation.selected.name == 'Haptic'">
+						<select name="iftttpropertyhaptic" id="iftttpropertyhaptic" ng-model="iftttPropertyHaptic.selected" ng-options="prop.name for prop in iftttPropertyHaptic.props"></select>
+					</div>
+
+					<!-- Select Virtual Tile -->
+					<span><b>ON </b></span>
+					<select name="ifttttile" id="ifttttile" ng-model="iftttTile.selected" ng-options="tile.virtualName for tile in iftttTile.tiles"></select>
+				</div>
+
+				<br/>
+				<button type="submit" class="btn btn-primary">Create</button>
+				<button type="button" class="btn btn-danger" ng-click="toggleAddIfttthook()">Cancel</button>
+			</form>
+
+			<!-- TILE RULES -->
+			<!--<h3>Tile rules</h3>
+			<table class="table rules-table">
+				<tbody>
+					<tr ng-repeat="hook in tilehooks">
+						<td>{{hook.virtualTile.virtualName}}</td>
+						<td>{{hook.trigger}}</td>
+						<td>{{hook.properties}}</td>
+						<td>{{hook.outputVirtualTile.virtualName}}</td>
+						<td>{{hook.outputTrigger}}</td>
+						<td>{{hook.outputProperties}}</td>
+						<td>{{hook.application._id}}</td>
+					</tr>
+				</tbody>
+			</table>-->
+		</div>
+
+
 	</script>
 </body>
 
