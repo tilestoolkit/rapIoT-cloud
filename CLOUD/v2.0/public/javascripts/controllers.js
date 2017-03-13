@@ -268,8 +268,83 @@ angular.module('tilesApi.controllers', [])
 		}
 
 		// TILE hooks
-		$scope.tilehooks = apphooks.tilehooks;
-		$scope.removeTilehook = function (hook) {
+		$scope.tileTrigger = {
+			triggers: [{ name: "Single tap" }, { name: "Double tap" }, { name: "Tilt" }],
+			selected: null
+		};
+		$scope.tileTrigger.selected = $scope.tileTrigger.triggers[0];
 
+		$scope.tileInput = {
+			tiles: application.virtualTiles,
+			selected: null
+		};
+		$scope.tileInput.selected = $scope.tileInput.tiles[0];
+
+		$scope.tileOperation = {
+			ops: [{ name: "LED" }, { name: "Haptic" }],
+			selected: null
+		};
+		$scope.tileOperation.selected = $scope.tileOperation.ops[0]; 
+
+		$scope.tilePropertyLed = {
+			props: [{ name: "on" }, { name: "off" }],
+			selected: null
+		};
+		$scope.tilePropertyLed.selected = $scope.tilePropertyLed.props[0];
+		$scope.tilePropertyColor = '';
+		$scope.tilePropertyHaptic = {
+			props: [{ name: "long" }, { name: "burst" }],
+			selected: null
+		};
+		$scope.tilePropertyHaptic.selected = $scope.tilePropertyHaptic.props[0];
+
+		$scope.tileOutput = {
+			tiles: application.virtualTiles,
+			selected: null
+		};
+		$scope.tileOutput.selected = $scope.tileOutput.tiles[0];
+
+		$scope.tilehooks = apphooks.tilehooks;
+		$scope.addTilehookVisible = false;
+		$scope.toggleAddTilehook = function(){
+			$scope.addTilehookVisible = !$scope.addTilehookVisible;
+		}
+		$scope.addTilehook = function(){
+			var trigger = "";
+			var properties = [];
+			if ($scope.tileTrigger.selected.name == "Single tap") {
+				trigger = "tap";
+				properties.push("tap");
+				properties.push("single");
+			} else if ($scope.tileTrigger.selected.name == "Double tap") {
+				trigger = "tap";
+				properties.push("tap");
+				properties.push("double");
+			} else {
+				trigger = "tilt";
+				properties.push("tilt");
+			}
+
+			var outputTrigger = "";
+			var outputProperties = [];
+			if ($scope.tileOperation.selected.name == "LED") {
+				outputTrigger = "led";
+				if ($scope.tilePropertyLed.selected.name == "on"){
+					outputProperties.push("on");
+					outputProperties.push($scope.tilePropertyColor);
+				}else{
+					outputProperties.push("off");
+				}
+			} else {
+				outputTrigger = "haptic";
+				outputProperties.push($scope.tilePropertyHaptic.selected.name);
+			}
+			apphooks.addTilehook(application._id, $scope.tileInput.selected._id, trigger, properties, $scope.tileOutput.selected._id, outputTrigger, outputProperties);
+
+			$scope.addTilehookVisible = false;
+		}
+
+		$scope.removeTilehook = function (hook) {
+			apphooks.deleteTilehook(hook);
 		}
 	}]);

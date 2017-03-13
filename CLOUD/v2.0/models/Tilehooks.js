@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 
 var TilehooksSchema = new mongoose.Schema({
+    application: { type: String, ref: 'Application' },
+
     //Input Tile and properties
     virtualTile: { type: mongoose.Schema.Types.ObjectId, ref: 'VirtualTile' },
     tigger: String,
@@ -9,9 +11,7 @@ var TilehooksSchema = new mongoose.Schema({
     //Output Tile and properties
     outputVirtualTile: { type: mongoose.Schema.Types.ObjectId, ref: 'VirtualTile' },
     outputTrigger: String,
-    outputProperties: [String],
-
-    application: { type: String, ref: 'Application' }
+    outputProperties: [String]
 });
 
 mongoose.model('Tilehook', TilehooksSchema);

@@ -34,7 +34,7 @@ router.post('/:app/:tile', function (req, res, next) {  // Create (register) an 
     Ifttthook.populate(ifttt, [{ path: "virtualTile" }, { path: "application" }], function (err, iftttnew) {
       if (err) return next(err);
       res.json(iftttnew);
-    })
+    });
   });
 });
 

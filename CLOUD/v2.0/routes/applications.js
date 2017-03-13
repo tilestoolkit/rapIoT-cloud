@@ -138,7 +138,6 @@ var stopApplication = function (applicationId, callback) {
       if (error) {
         console.log(tag + "Could not stop hosting application as a service");
         console.log(error);
-        return;
       }
       callback();
     });

@@ -4,6 +4,7 @@ var request = require('request');
 var mongoose = require('mongoose');
 var Webhook = mongoose.model('Webhook');
 var Ifttthook = mongoose.model('Ifttthook');
+var Tilehook = mongoose.model('Tilehook');
 
 var tilesApi = {};
 
@@ -36,7 +37,7 @@ tilesApi.setDeviceState = function(tileId, userId, appid, state, active, name){
 
   	tilesApi.triggerMatchingWebhooks(tileId, userId, appid, fieldsToSend);
 	tilesApi.triggerMatchingIfttthooks(tileId, appid, fieldsToSend);
-	// tilesApi.triggerMatchingTilehooks(tileId, appid, fieldsToSend);
+	tilesApi.triggerMatchingTilehooks(tileId, appid, fieldsToSend);
 
 	var data = JSON.stringify(fieldsToSend);
 	console.log('POST: Sending device data: '+data);
@@ -128,7 +129,6 @@ tilesApi.triggerMatchingIfttthooks = function(tileId, appid, event){
 			if(hooks[i].application.appOnline){
 				if(hooks[i].virtualTile.tile == tileId){
 					if(tilesApi.matchEventTrigger(hooks[i], event)){
-						// TODO: Make sure this works....
 						var postUrl = hooks[i].getPostUrl();
 						console.log(postUrl);
 						tilesApi.triggerWebhook(postUrl, event);
@@ -142,16 +142,18 @@ tilesApi.triggerMatchingIfttthooks = function(tileId, appid, event){
 tilesApi.triggerMatchingTilehooks = function(tileId, appid, event){
 	console.log("Trigger matching Tilehooks called!");
 	
-	var query = Tilehook.find({application: appid}).populate('virtualTile').populate('outputVirtualTile');
+	var query = Tilehook.find({application: appid}).populate('application').populate('virtualTile').populate('outputVirtualTile');
 
-	query.exec(function(err, hook){
-		if(err) console.log(err);
-		else{
-			for(var i = 0;i<hooks.length;i++){
+	query.exec(function(err, hooks){
+		if(err){
+			console.log(err);
+			return;	
+		}
+		for(var i = 0;i<hooks.length;i++){
+			if(hooks[i].application.appOnline){
 				if(hooks[i].virtualTile.tile == tileId){
 					if(tilesApi.matchEventTrigger(hooks[i], event)){
-						// TODO: Make sure this works....
-						tilesApi.triggerTilehook(hook);
+						tilesApi.triggerTilehook(hooks[i]);
 					}
 				}
 			}
@@ -159,14 +161,11 @@ tilesApi.triggerMatchingTilehooks = function(tileId, appid, event){
 	});
 }
 
-tilesApi.triggerTilehook = function(tilehook){
+tilesApi.triggerTilehook = function(hook){
 	var data = JSON.stringify({
       name: hook.outputTrigger,
       properties: hook.outputProperties
     });
-
-    var application = '';
-    if (hook.application._id) application = hook.application._id + '/';
 
     var options = {
       port: 8080,
@@ -185,7 +184,6 @@ tilesApi.triggerTilehook = function(tilehook){
     });
 
     hreq.write(data);
-    res.json(hook);
 }
 
 tilesApi.matchEventTrigger = function(hook, event){
