@@ -217,7 +217,7 @@ angular.module('tilesApi.controllers', [])
 		$scope.iftttPropertyLed.selected = $scope.iftttPropertyLed.props[0];
 		$scope.iftttPropertyColor = '';
 		$scope.iftttPropertyHaptic = {
-			props: [{ name: "Long" }, { name: "Burst" }],
+			props: [{ name: "long" }, { name: "burst" }],
 			selected: null
 		};
 		$scope.iftttPropertyHaptic.selected = $scope.iftttPropertyHaptic.props[0];
