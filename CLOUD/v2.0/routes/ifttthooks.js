@@ -49,7 +49,7 @@ router.post('/:app/hook/:id', function (req, res, next) {  // Post request to tr
   var query = Ifttthook.findById(req.params.id).populate('virtualTile').populate('application');
   query.exec(function (err, hook) {
     if (err) return next(err);
-    if (hook.outgoing && !hook.application.appOnline) return next();
+    if (hook.outgoing || !hook.application.appOnline) return next();
 
     var data = JSON.stringify({
       name: hook.trigger,

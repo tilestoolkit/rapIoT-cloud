@@ -120,9 +120,12 @@ tilesApi.triggerMatchingIfttthooks = function(tileId, appid, event){
 	var query = Ifttthook.find({application: appid, outgoing: true}).populate('virtualTile').populate("application");
 	
 	query.exec(function(err, hooks){
-		if(err){ console.log(err); }
-		else{
-			for(var i = 0;i<hooks.length;i++){
+		if(err){
+			console.log(err);
+			return;
+		}
+		for(var i = 0;i<hooks.length;i++){
+			if(hooks[i].application.appOnline){
 				if(hooks[i].virtualTile.tile == tileId){
 					if(tilesApi.matchEventTrigger(hooks[i], event)){
 						// TODO: Make sure this works....
