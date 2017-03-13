@@ -187,16 +187,18 @@ tilesApi.triggerTilehook = function(tilehook){
 
 tilesApi.matchEventTrigger = function(hook, event){
 	console.log(event);
-	if(!event || !event.state || !event.state.properties || !hook.properties[0] || !hook.properties[1]) return false;
+	if(!event || !event.state || !event.state.properties) return false;
 
 	var properties = event.state.properties;
 
 	if(properties[0]){
+		if(!hook.properties[0]) return false;
 		if(properties[0].trim() != hook.properties[0].trim()) {
 			return false;
 		}
 	}
 	if(properties[1]){
+		if(!hook.properties[1]) return false;
 		if(properties[1].trim() != hook.properties[1].trim()){
 			return false;
 		}
