@@ -2,7 +2,7 @@
 var WorkshopClient = require('../workshop-client');
 
 // Required helper clients are initialized
-var client = new WorkshopClient.TilesClient('Anders', '138.68.144.206', 1883).connect();
+var client = new WorkshopClient.TilesClient('Simone', '138.68.144.206', 1883).connect();
 var spotify = new WorkshopClient.SpotifyClient();
 var reader = new WorkshopClient.EventReader();
 
@@ -12,7 +12,7 @@ client.on('receive', function (tileId, event) {
 	var eventTile = reader.readEvent(event, client);
 
 	// Define tileA
-	var tileA = reader.getTile("Tile_c0", client);
+	var tileA = reader.getTile("Tile_5c", client);
 
 	// Look at events on tileA
 	if (eventTile.name === tileA.name) {
