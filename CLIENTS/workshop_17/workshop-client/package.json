@@ -10,6 +10,7 @@
   "dependencies": {
     "mqtt": "^1.5.0",
     "node-hue-api": "^2.3.0",
-    "request": "2.75.0"
+    "request": "2.75.0",
+    "node-spotify-webhelper": "0.0.6"
   }
 }
