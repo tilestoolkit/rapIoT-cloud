@@ -18,7 +18,7 @@ client.on('receive', function(tileId, event) {
 
     // Define tileA and tileB
     var tileA = reader.getTile("Tile_84", client);
-    var tileB = reader.getTile("Tile_5C", client);
+    var tileB = reader.getTile("Tile_5c", client);
     var tileLED = reader.getTile("Tile_70", client);
 
     /**
@@ -42,14 +42,19 @@ client.on('receive', function(tileId, event) {
 		if (eventTile.name === tileB.name) {
 			if (eventTile.isSingleTap) {
 				tileLED.ledOn(colorHex[ct]);
+        console.log('here');
 				//tileB.ledOn(colorHex[ct]);
 				tileB.hapticBurst();
 			}
-		}
 		else if (eventTile.isDoubleTap){
 			tileA.ledOff();
 			//tileB.ledOff();
 			tileLED.ledOff();
 		}
+    else if (eventTile.isTilt){
+      tileLED.ledOn('rainbow');
+    }
+
+  }
 
 });
