@@ -26,7 +26,7 @@ This is the regular TilesClient that will allow to read events from the TILES Cl
 Example:
 ```javascript
 var WorkshopClient = require('../workshop-client');
-new WorkshopClient.TilesClient({username}, {serveraddress}, 1883).connect();
+var client = new WorkshopClient.TilesClient({username}, {serveraddress}, 1883).connect();
 
 client.on('receive', function(tileId, event){
   // Do something with event
