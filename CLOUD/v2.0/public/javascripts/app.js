@@ -1,9 +1,13 @@
 /* Main module */
 
-angular.module('tilesApi', ['ui.router', 'tilesApi.controllers', 'tilesApi.services'])
+angular.module('tilesApi', ['ui.router', 'tilesApi.controllers', 'tilesApi.docs-controller', 'tilesApi.services'])
 
 	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 		$stateProvider
+			.state('home',{
+				url: '/home',
+				templateUrl: '/home.html'			
+			})
 			.state('users', {
 				url: '/users',
 				templateUrl: '/users.html',
@@ -69,9 +73,53 @@ angular.module('tilesApi', ['ui.router', 'tilesApi.controllers', 'tilesApi.servi
 					}],
 					tilehooksPromise: ['$stateParams', 'apphooks', function($stateParams, apphooks){
 						return apphooks.getTilehooks($stateParams.applicationId);
+					}],
+					primitivePromise: ['primitives', function(primitives){
+						return primitives.getAll();
 					}]
 				}
+			})
+			.state('primitives', {
+				url: '/primitives',
+				templateUrl: '/primitives.html',
+				controller: 'PrimitiveCtrl',
+				resolve: {
+					primitivePromise: ['primitives', function(primitives){
+						return primitives.getAll();
+					}]
+				}
+			})
+			.state('docs', {
+				url: '/docs',
+				templateUrl: '/docs.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs2',{
+				url: '/docs2',
+				templateUrl: '/docs2.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs3',{
+				url: '/docs3',
+				templateUrl: '/docs3.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs4',{
+				url: '/docs4',
+				templateUrl: '/docs4.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs5',{
+				url: '/docs5',
+				templateUrl: '/docs5.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs6',{
+				url: '/docs6',
+				templateUrl: '/docs6.html',
+				controller: 'DocsCtrl'
 			});
 
-		$urlRouterProvider.otherwise('users');
+		$urlRouterProvider.otherwise('home');
 	}]);
+	

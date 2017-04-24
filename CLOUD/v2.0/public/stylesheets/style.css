@@ -7,11 +7,24 @@ a {
   color: #00B7FF;
 }*/
 
+body{
+  font-size:18px;
+}
+
+.table tr:hover {
+  background-color: #ededed !important;
+}
+
 #appInfoLabel {
     position: absolute;
     top: 10px;
     right: 10px;
     text-align: end;
+}
+
+.page-header{
+  margin-top: 20px;
+  color: #d84a3b;
 }
 
 .my-form{
@@ -85,16 +98,49 @@ td.unpaired{
 }
 .rules-table td{
   padding: 0 1em 0 1em;
-
+}
+.rules-table input[type=text] {
+  width: 100%;
+  margin: 0;
+  padding:4px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-/*.round-btn.active{
-  background: green;
+
+/* Bootstrap override NAVBAR */
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus{
+  /*color: #9d9d9d;*/
+  color: #d84a3b;
+  font-weight: bold;
+}
+.navbar-inverse .navbar-brand:hover{
+  color: #d84a3b;
+} 
+
+.navbar-brand{
+  font-size: 1.2em;
+}
+.navbar-inverse{
+  /*background-color: black;*/
+  font-size: 1.4em;
 }
 
-.round-btn{
-  width: 40%;
-  padding-bottom: 40%;
-  border-radius: 50%;
-  background: red;
+.navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-nav > li > a{
+  color: #9d9d9d;
+}
+.navbar-inverse .navbar-nav > li > a:hover{
+  color: #d84a3b;
+}
+/*.navbar-inverse{
+  background-color: #d84a3b;
 }*/
+.navbar-inverse .navbar-nav > li.active > a,
+.navbar-inverse .navbar-nav > li.active > a:hover,
+.navbar-inverse .navbar-nav > li.active > a:focus{
+  background-color: #d84a3b;
+}

@@ -80,11 +80,12 @@ function TilesAscoltatore(settings) {
     var username = splitTopic[2];
     var appid = splitTopic[3];
     var deviceId = splitTopic[4];
-    // if(deviceId != 'name' && deviceId != 'active'){ //already handled by non-application context
+    // Todo: Remove following 'if'-statement? The following will disable 'name' and 'active' to be used as _id
+    if(deviceId != 'name' && deviceId != 'active'){ //Sort out default context
       var state = arrayBufferToString(message);
       console.log(tag + "Set event state for " + deviceId + ": " + state + " (app)");
       TilesApi.setDeviceState(deviceId, username, appid, state, null);
-    // }
+    }
   });
 
   this.emit("ready");

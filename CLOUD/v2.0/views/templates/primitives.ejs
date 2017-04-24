@@ -1,0 +1,115 @@
+<script type="text/ng-template" id="/primitives.html">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <!--<div class="page-header">
+			<h1>Primitives</h1>
+		</div>-->
+
+            <div class="col-sm-6">
+                <h3 style="display:inline-block; border-bottom: 1px solid #d84a3b;">Input primitives</h3>
+                <form class="form-hook" novalidate="novalidate" name="newinputprimitive" ng-submit="iAddPrim()">
+                    <table class="table table-striped rules-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>property[0]</th>
+                                <th>property[1]</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--<tr ng-repeat="primitive in primitives" ng-if="primitive.isInputPrimitive">-->
+                            <tr ng-repeat="primitive in primitives | filter: {isInputPrimitive:true}">
+                                <td>{{primitive.name}}</td>
+                                <td>{{primitive.properties[0]}}</td>
+                                <td>{{primitive.properties[1]}}</td>
+                                <td><button type="button" class="btn btn-default" ng-click="removePrimitive(primitive)"><span class="glyphicon glyphicon-trash"></span></button></td>
+                            </tr>
+
+                            <!-- ADD NEW INPUT PRIMITIVE -->
+                            <tr ng-hide="visibleInputPrim" class="warning">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-success" ng-click="toggleInputPrim()">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+                                </td>
+                            </tr>
+                            <tr ng-show="visibleInputPrim" class="warning">
+                                <td>
+                                    <input type="text" name="iname" id="iname" ng-model="iName" placeholder="name">
+                                </td>
+                                <td>
+                                    <input type="text" name="ipropone" id="ipropone" ng-model="iPropOne" placeholder="property">
+                                </td>
+                                <td>
+                                    <input type="text" name="iproptwo" id="iproptwo" ng-model="iPropTwo" placeholder="property">
+                                </td>
+                                <td style="white-space: nowrap">
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span></button>
+                                    <button type="button" class="btn btn-danger" ng-click="toggleInputPrim()"><span class="glyphicon glyphicon-remove"></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <h3 style="display:inline-block; border-bottom: 1px solid #d84a3b;">Output primitives</h3>
+                <form class="form-hook" novalidate="novalidate" name="newoutputprimitive" ng-submit="oAddPrim()">
+                    <table class="table table-striped rules-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>property[0]</th>
+                                <th>property[1]</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--<tr ng-repeat="primitive in primitives" ng-if="!primitive.isInputPrimitive">-->
+                            <tr ng-repeat="primitive in primitives | filter: {isInputPrimitive:false}">
+                                <td>{{primitive.name}}</td>
+                                <td>{{primitive.properties[0]}}</td>
+                                <td>
+                                    <span ng-show="primitive.hasCustomProp">{custom}</span>
+                                </td>
+                                <td><button type="button" class="btn btn-default" ng-click="removePrimitive(primitive)"><span class="glyphicon glyphicon-trash"></span></button></td>
+                            </tr>
+
+                            <!-- ADD NEW OUTPUT PRIMITIVE -->
+                            <tr ng-hide="visibleOutputPrim" class="warning">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-success" ng-click="toggleOutputPrim()">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+                                </td>
+                            </tr>
+                            <tr ng-show="visibleOutputPrim" class="warning">
+                                <td>
+                                    <input type="text" name="oname" id="oname" ng-model="oName" placeholder="name">
+                                </td>
+                                <td>
+                                    <input type="text" name="opropone" id="opropone" ng-model="oPropOne" placeholder="property">
+                                </td>
+                                <td>
+                                    <span>Custom prop?</span>
+                                    <input type="checkbox" name="ohasproptwo" name="ohasproptwo" ng-model="oHasPropTwo">
+                                </td>
+                                <td style="white-space: nowrap">
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span></button>
+                                    <button type="button" class="btn btn-danger" ng-click="toggleOutputPrim()"><span class="glyphicon glyphicon-remove"></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>

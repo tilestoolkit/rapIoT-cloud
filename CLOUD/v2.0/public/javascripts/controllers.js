@@ -125,10 +125,17 @@ angular.module('tilesApi.controllers', [])
 		}
 	}])
 
-	.controller('ApplicationCtrl', ['$scope', '$location', 'application', 'applications', 'apphooks', function ($scope, $location, application, applications, apphooks) {
+	.controller('ApplicationCtrl', ['$scope', '$location', 'application', 'applications', 'apphooks', 'primitives',
+	 function ($scope, $location, application, applications, apphooks, primitives) {
 		$scope.application = application;
+		$scope.iftttkey = application.iftttkey;
 
-		// Workspace
+		$scope.primitives = primitives.primitives;
+		$scope.ifttthooks = apphooks.ifttthooks;
+		$scope.tilehooks = apphooks.tilehooks;
+		
+
+		/* Workspace functionality */
 		$scope.workspaceUrl = function(){
 			return "http://" + $location.host() + ":" + $scope.application.port + "/ide.html";
 		}
@@ -142,7 +149,7 @@ angular.module('tilesApi.controllers', [])
 			applications.toggleHostApplication($scope.application);
 		}
 
-		// Application
+		/* Application functionality */
 		$scope.applicationState = function(){
 			if($scope.application.appOnline){
 				return "Stop application";
@@ -153,24 +160,7 @@ angular.module('tilesApi.controllers', [])
 			applications.toggleRunApplication($scope.application);
 		}
 
-		// Virtual Tile
-		$scope.addVirtualTileVisible = false;
-		$scope.toggleAddVirtualTile = function () {
-			$scope.addVirtualTileVisible = !$scope.addVirtualTileVisible;
-		}
-		$scope.addVirtualTile = function () {
-			if (!$scope.vtName || $scope.vtName === '') return;
-			applications.addVirtualTile(application, $scope.vtName);
-			$scope.vtName = '';
-			$scope.addVirtualTileVisible = false;
-		}
-		$scope.removeVirtualTile = function (vt) {
-			applications.removeVirtualTile(application, vt);
-		}
-
-		// IFTTT key
-		$scope.iftttkey = application.iftttkey;
-		$scope.editIftttkey = false;
+		/* IFTTT key functionality */
 		$scope.toggleEditIftttkey = function () {
 			$scope.editIftttkey = !$scope.editIftttkey;
 		}
@@ -180,171 +170,215 @@ angular.module('tilesApi.controllers', [])
 			applications.update(application, fieldsToUpdate);
 		}
 
-		// IFTTT hooks
-		$scope.iftttRule = {
+		/* Toggle views (only one should be visible at a time) */
+		$scope.toggleView = function(view){
+			var state = false;
+			if(view == 'virtualtile'){
+				state = $scope.addVirtualTileVisible;
+			}else if(view == 'ifttthook'){
+				state = $scope.addIfttthookVisible;
+			}else if(view == 'tilehook'){
+				state = $scope.addTilehookVisible;
+			}
+
+			$scope.resetForms();
+
+			if(view == 'virtualtile'){
+				$scope.addVirtualTileVisible = !state;
+			}else if(view == 'ifttthook'){
+				$scope.addIfttthookVisible = !state;
+			}else if(view == 'tilehook'){
+				$scope.addTilehookVisible = !state;
+			}
+		}
+
+		/* Virtual Tiles functionality */
+		$scope.addVirtualTile = function () {
+			if (!$scope.vtName || $scope.vtName === '') return;
+			applications.addVirtualTile(application, $scope.vtName);
+			$scope.resetForms();
+		}
+		$scope.removeVirtualTile = function (vt) {
+			applications.removeVirtualTile(application, vt);
+		}
+
+		
+
+		/* IFTTThook functionality */
+		$scope.iftttRule = { // Select direction of IFTTThook (in/out)
 			rules: [{ name: "IFTTT" }, { name: "Tile" }],
 			selected: null
 		};
-		$scope.iftttRule.selected = $scope.iftttRule.rules[0];
-
-		// if RULETYPE is TILE
-		$scope.iftttTrigger = {
-			triggers: [{ name: "Single tap" }, { name: "Double tap" }, { name: "Tilt" }],
+		$scope.inputPrimitive = { // Input Primitive select
+			// Filter out unique name property of input primitives
+			prims: primitives.primitives.filter(function(e){return e.isInputPrimitive;}),
 			selected: null
 		};
-		$scope.iftttTile = {
+		$scope.inputTile = { // Input Tile (Virtual Tile)
 			tiles: application.virtualTiles,
 			selected: null
 		};
-		if (application.virtualTiles.length > 0) $scope.iftttTile.selected = $scope.iftttTile.tiles[0];
-		$scope.iftttTrigger.selected = $scope.iftttTrigger.triggers[0];
-		$scope.iftttTriggerName = '';
+
+		Array.prototype.customDistinct = function(){ // Get unique elements in array based on name property
+			var newArray = [];
+			var distinct = {};
+			for(var i = 0; i<this.length; i++){
+				if(this[i].name != distinct[name] ){
+					distinct[name]=this[i].name;
+					newArray.push(this[i]);
+				}
+			}
+			return newArray;
+		}
+
+		$scope.outPrimitive = {	// Output Primitive select
+			// Filter out unique name property of output primitives
+			prims: primitives.primitives.filter(function(item){return !item.isInputPrimitive;}).customDistinct().map(function(e){return {name: e.name}}),
+			selected: null
+		};
+		$scope.outPrimitiveUpdate = function(){
+			// Filter out only properties[0] of output primitives where name is selected in inputPrimitive
+			$scope.outPropertyOne.props = primitives.primitives.filter(function(e){return (!e.isInputPrimitive && e.name == $scope.outPrimitive.selected.name);}).map(function(e){return {name:e.properties[0]}});
+			$scope.outPropertyOne.selected = $scope.outPropertyOne.props[0];
+			$scope.outPropertyOneUpdate();
+		}
+		$scope.outPropertyOne = { props: [], selected: null }; // Output properties[0]
+		$scope.outPropertyOneUpdate = function(){
+			// Filter out properties[1] of output primitives where name and properties[0] is selected
+			$scope.outPropertyTwo = primitives.primitives.filter(function(e){return (!e.isInputPrimitive && e.name == $scope.outPrimitive.selected.name && e.properties[0] == $scope.outPropertyOne.selected.name);}).map(function(e){return e.properties[1]})[0];
+			// Filter out hasCustomProp of output primitives where name and properties[0] is selected
+			$scope.hasCustomProp = primitives.primitives.filter(function(e){return (!e.isInputPrimitive && e.name == $scope.outPrimitive.selected.name && e.properties[0] == $scope.outPropertyOne.selected.name);}).map(function(e){return e.hasCustomProp})[0];
+		}
+		$scope.hasCustomProp = false;
+		$scope.outPropertyTwo = null; // Output properties[1]
+		$scope.outTile = { // Output Tile (Virtual Tile)
+			tiles: application.virtualTiles,
+			selected: null
+		};
+
+		$scope.inputField = null; // Input field
+
+		/* Form reset */
+		$scope.resetForms = function(){
+			// Virtual Tile
+			$scope.vtName = '';
+
+			// Input
+			$scope.iftttRule.selected = $scope.iftttRule.rules[0];
+			$scope.inputPrimitive.selected = $scope.inputPrimitive.prims[0];
+			$scope.inputTile.selected = $scope.inputTile.tiles[0];
+			
+			// Output
+			$scope.outPrimitive.selected = $scope.outPrimitive.prims[0];
+			$scope.outPrimitiveUpdate();
+			$scope.outPropertyOneUpdate();
+			$scope.outTile.selected = $scope.outTile.tiles[0];
+
+			// input field
+			$scope.inputField = null;
+
+			// Hide views
+			$scope.addVirtualTileVisible = false;			
+			$scope.addIfttthookVisible = false;
+			$scope.addTilehookVisible = false;
+		}
+		$scope.resetForms();
+
+		// Get hook-url helper
 		$scope.getHookUrl = function (hook) {
 			return "http://" + $location.host() + ":" + $location.port() + "/ifttt/" + hook.application._id + "/hook/" + hook._id;
 		}
 
-		// if RULETYPE is IFTTT
-		$scope.iftttOperation = {
-			ops: [{ name: "LED" }, { name: "Haptic" }],
-			selected: null
-		};
-		$scope.iftttOperation.selected = $scope.iftttOperation.ops[0];
-
-		$scope.iftttPropertyLed = {
-			props: [{ name: "on" }, { name: "off" }],
-			selected: null
-		};
-		$scope.iftttPropertyLed.selected = $scope.iftttPropertyLed.props[0];
-		$scope.iftttPropertyColor = '';
-		$scope.iftttPropertyHaptic = {
-			props: [{ name: "long" }, { name: "burst" }],
-			selected: null
-		};
-		$scope.iftttPropertyHaptic.selected = $scope.iftttPropertyHaptic.props[0];
-
-		$scope.ifttthooks = apphooks.ifttthooks;
-		$scope.addIfttthookVisible = false;
-		$scope.toggleAddIfttthook = function () {
-			$scope.addIfttthookVisible = !$scope.addIfttthookVisible;
-		}
-		$scope.addIfttthook = function () {
-			if ($scope.iftttRule.selected.name == "Tile") {
-				var trigger = "";
-				var properties = [];
-				if ($scope.iftttTrigger.selected.name == "Single tap") {
-					trigger = "tap";
-					properties.push("tap");
-					properties.push("single");
-				} else if ($scope.iftttTrigger.selected.name == "Double tap") {
-					trigger = "tap";
-					properties.push("tap");
-					properties.push("double");
-				} else {
-					trigger = "tilt";
-					properties.push("tilt");
-				}
-				apphooks.addIfttthook(application._id, $scope.iftttTile.selected._id, $scope.iftttTriggerName, trigger, properties, true);
-			} else {
-				var trigger = "";
-				var properties = [];
-				if ($scope.iftttOperation.selected.name == "LED") {
-					trigger = "led";
-					if ($scope.iftttPropertyLed.selected.name == "on") {
-						properties.push("on");
-						properties.push($scope.iftttPropertyColor);
-					} else {
-						properties.push("off");
-					}
-				} else {
-					trigger = "haptic";
-					properties.push($scope.iftttPropertyHaptic.selected.name);
-				}
-				apphooks.addIfttthook(application._id, $scope.iftttTile.selected._id, null, trigger, properties, false);
+		/* Hook adders */
+		$scope.addIfttthook = function(){
+			if($scope.iftttRule.selected.name == "Tile"){
+				var prim = $scope.inputPrimitive.selected;
+				apphooks.addIfttthook(application._id, $scope.inputTile.selected._id, $scope.inputField, prim.name, prim.properties, true)
+			} else{
+				var name = $scope.outPrimitive.selected.name;
+				var props = [ $scope.outPropertyOne.selected.name ];
+				if($scope.hasCustomProp) props.push($scope.outPropertyTwo);
+				apphooks.addIfttthook(application._id, $scope.outTile.selected._id, $scope.inputField, name, props, false)
 			}
-			$scope.addIfttthookVisible = false;
+			$scope.resetForms();
 		}
+		$scope.addTilehook = function(){
+			var inPrim = $scope.inputPrimitive.selected;
+			var outName = $scope.outPrimitive.selected.name;
+			var outProps = [ $scope.outPropertyOne.selected.name ];
+			if($scope.hasCustomProp) outProps.push($scope.outPropertyTwo);
+			
+			apphooks.addTilehook(application._id, $scope.inputTile.selected._id, inPrim.name, inPrim.properties, $scope.outTile.selected._id, outName, outProps);
+			$scope.resetForms();
+		}
+		
+		/* Hook removers */
 		$scope.removeIfttthook = function (hook) {
 			apphooks.deleteIfttthook(hook);
 		}
-
-		// TILE hooks
-		$scope.tileTrigger = {
-			triggers: [{ name: "Single tap" }, { name: "Double tap" }, { name: "Tilt" }],
-			selected: null
-		};
-		$scope.tileTrigger.selected = $scope.tileTrigger.triggers[0];
-
-		$scope.tileInput = {
-			tiles: application.virtualTiles,
-			selected: null
-		};
-		$scope.tileInput.selected = $scope.tileInput.tiles[0];
-
-		$scope.tileOperation = {
-			ops: [{ name: "LED" }, { name: "Haptic" }],
-			selected: null
-		};
-		$scope.tileOperation.selected = $scope.tileOperation.ops[0]; 
-
-		$scope.tilePropertyLed = {
-			props: [{ name: "on" }, { name: "off" }],
-			selected: null
-		};
-		$scope.tilePropertyLed.selected = $scope.tilePropertyLed.props[0];
-		$scope.tilePropertyColor = '';
-		$scope.tilePropertyHaptic = {
-			props: [{ name: "long" }, { name: "burst" }],
-			selected: null
-		};
-		$scope.tilePropertyHaptic.selected = $scope.tilePropertyHaptic.props[0];
-
-		$scope.tileOutput = {
-			tiles: application.virtualTiles,
-			selected: null
-		};
-		$scope.tileOutput.selected = $scope.tileOutput.tiles[0];
-
-		$scope.tilehooks = apphooks.tilehooks;
-		$scope.addTilehookVisible = false;
-		$scope.toggleAddTilehook = function(){
-			$scope.addTilehookVisible = !$scope.addTilehookVisible;
-		}
-		$scope.addTilehook = function(){
-			var trigger = "";
-			var properties = [];
-			if ($scope.tileTrigger.selected.name == "Single tap") {
-				trigger = "tap";
-				properties.push("tap");
-				properties.push("single");
-			} else if ($scope.tileTrigger.selected.name == "Double tap") {
-				trigger = "tap";
-				properties.push("tap");
-				properties.push("double");
-			} else {
-				trigger = "tilt";
-				properties.push("tilt");
-			}
-
-			var outputTrigger = "";
-			var outputProperties = [];
-			if ($scope.tileOperation.selected.name == "LED") {
-				outputTrigger = "led";
-				if ($scope.tilePropertyLed.selected.name == "on"){
-					outputProperties.push("on");
-					outputProperties.push($scope.tilePropertyColor);
-				}else{
-					outputProperties.push("off");
-				}
-			} else {
-				outputTrigger = "haptic";
-				outputProperties.push($scope.tilePropertyHaptic.selected.name);
-			}
-			apphooks.addTilehook(application._id, $scope.tileInput.selected._id, trigger, properties, $scope.tileOutput.selected._id, outputTrigger, outputProperties);
-
-			$scope.addTilehookVisible = false;
-		}
-
 		$scope.removeTilehook = function (hook) {
 			apphooks.deleteTilehook(hook);
+		}
+	}])
+
+	.controller('PrimitiveCtrl', ['$scope', 'primitives', function($scope, primitives){
+		$scope.primitives = primitives.primitives;
+
+		// Add new input primitive
+		$scope.visibleInputPrim = false;
+		$scope.toggleInputPrim = function(){
+			resetInputs();
+			$scope.visibleInputPrim = !$scope.visibleInputPrim;
+		}
+		$scope.iName, $scope.iPropOne, $scope.iPropTwo;
+		resetInputs = function(){
+			$scope.iName = null;
+			$scope.iPropOne = null;
+			$scope.iPropTwo = null;
+		}
+		$scope.iAddPrim = function(){
+			console.log($scope.iName);
+			console.log($scope.iPropOne);
+			console.log("test");
+			if(!$scope.iName || !$scope.iPropOne) return;
+			addPrimitive(true, $scope.iName, [$scope.iPropOne, $scope.iPropTwo], false);
+		}
+
+		// Add new output primitive
+		$scope.visibleOutputPrim = false;
+		$scope.toggleOutputPrim = function(){
+			resetOutputs();
+			$scope.visibleOutputPrim = !$scope.visibleOutputPrim;
+		}
+		$scope.oName, $scope.oPropOne;
+		$scope.oHasPropTwo = false;
+		resetOutputs = function(){
+			$scope.oName = null;
+			$scope.oPropOne = null;
+			$scope.oHasPropTwo = false;
+		}
+		$scope.oAddPrim = function(){
+			if(!$scope.oName || !$scope.oPropOne) return;
+			addPrimitive(false, $scope.oName, [$scope.oPropOne], $scope.oHasPropTwo);
+		}
+
+		// Add primitive
+		addPrimitive = function(isInputPrimitive, name, properties, hasCustomProp){
+			var data = JSON.stringify({
+				isInputPrimitive: isInputPrimitive,
+				name: name,
+				properties: properties,
+				hasCustomProp: hasCustomProp
+			});
+			primitives.create(data);
+			resetInputs();
+			resetOutputs();
+			$scope.visibleInputPrim = false;
+			$scope.visibleOutputPrim = false;
+		}
+
+		// Remove primitive
+		$scope.removePrimitive = function(primitive){
+			primitives.delete(primitive);
 		}
 	}]);

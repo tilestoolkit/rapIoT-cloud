@@ -15,6 +15,7 @@ require('./models/Applications');
 require('./models/VirtualTiles');
 require('./models/Ifttthooks');
 require('./models/Tilehooks');
+require('./models/Primitives');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -23,6 +24,7 @@ var eventMappings = require('./routes/eventMappings');
 var applications = require('./routes/applications');
 var ifttthooks = require('./routes/ifttthooks');
 var tilehooks = require('./routes/tilehooks');
+var primitives = require('./routes/primitives');
 
 var ponteServer = require('./ponteServer');
 
@@ -50,6 +52,7 @@ app.use('/eventmappings', eventMappings);
 app.use('/applications', applications);
 app.use('/ifttt', ifttthooks);
 app.use('/tilehooks', tilehooks);
+app.use('/primitives', primitives);
 app.use('/cmd/*', function (req, res, next) {
   var resourceUrl = 'http://' + req.hostname + ':8080/resources/tiles/cmd/' + req.params[0];
   console.log('Redirect to ' + resourceUrl);

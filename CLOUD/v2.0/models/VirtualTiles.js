@@ -6,6 +6,4 @@ var VirtualTileSchema = new mongoose.Schema({
   application: { type: String, ref: 'Application' }
 });
 
-// VirtualTileSchema.plugin(autoincrement.plugin, 'VirtualTile');
-
 mongoose.model('VirtualTile', VirtualTileSchema);

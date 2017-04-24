@@ -88,7 +88,7 @@ angular.module('tilesApi.services', [])
 		o.getAll = function () {
 			return $http.get('/applications').success(function (data) {
 				angular.copy(data, o.applications);
-			})
+			});
 		}
 
 		o.get = function (id) {
@@ -118,9 +118,9 @@ angular.module('tilesApi.services', [])
 			});
 		}
 
-		o.delete = function (applicatoin) {
-			return $http.delete('/applications/' + applicatoin._id).then(function (res) {
-				var index = o.applications.indexOf(applicatoin);
+		o.delete = function (application) {
+			return $http.delete('/applications/' + application._id).then(function (res) {
+				var index = o.applications.indexOf(application);
 				o.applications.splice(index, 1);
 			});
 		}
@@ -237,6 +237,34 @@ angular.module('tilesApi.services', [])
 			return $http.delete('/tilehooks/' + tilehook.application + '/' + tilehook._id).then(function (res) {
 				var index = o.tilehooks.indexOf(tilehook);
 				o.tilehooks.splice(index, 1);
+			});
+		}
+
+		return o;
+	}])
+
+	.factory('primitives', ['$http', function ($http) {
+		var o = {
+			primitives: []
+		}
+
+		o.getAll = function () {
+			return $http.get('/primitives').success(function (data) {
+				angular.copy(data, o.primitives);
+			});
+		}
+
+		o.create = function (primitive) {
+			return $http.post('/primitives', primitive).success(function (data) {
+				o.primitives.push(data);
+			});
+		}
+
+		o.delete = function (primitive) {
+			return $http.delete('/primitives/' + primitive._id).then(function (res) {
+				var index = o.primitives.indexOf(primitive);
+				o.primitives.splice(index, 1);
+				console.log(o.primitives);
 			});
 		}
 
