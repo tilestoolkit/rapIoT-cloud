@@ -107,7 +107,7 @@ var createWorkspace = function (workspace, username) {
           silent: true
         });
       }
-      exec("sudo -H -u c9sdk bash -c 'cp " + config.lib.root + "/templates/*" + config.cloud9.workspace.root + workspace + "'", renameApp);
+      exec("sudo -H -u c9sdk bash -c 'cp " + config.lib.root + "/templates/* " + config.cloud9.workspace.root + workspace + "'", renameApp);
     });
   }
   else {
