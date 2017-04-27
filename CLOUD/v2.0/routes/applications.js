@@ -82,7 +82,7 @@ var createWorkspace = function (workspace, username) {
           regex: '{{tilesLibHolder}}',
           replacement: config.lib.root + '/api',
           paths: [config.cloud9.workspace.root + workspace],
-          recursieve: true,
+          recursive: true,
           silent: true
         });
         replace({
