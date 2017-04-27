@@ -71,6 +71,26 @@ angular.module('tilesDocs.controllers', [])
 			$("a").click(function () {
 				window.scrollTo(0, 0);
 			});
+
+			// Add class 'last' to last leaf of trees
+			var trees = $(".tree");
+			trees.each(function (index) {
+				var element = trees[index];
+				var lists = [element];
+				for (var i = 0; i < element.getElementsByTagName("ul").length; i++)
+					lists[lists.length] = element.getElementsByTagName("ul")[i];
+
+				for (var i = 0; i < lists.length; i++) {
+					var item = lists[i].lastChild;
+
+					while (!item.tagName || item.tagName.toLowerCase() != "li")
+						item = item.previousSibling;
+
+					item.className += " last";
+				}
+			}, this);
+
+
 		}
 		onLoad();
 	}]);

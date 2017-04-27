@@ -190,6 +190,18 @@ angular.module('tilesDocs', ['ui.router', 'tilesDocs.controllers', 'tilesApi.ser
 				url: '/docs-ext3',
 				templateUrl: '/docs-ext3.html',
 				controller: 'DocsCtrl'
+			})
+			
+			.state('docs-js1',{
+				url: '/docs-js1',
+				templateUrl: '/docs-js1.html',
+				controller: 'DocsCtrl'
+			})
+			
+			.state('docs-re1',{
+				url: '/docs-re1',
+				templateUrl: '/docs-re1.html',
+				controller: 'DocsCtrl'
 			});
 
 		$urlRouterProvider.otherwise('docs-main1');

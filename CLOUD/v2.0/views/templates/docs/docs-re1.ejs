@@ -1,0 +1,18 @@
+<% var nameOfDocs = "docs-re1"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Rule Engine API</h2>
+                <p>
+                    Text...
+                </p>
+            </div>
+        </div>
+    </script>

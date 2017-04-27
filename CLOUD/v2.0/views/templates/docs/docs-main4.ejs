@@ -24,7 +24,7 @@
                     API library files are created and the IDE is configured automatically. The cloud9 IDE will be running
                     in the browser, which means that no local setup is required, and you can run the development environment
                     using your favorite operating system and web browser. Once the environment is created, you will be developing
-                    your application using JavaScript, and the TILES toolkit JavaScript APIs.
+                    your application using JavaScript, and the TILES toolkit <a href="{{JSdevUrl}}">JavaScript APIs</a>.
                 </p>
                 <p>
                     When an application is created and the Cloud development environment is selected, you will be able to see your applicaiton
@@ -44,7 +44,7 @@
                 <div class="docs-img opacity75">
                     <img src="/images/howto/howto-cloud9-ide.png" alt="cloud9_web_ide" />
                     <br/>
-                    <span>Start hosting of the cloud9 web IDE for the application</span>
+                    <span>Cloud9 web IDE configured with TILES JavaScript API</span>
                 </div>
                 <p>
                     In the cloud workspace you will find two files:
@@ -67,18 +67,72 @@
                     <a href="https://nodejs.org/en/download/">here</a>. To download the APIs and start developing, follow
                     these steps:
                     <ul>
-                        <li>step1...</li>
-                        <li>step2...</li>
-                        <li>step3...</li>
+                        <li>
+                            Open your applicaiton from the <a href="/#/applications">list of applications</a> and click
+                            <b>Download API</b>
+                        </li>
+                        <li>Unzip the file on your computer and notice the file structure of the API:
+                            <div class="tree-wrapper">
+                                <ul class="tree">
+                                    <li class="dir">api
+                                        <ul>
+                                            <li class="dir">clients
+                                                <ul>
+                                                    <li>event-reader.js</li>
+                                                    <li>hue-client.js</li>
+                                                    <li>ifttt-client.js</li>
+                                                    <li>postman-client.js</li>
+                                                    <li>tiles-client.js</li>
+                                                </ul>
+                                            </li>
+                                            <li>api-client.js</li>
+                                            <li>package.json</li>
+                                        </ul>
+                                    </li>
+                                    <li class="dir">templates
+                                        <ul>
+                                            <li>template-API.js</li>
+                                            <li>tiles.js</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            Open the <b>api</b> directory with your Command-line interface, and type <b>npm install</b> to
+                            install all required node packages
+                        </li>
+                        <li>Open the <b>tiles.js</b> file and change the following:</li>
+                        <ul>
+                            <li><b>{{tilesLibHolder}<!--escape angular-->}</b> - raplace with '../api'</li>
+                            <li><b>{{userNameHolder}<!--escape angular-->}</b> - replace with application owner</li>
+                            <li><b>{{appNameHolder}<!--escape angular-->}</b> - replace with name of application</li>
+                            <li><b>{{ipAddressHolder}<!--escape angular-->}</b> - replace with IP address of TILES Cloud server</li>
+                        </ul>
                     </ul>
-                    With the Local development environment, you will (similarly to the Cloud development environment) be writing your application
-                    code in JavaScript. You will also be able to use any IDE for writing the code. This approach is more
-                    tricky to set up, but once you have it running you will be able to integrate your TILES application into
-                    any NodeJS application you might be working on.
+                    If everything went well, you will now be ready to start developing your application. With the Local development environment,
+                    you will be writing your application code in JavaScript (similar to Cloud development environment). Once
+                    you have downloaded the API, you are free to select any IDE you want for writing the code. Using this
+                    development environment requires more set up as detailed above, but once it is properly configured you
+                    will have access to the source code of the entire TILES JS API, and you will be able to integrate your
+                    TILES application into any application running NodeJS.
                 </p>
 
                 <h3>Rule Engine development environment</h3>
-                <p>text...</p>
+                <p>
+                    Similarly to the Cloud development environment, the Rule Engine is hosted in TILES Cloud web portal so there is no need for
+                    any local setup. When selecting your app from the
+                    <a href="/#/applications">list of applications</a> you will notice only a few differences in the application
+                    view from the Cloud and Local development environment. With this environment, however, you do not need
+                    to open an external IDE, or download the APIs and run them locally, but you will be able to develop your
+                    application directly in the application view. Please see <a href="REdevUrl">Rule Engine API</a> for instructions
+                    on how to develop applications with the Rule Engine development environment.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-rule-engine-ide.png" alt="rule_engine_ide" />
+                    <br/>
+                    <span>Rule Engine development environment</span>
+                </div>
 
             </div>
         </div>
