@@ -79,6 +79,13 @@ var createWorkspace = function (workspace, username) {
         var ipAddress = os.networkInterfaces().eth0[0].address;
         if (!ipAddress) ipAddress = '138.68.144.206';
         replace({
+          regex: '{{tilesLibHolder}}',
+          replacement: config.lib.root + '/api',
+          paths: [config.cloud9.workspace.root + workspace],
+          recursieve: true,
+          silent: true
+        });
+        replace({
           regex: '{{userNameHolder}}',
           replacement: username,
           paths: [config.cloud9.workspace.root + workspace],
@@ -97,13 +104,6 @@ var createWorkspace = function (workspace, username) {
           replacement: ipAddress,
           paths: [config.cloud9.workspace.root + workspace],
           recursive: true,
-          silent: true
-        });
-        replace({
-          regex: '{{tilesLibHolder}}',
-          replacement: config.lib.root + '/api',
-          paths: [config.cloud9.workspace.root + workspace],
-          recursieve: true,
           silent: true
         });
       }
