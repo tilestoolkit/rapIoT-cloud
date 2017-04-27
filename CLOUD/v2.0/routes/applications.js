@@ -100,7 +100,7 @@ var createWorkspace = function (workspace, username) {
           silent: true
         });
         replace({
-          regex: '{{tileLibHolder}}',
+          regex: '{{tilesLibHolder}}',
           replacement: config.lib.root + '/api',
           paths: [config.cloud9.workspace.root + workspace],
           recursieve: true,
