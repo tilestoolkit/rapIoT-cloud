@@ -95,7 +95,7 @@ var createWorkspace = function (workspace, username) {
         replace({
           regex: '{{ipAddressHolder}}',
           replacement: ipAddress,
-          paths: [config.cloud9.worspace.root + workspace],
+          paths: [config.cloud9.workspace.root + workspace],
           recursive: true,
           silent: true
         });
