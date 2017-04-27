@@ -1,0 +1,26 @@
+<!-- TOP Navigation arrows -->
+<div class="content-navigation top">
+    <a class="left" ng-show="prevUrl()" ng-href="{{prevUrl()}}">
+        <span ng-show="prevUrl()" class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right" ng-show="nextUrl()" ng-href="{{nextUrl()}}">
+        <span ng-show="nextUrl()" class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+
+<!-- BOTTOM Navigation arrows-->
+<div class="content-navigation bottom">
+    <a class="left" ng-show="prevUrl()" ng-href="{{prevUrl()}}">
+        <span ng-show="prevUrl()" class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right" ng-show="nextUrl()" ng-href="{{nextUrl()}}">
+        <span ng-show="nextUrl()" class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+
+<!-- Toggle side panel button -->
+<div id="side-panel-toggle">
+    <button type="button" class="btn" ng-click="toggleWrapper()">
+        <span class="glyphicon glyphicon-menu-hamburger"></span>
+    </button>
+</div>

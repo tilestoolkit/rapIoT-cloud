@@ -133,8 +133,12 @@ angular.module('tilesApi.controllers', [])
 		$scope.primitives = primitives.primitives;
 		$scope.ifttthooks = apphooks.ifttthooks;
 		$scope.tilehooks = apphooks.tilehooks;
-		
 
+		/* Download API functionality */
+		$scope.downloadApi = function(){
+			window.open('/applications/jsapi', '_blank');
+		}
+		
 		/* Workspace functionality */
 		$scope.workspaceUrl = function(){
 			return "http://" + $location.host() + ":" + $scope.application.port + "/ide.html";

@@ -12,6 +12,8 @@ var portfinder = require('portfinder');
 var replace = require('replace');
 var os = require('os');
 
+var config = require('../config');
+
 // Helper: Start hosting workspace
 var startHostingWorkspace = function (workspace, port, applicationId, callback) {
   var tag = "[ERROR Start hosting workspace] ";
@@ -21,8 +23,8 @@ var startHostingWorkspace = function (workspace, port, applicationId, callback) 
     var usr = "admin";
     var pwd = "admin";
     exec("sudo -H -u c9sdk bash -c 'forever start --uid " + uid + " -a "
-      + " /home/c9sdk/c9sdk/server.js -p " + port
-      + " -w /home/c9sdk/" + workspace
+      + config.cloud9.server + " -p " + port
+      + " -w " + config.cloud9.workspace.root + workspace
       + "/ -l 0.0.0.0 --auth " + usr + ":" + pwd + "'",
       function (error) {
         if (error) {
@@ -59,10 +61,10 @@ var stopHostingWorkspace = function (applicationId, callback) {
   }
 }
 // Helper: Create workspace
-var createWorkspace = function (workspace) {
+var createWorkspace = function (workspace, username) {
   var tag = "[ERROR Creating workspace] ";
   if (process.platform === "linux") {
-    exec("sudo -H -u c9sdk bash -c 'mkdir /home/c9sdk/" + workspace + "'", function (error) {
+    exec("sudo -H -u c9sdk bash -c 'mkdir " + config.cloud9.workspace.root + workspace + "'", function (error) {
       if (error) {
         console.log(tag + "Problem creating workspace on linux");
         console.log(error);
@@ -77,21 +79,35 @@ var createWorkspace = function (workspace) {
         var ipAddress = os.networkInterfaces().eth0[0].address;
         if (!ipAddress) ipAddress = '138.68.144.206';
         replace({
+          regex: '{{userNameHolder}}',
+          replacement: username,
+          paths: [config.cloud9.workspace.root + workspace],
+          recursive: true,
+          silent: true
+        });
+        replace({
           regex: '{{appNameHolder}}',
           replacement: workspace,
-          paths: ['/home/c9sdk/' + workspace],
+          paths: [config.cloud9.workspace.root + workspace],
           recursive: true,
           silent: true
         });
         replace({
           regex: '{{ipAddressHolder}}',
           replacement: ipAddress,
-          paths: ['/home/c9sdk/' + workspace],
+          paths: [config.cloud9.worspace.root + workspace],
           recursive: true,
           silent: true
         });
+        replace({
+          regex: '../api',
+          replacement: config.lib.root + '/api',
+          paths: [config.cloud9.workspace.root + workspace],
+          recursieve: true,
+          silent: true
+        });
       }
-      exec("sudo -H -u c9sdk bash -c 'cp /tiles-lib/templates/* /home/c9sdk/" + workspace + "'", renameApp);
+      exec("sudo -H -u c9sdk bash -c 'cp " + config.lib.root + "/templates/*" + config.cloud9.workspace.root + workspace + "'", renameApp);
     });
   }
   else {
@@ -102,7 +118,7 @@ var createWorkspace = function (workspace) {
 var removeWorkspace = function (workspace) {
   var tag = "[ERROR Remove workspace] ";
   if (process.platform === "linux") {
-    exec("rm -r /home/c9sdk/" + workspace, function (error) {
+    exec("rm -r " + config.cloud9.workspace.root + workspace, function (error) {
       console.log(tag + "Problem with deleting workspace");
       console.log(error);
     });
@@ -116,7 +132,7 @@ var startApplication = function (workspace, applicationId, callback) {
   var uid = "app:" + applicationId;
 
   if (process.platform === "linux") {
-    exec("forever start --uid " + uid + " -a /home/c9sdk/" + workspace + "/tiles.js", function (error) {
+    exec("forever start --uid " + uid + " -a " + config.cloud9.workspace.root + workspace + "/tiles.js", function (error) {
       if (error) {
         console.log(tag + "Unable to start application as a service");
         console.log(error);
@@ -157,7 +173,7 @@ router.post('/', function (req, res, next) { // Create a new application [will c
   var application = new Application(req.body);
 
   if (req.body.devEnvironment === "Cloud") {
-    createWorkspace(req.body._id); // Helper method
+    createWorkspace(req.body._id, req.body.user); // Helper method
   }
 
   application.save(function (err, user) {
@@ -172,6 +188,10 @@ router.get('/user/:user', function (req, res, next) { // Get all applications fo
     if (err) { return next(err); }
     res.json(apps);
   });
+});
+
+router.get('/jsapi', function(req, res, next){ // Get JS API as zip
+  res.sendFile(config.lib.root + '/tiles-lib.zip');
 });
 
 router.param('app', function (req, res, next, id) { // Parameter for :app

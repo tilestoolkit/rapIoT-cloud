@@ -1,6 +1,6 @@
 /* Main module */
 
-angular.module('tilesApi', ['ui.router', 'tilesApi.controllers', 'tilesApi.docs-controller', 'tilesApi.services'])
+angular.module('tilesApi', ['ui.router', 'tilesApi.controllers', 'tilesApi.services'])
 
 	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
 		$stateProvider
@@ -88,38 +88,110 @@ angular.module('tilesApi', ['ui.router', 'tilesApi.controllers', 'tilesApi.docs-
 						return primitives.getAll();
 					}]
 				}
+			});
+		
+
+		$urlRouterProvider.otherwise('home');
+	}]);
+
+
+	
+angular.module('tilesDocs', ['ui.router', 'tilesDocs.controllers', 'tilesApi.services'])
+	.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+		$stateProvider
+			.state('docs-main1',{
+				url: '/docs-main1',
+				templateUrl: '/docs-main1.html'	,
+				controller: 'DocsCtrl'		
 			})
-			.state('docs', {
-				url: '/docs',
-				templateUrl: '/docs.html',
+			.state('docs-main2',{
+				url: '/docs-main2',
+				templateUrl: '/docs-main2.html',
 				controller: 'DocsCtrl'
 			})
-			.state('docs2',{
-				url: '/docs2',
-				templateUrl: '/docs2.html',
+			.state('docs-main3',{
+				url: '/docs-main3',
+				templateUrl: '/docs-main3.html',
 				controller: 'DocsCtrl'
 			})
-			.state('docs3',{
-				url: '/docs3',
-				templateUrl: '/docs3.html',
+			.state('docs-main4',{
+				url: '/docs-main4',
+				templateUrl: '/docs-main4.html',
 				controller: 'DocsCtrl'
 			})
-			.state('docs4',{
-				url: '/docs4',
-				templateUrl: '/docs4.html',
+			.state('docs-main5',{
+				url: '/docs-main5',
+				templateUrl: '/docs-main5.html',
 				controller: 'DocsCtrl'
 			})
-			.state('docs5',{
-				url: '/docs5',
-				templateUrl: '/docs5.html',
+			.state('docs-main6',{
+				url: '/docs-main6',
+				templateUrl: '/docs-main6.html',
 				controller: 'DocsCtrl'
 			})
-			.state('docs6',{
-				url: '/docs6',
-				templateUrl: '/docs6.html',
+
+			.state('docs-app0',{
+				url: '/docs-app0',
+				templateUrl: '/docs-app0.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-app1',{
+				url: '/docs-app1',
+				templateUrl: '/docs-app1.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-app2',{
+				url: '/docs-app2',
+				templateUrl: '/docs-app2.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-app3',{
+				url: '/docs-app3',
+				templateUrl: '/docs-app3.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-app4',{
+				url: '/docs-app4',
+				templateUrl: '/docs-app4.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-app5',{
+				url: '/docs-app5',
+				templateUrl: '/docs-app5.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-app6',{
+				url: '/docs-app6',
+				templateUrl: '/docs-app6.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-app7',{
+				url: '/docs-app7',
+				templateUrl: '/docs-app7.html',
+				controller: 'DocsCtrl'
+			})
+			
+			.state('docs-ext0',{
+				url: '/docs-ext0',
+				templateUrl: '/docs-ext0.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-ext1',{
+				url: '/docs-ext1',
+				templateUrl: '/docs-ext1.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-ext2',{
+				url: '/docs-ext2',
+				templateUrl: '/docs-ext2.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-ext3',{
+				url: '/docs-ext3',
+				templateUrl: '/docs-ext3.html',
 				controller: 'DocsCtrl'
 			});
 
-		$urlRouterProvider.otherwise('home');
+		$urlRouterProvider.otherwise('docs-main1');
 	}]);
 	

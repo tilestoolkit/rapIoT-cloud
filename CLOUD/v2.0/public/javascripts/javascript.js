@@ -12,5 +12,8 @@ $(function () {
     });
 
     var hash = window.location.hash;
-    if(hash != '') setActiveNav($(".nav a[href='" + hash + "'").parent());
+    if (hash != ''){
+        var anchor = $(".nav a[href='" + hash + "'");
+        if(!!anchor.offset()) setActiveNav(anchor.parent());
+    } 
 });

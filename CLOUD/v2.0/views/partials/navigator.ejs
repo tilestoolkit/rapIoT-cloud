@@ -1,0 +1,22 @@
+<% if(!base) base = "" %>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="<%=base%>#/home">
+                <span><img src="/images/tiles_logo_red.svg" style="margin-top:-10px; max-width:40px; max-height:40px;"></span>
+                <span>TILES Cloud</span>
+            </a>
+        </div>
+        <div id="data-spy-div">
+            <ul class="nav navbar-nav">
+                <li class="<%if(base==''){%>active<%}%>"><a href="<%=base%>#/home">Home</a></li>
+                <li><a href="<%=base%>#/users">Users</a></li>
+                <li><a href="<%=base%>#/applications">Applications</a></li>
+                <li><a href="<%=base%>#/primitives">Primitives</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="<%if(base=='/'){%>active<%}%>"><a href="/docs#/docs-main1">Docs</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,23 @@
+<% var nameOfDocs = "docs-ext3"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>TILES Card selection (optional)</h2>
+                <p>
+                    involves selecting a subset of the TILES Cards most relevant for the current hardware configuration of the TILES Square prototype
+                    implemented in step 1. The subset will only contain cards supported by the state of the prototype.
+                </p>
+
+                <p class="text-color-red">
+                    You have reached the end of the documentation for the <b>TILES Toolkit Extension Process</b>.
+                </p>
+            </div>
+        </div>
+    </script>

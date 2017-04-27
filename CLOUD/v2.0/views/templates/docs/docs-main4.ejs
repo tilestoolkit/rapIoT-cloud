@@ -1,0 +1,85 @@
+<% var nameOfDocs = "docs-main4"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Development environments</h2>
+                <p>
+                    This section of the documentation is inteded to help you decide which development environment you should use to develop your
+                    application. It will briefly explain the differences between the available environments and what prerequisits
+                    are needed for using them, but will not go into details about the development APIs and how to develop
+                    TILES applications. For that purpose, see the documentation on the respective API of the development
+                    environment in question.
+                </p>
+                <h3>Cloud development environment</h3>
+                <p>
+                    The Cloud development environment is running a <a href="https://c9.io/">cloud9</a> web portal for your
+                    IDE. When the Cloud development environment is selected for developing a TILES application, the TILES
+                    API library files are created and the IDE is configured automatically. The cloud9 IDE will be running
+                    in the browser, which means that no local setup is required, and you can run the development environment
+                    using your favorite operating system and web browser. Once the environment is created, you will be developing
+                    your application using JavaScript, and the TILES toolkit JavaScript APIs.
+                </p>
+                <p>
+                    When an application is created and the Cloud development environment is selected, you will be able to see your applicaiton
+                    in the <a href="/#/applications">list of applications</a>. By selecting your application
+                    you will be able to click the 'Host application', which will start a new instance of the cloud9 web IDE
+                    and display the url of the IDE as seen on the image below.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-startstop-cloud-ide.png" alt="start_stop_cloud_web_ide" />
+                    <br/>
+                    <span>Start hosting of the cloud9 web IDE for the application</span>
+                </div>
+                <p>
+                    Once the workspace environment has been hosted, you can access the IDE by navigating to the URL displayed in the application
+                    view. The username and password of the service is temporarily hardcoded to 'admin/admin'.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-cloud9-ide.png" alt="cloud9_web_ide" />
+                    <br/>
+                    <span>Start hosting of the cloud9 web IDE for the application</span>
+                </div>
+                <p>
+                    In the cloud workspace you will find two files:
+                    <ol>
+                        <li>template-API.js - Shows code examples and API instructions</li>
+                        <li>tiles.js - Empty file where you will write your own application code</li>
+                    </ol>
+                    In addition to programming the application, you will be able to select your code file, and hit 'Run' in the IDE. This will
+                    start the program code in debug mode, and you will be able to see the output of your program in the bash
+                    window. This way you are able to properly debug your application code directly in the Cloud IDE during
+                    development.
+                </p>
+
+                <h3>Local development environment</h3>
+                <p>
+                    When you select the Local development environment, you will have to download the JavaScript APIs with all its files and store
+                    them locally on your own machine. The local environment is intended for experienced users only and might
+                    be difficult for non-experts to properly set up. Make sure that you have installed npm and NodeJS on
+                    your system before staring. NodeJS and npm can be downloaded
+                    <a href="https://nodejs.org/en/download/">here</a>. To download the APIs and start developing, follow
+                    these steps:
+                    <ul>
+                        <li>step1...</li>
+                        <li>step2...</li>
+                        <li>step3...</li>
+                    </ul>
+                    With the Local development environment, you will (similarly to the Cloud development environment) be writing your application
+                    code in JavaScript. You will also be able to use any IDE for writing the code. This approach is more
+                    tricky to set up, but once you have it running you will be able to integrate your TILES application into
+                    any NodeJS application you might be working on.
+                </p>
+
+                <h3>Rule Engine development environment</h3>
+                <p>text...</p>
+
+            </div>
+        </div>
+    </script>

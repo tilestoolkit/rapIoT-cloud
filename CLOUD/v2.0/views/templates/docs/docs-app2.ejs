@@ -1,0 +1,79 @@
+<% var nameOfDocs = "docs-app2"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Create and configure application context</h2>
+                <p>
+                    This step of the process involves using the TILES Cloud web portal to create the application context and configure the application
+                    with the abstract TILES, or TILES placeholder devices, to be used in the application. The amount of TILES
+                    Square modules to be used in your application should already have been identified in the previous step
+                    of the process.
+                </p>
+                <p>
+                    One important part of creating the application context in the web portal is to determine what
+                    <a href="{{selectDevEnvUrl}}">development environment</a> to be used. The steps of defining the abstract
+                    Square modules and configuring the application is identical for all development environments, but the
+                    steps <a href="#/docs-app3">Application development</a> and
+                    <a href="#/docs-app4">Application deployment</a> might vary, so please read the documentation about the
+                    development environments before making your decision.
+                </p>
+
+                <h3>Creating a new application in TILES Cloud</h3>
+                <p>
+                    To create a new application, navigate to the <a href="/#/applications">applications</a> section of the
+                    TILES Cloud admin portal. Here you will be able to see all registered applications, the application owners,
+                    the number of TILES Squares and the development environment of the applications.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-list-applications.png" alt="list_applications" />
+                    <br/>
+                    <span>List of Applications in TILES Cloud web portal</span>
+                </div>
+                <p>
+                    By clicking the <b>Create new application</b> you will be prompted with the create application form.
+                    This is where you will set the name of the application, select the development environment and select
+                    the application owner. After filling the form, hit the <b>Create</b> button, and the application appear
+                    in the list of applicaitons.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-create-application.png" alt="create_application" />
+                    <br/>
+                    <span>Add application form in TILES Cloud web portal</span>
+                </div>
+                <p class="text-signal-orange">
+                    <span class="glyphicon glyphicon-warning-sign"></span> Make sure to select the appropriate
+                    <a href="{{selectDevEnvUrl}}">development environment</a> for your application.
+                </p>
+
+                <h3>Defining abstract TILES Squares</h3>
+                <p>
+                    Once the application context has been created, we can configure the abstract TILES Squares by entering the application view.
+                    This is done by selecting the application from the
+                    <a href="/#/applications">list of applications</a>. In the application view we will have some options,
+                    depeinding on the chosen development environment, and we will be able to administer the Abstract TILES.
+                    Below we can see the 'garage_control_system' application that we just created. In the list of 'Abscract
+                    TILES' we see that two TILES have been defined. By clicking the '+ new Abstract TILE' button and filling
+                    out the abstract name, we will be able to create a new abstract TILE that will be appended to the list.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-add-abstract-tile.png" alt="add_abstract_tile" />
+                    <br/>
+                    <span>Add absctract TILES Squares to application in TILES Cloud web portal</span>
+                </div>
+                <p>
+                    In the list of the Abstract TILES we will also be able to see the state of the physical TILE that we will pair with the abstract
+                    TILE in the <a href="#/docs-app6">Device appropriation phase</a> of the process.
+                    For now we are satisfied with defining all TILES Squares to be used and seeing the 'unpaired' keyword
+                    in the list. You can revisit this step of the process at any time during application development to add
+                    and remove Abstract TILES from your application as your idea evolves during development.
+                </p>
+            </div>
+        </div>
+    </script>

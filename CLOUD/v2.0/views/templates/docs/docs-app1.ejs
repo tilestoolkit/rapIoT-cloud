@@ -1,0 +1,68 @@
+<% var nameOfDocs = "docs-app1"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Identifying number of TILES Squares</h2>
+
+                <p>
+                    This step of the <i>Application Development Process</i> is inteded after the idea generation phase. In
+                    this step, you will be identifying the number of TILES Square modules to be used in your application,
+                    and allocate the Square modules with the appropriate hardware configuration. This documentation explains
+                    two different approaches. The approach you choose, depends on the idea generation phase you have employed
+                    to develop your IoT application idea. The first approach listed below requires access to the
+                    <a href="{{tilestoolkitUrl}}/cards">TILES Card</a> game, while the second approach offers support
+                    without following the structured IoT application idea generation process of the TILES Card game.
+                </p>
+                <p class="text-signal-orange">
+                    <span class="glyphicon glyphicon-warning-sign"></span> See the
+                    <a href="{{squarePrimitivesUrl}}">TILES Square primitive section</a> for more information on the different
+                    hardware configurations of the TILES Square modules.
+                </p>
+                <h3>Identify squares from TILES Cards</h3>
+                <p>
+                    By employing the TILES Cards idea generation process, identifying the number of TILES Square modules is quite simple. In
+                    the TILES Card game, every <b>THINGS card</b> represents a TILES Square module in
+                    your application. Below you see an example of four THINGS cards, each representing an individual TILES
+                    Square module to be used in your application.
+                </p>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/t-4.jpg" alt="watch" />
+                    <img src="/images/tiles_cards/t-9.jpg" alt="clothing" />
+                    <img src="/images/tiles_cards/t-10.jpg" alt="refridgerator" />
+                    <img src="/images/tiles_cards/t-13.jpg" alt="headgear" />
+                    <br/>
+                    <span>THINGS Cards from TILES Cards</span>
+                </div>
+                <p>
+                    To identify what hardware capabilities the Square modules must support, the
+                    <b>HUMAN INTERACTION</b> cards will indicate the <b>input primitive</b> capabilities, while the
+                    <b>FEEDBACK</b> cards indicate the <b>output primitive</b> to be supported by the Square module. The
+                    below cards shows an example of these cards and mapping them to the appropriate THINGS will define the
+                    hardware capabilities of the TILES Square modules to be used in your application.
+                </p>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/a-6.jpg" alt="tilt" />
+                    <img src="/images/tiles_cards/a-8.jpg" alt="tap" />
+                    <img src="/images/tiles_cards/f-7.jpg" alt="light" />
+                    <img src="/images/tiles_cards/f-8.jpg" alt="vibrate" />
+                    <br/>
+                    <span>HUMAN INTERACTIONS Cards and FEEDBACK Cards from TILES Cards</span>
+                </div>
+
+                <h3>Identifying squares without TILES Cards</h3>
+                <p>
+                    If you have not employed the TILES Card game for generating your IoT application idea, you can still identify the number
+                    of TILES Square modules needed in your application. Similarly to the approach above, you will need to
+                    identify what things, or objects, you wish to use as smart devices in your application. For every smart
+                    object in your IoT application, you must allocate a TILES Square module.
+                </p>
+            </div>
+        </div>
+    </script>

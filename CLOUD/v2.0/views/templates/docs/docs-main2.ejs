@@ -1,0 +1,36 @@
+<% var nameOfDocs = "docs-main2"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Getting started</h2>
+                <h3>What do you need?</h3>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_square.png" alt="tiles_square_module">
+                    <br/>
+                    <span>TILES Square module revision C</span>
+                    <!--<img style="border:solid 1px red;" src="http://www.albax.fr/images/no_img_liste.gif" />-->
+                </div>
+                <p>
+                    To start developing with the TILES toolkit, you need at least one TILES Square module, and a smartphone running the TILES
+                    Gateway app. The Gateway will be able to discover the Square module(s), connect to them, and convey the
+                    events to and from the module(s) over the Internet. In addition you need an internet connection and an
+                    internet enabled device for navigating the TILES Cloud web portal, and developing your application.
+                </p>
+                <p>
+                    Please visit the <a href="{{tilestoolkitUrl}}">TILES toolkit homepage</a> for instructions on how
+                    to acquire TILES Square modules, TILES Cards and TILES Gateway.
+                </p>
+                <p>
+                    If you want to extend the TILES Square firmware, you will also need to download the
+                    <a href="https://www.arduino.cc/en/Main/Software">Arduino IDE</a>.
+                </p>
+            </div>
+        </div>
+    </script>

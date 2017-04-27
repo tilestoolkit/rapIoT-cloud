@@ -1,0 +1,34 @@
+<% var nameOfDocs = "docs-app3"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Application development</h2>
+                <p>
+                    This step of the process entail programming the application features by using the available APIs for the selected development
+                    environment. You should already have selected your prefered development environment in the previous step.
+                    For more information please read the section about <a href="{{selectDevEnvUrl}}">development environments</a>.
+                </p>
+
+                <h3><i>Cloud</i> or <i>Local</i> development environments</h3>
+                <p>
+                    If you have 'Cloud' or 'Local' as application development environment, you will be developing your application textually
+                    in JavaScript. Please visit the
+                    <a href="{{JSdevUrl}}">JavaScript development section</a> for more information.
+                </p>
+                <h3><i>Rule engine</i> development environment</h3>
+                <p>
+                    If you have selected 'Rule engine' as your development environment, you will not be writing your program code textually,
+                    but will be defining rules that will be executed by the TILES Cloud server upon incomming events. Please
+                    visit the
+                    <a href="{{REdevUrl}}">Rule Engine development section</a> for more information.
+                </p>
+            </div>
+        </div>
+    </script>

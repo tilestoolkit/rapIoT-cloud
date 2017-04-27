@@ -1,0 +1,18 @@
+<% var nameOfDocs = "docs-ext1"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Device development</h2>
+                <p>
+                    involves extending the hardware prototype possibly with additional hardware and implement input/output primitives in firmware.
+                </p>
+            </div>
+        </div>
+    </script>

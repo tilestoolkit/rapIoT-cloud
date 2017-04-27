@@ -109,7 +109,7 @@ td.unpaired{
 }
 
 
-/* Bootstrap override NAVBAR */
+/* NAVBAR style */
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus{
@@ -136,11 +136,88 @@ td.unpaired{
 .navbar-inverse .navbar-nav > li > a:hover{
   color: #d84a3b;
 }
-/*.navbar-inverse{
-  background-color: #d84a3b;
-}*/
 .navbar-inverse .navbar-nav > li.active > a,
 .navbar-inverse .navbar-nav > li.active > a:hover,
 .navbar-inverse .navbar-nav > li.active > a:focus{
   background-color: #d84a3b;
+}
+
+
+/* Docs section */
+#side-panel-toggle > button{
+  color: white;
+  background-color:#d84a3b;
+  border: 1px solid #d84a3b;
+}
+#side-panel-toggle{
+  position: absolute;
+  top:2px;
+  left:2px;
+}
+.content-navigation{
+  position: absolute;
+  width:100%;
+  text-align:center;
+  margin:0 -100px;
+  color: #d84a3b;
+}
+.content-navigation.top{
+  top:0;
+}
+.content-navigation.bottom{
+  bottom:0;
+}
+.content-navigation > a.left{
+  float:left;
+  padding-left:25%;
+}
+.content-navigation > a.right{
+  float:right;
+  padding-right:25%;
+}
+.content-navigation > a{
+  font-size: 2em;
+  color: #d84a3b;
+  border: none;
+}
+.content-navigation > a:hover{
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.wrapper {
+  font-size: 14px;
+  line-height: 160%;
+  color: #666;
+}
+.docs-img{
+  text-align:center;
+  padding: 20px 0;
+}
+.docs-img.opacity75 img{
+  opacity: 0.75;
+}
+.docs-cards img{
+  height: 250px;
+}
+.docs-img span{
+  font-style:italic;
+}
+.text-color-red{
+  color: #d84a3b;
+}
+.text-signal-orange{
+  color: #FF7900;
+}
+.text-signal-orange a{
+  color: #DD7900;
+  font-weight: bold;
+}
+
+.docs-process-table{
+  font-size: 11.5px;
+  color: #333;
+}
+.docs-process-table a{
+  white-space: nowrap;
 }

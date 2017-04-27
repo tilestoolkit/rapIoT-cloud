@@ -1,0 +1,32 @@
+<% var nameOfDocs = "docs-main3"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>TILES toolkit</h2>
+                <h3>Architecture</h3>
+                <div class="docs-img">
+                    <img style="height: 200px" src="/images/tiles-layered-architecture.png" alt="tiles_layered_architecture" />
+                    <br/>
+                    <span>Layered architecture of the TILES toolkit</span>
+                </div>
+                <p>
+                    The architecture of the TILES toolkit is devided into three layers as seen on the figure above. The applicaiton logic is
+                    running in the TILES Cloud, the Gateway layer will forward all events between TILES Cloud and TILES Squares,
+                    while the end user will be interacting with the TILES Squares in a running TILES application.
+                </p>
+                <h3>TILES Squares</h3>
+                <p>text</p>
+                <h3>TILES Gateway</h3>
+                <p>text</p>
+                <h3>TILES Cloud</h3>
+                <p>text</p>
+            </div>
+        </div>
+    </script>

@@ -15,7 +15,7 @@
 
 #sidebar-wrapper {
     z-index: 1000;
-    position: fixed;
+    position: absolute;
     left: 250px;
     width: 0;
     height: 100%;
@@ -36,7 +36,7 @@
 #page-content-wrapper {
     width: 100%;
     position: absolute;
-    padding: 17px;
+    padding: 40px 5px;
 }
 
 .wrapper.toggled #page-content-wrapper {
@@ -70,7 +70,7 @@
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #777;
+    color: #666;
 }
 
 .sidebar-nav li a:hover {
@@ -92,8 +92,9 @@
     line-height: 50px;
 }
 
-.sidebar-nav > .sidebar-brand a {
-    color: #999999;
+.sidebar-nav > .sidebar-brand a,
+.sidebar-nav > .sidebar-brand span {
+    color: #333;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
@@ -119,8 +120,8 @@
     }
 
     #page-content-wrapper {
-        padding: 20px;
-        position: relative;
+        padding: 25px 100px;
+        position: absolute;
     }
 
     .wrapper.toggled #page-content-wrapper {

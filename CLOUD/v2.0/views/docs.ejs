@@ -26,45 +26,42 @@
 	<!-- AngularJS modules -->
 	<script src="/javascripts/app.js"></script>
 	<script src="/javascripts/controllers.js"></script>
+	<script src="/javascripts/controllers-docs.js"></script>
 	<script src="/javascripts/services.js"></script>
 	<script src="/libs/angular-ui-router-0.2.15.min.js"></script>
 </head>
 
-<body ng-app="tilesApi">
-	<% var base = '' %>
+<body ng-app="tilesDocs">
+	<% var base = '/' %>
 	<% include partials/navigator %>
 
 	<!-- PLACE HOLDER FOR TEMPLATE VIEWS -->
-	<ui-view></ui-view>
+	<div style="margin-top:-20px">
+		<ui-view></ui-view>
+	</div>
 
-	<!-- Home template -->
-	<div>
-		<% include templates/home %>
-	</div>
-	<!-- Users template -->
-	<div>
-		<% include templates/users %>
-	</div>
-	<!-- User template -->
-	<div>
-		<% include templates/user %>
-	</div>
-	<!-- Tile template -->
-	<div>
-		<% include templates/tile %>
-	</div>
-	<!-- Applications template -->
-	<div>
-		<% include templates/applications %>
-	</div>
-	<!-- Application template -->
-	<div>
-		<% include templates/application %>
-	</div>
-	<!-- Primitives template -->
-	<div>
-		<% include templates/primitives %>
-	</div>
+	<!-- TEMPLATES -->
+	<div><% include templates/docs/docs-main1 %></div>
+	<div><% include templates/docs/docs-main2 %></div>
+	<div><% include templates/docs/docs-main3 %></div>
+	<div><% include templates/docs/docs-main4 %></div>
+	<div><% include templates/docs/docs-main5 %></div>
+	<div><% include templates/docs/docs-main6 %></div>
+
+	<div><% include templates/docs/docs-app0 %></div>
+	<div><% include templates/docs/docs-app1 %></div>
+	<div><% include templates/docs/docs-app2 %></div>
+	<div><% include templates/docs/docs-app3 %></div>
+	<div><% include templates/docs/docs-app4 %></div>
+	<div><% include templates/docs/docs-app5 %></div>
+	<div><% include templates/docs/docs-app6 %></div>
+	<div><% include templates/docs/docs-app7 %></div>
+
+	<div><% include templates/docs/docs-ext0 %></div>
+	<div><% include templates/docs/docs-ext1 %></div>
+	<div><% include templates/docs/docs-ext2 %></div>
+	<div><% include templates/docs/docs-ext3 %></div>
+	
 </body>
 
 </html>

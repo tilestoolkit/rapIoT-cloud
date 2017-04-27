@@ -46,6 +46,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.get('/docs', function(req,res){
+  res.render('docs');
+});
 app.use('/users', users);
 app.use('/webhooks', webhooks);
 app.use('/eventmappings', eventMappings);
