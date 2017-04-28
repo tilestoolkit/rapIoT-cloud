@@ -10,16 +10,29 @@ a {
 body{
   font-size:18px;
 }
+.row{
+  margin-right:0;
+}
+
+.fill-home-screen{
+  position:abolute;
+  top:0;
+  /*height:auto;*/
+}
+.fill-home-screen div{
+  position: relative;
+  top: 0;
+  transform: initial;
+  padding-bottom: 0;
+}
+
 
 .table tr:hover {
   background-color: #ededed !important;
 }
 
 #appInfoLabel {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    text-align: end;
+    position: relative;
 }
 
 .page-header{
@@ -255,4 +268,29 @@ ul.tree .dir{
 }
 ul.tree li.last{
   background: #eee url("/images/tree/lastnode.png") no-repeat;
+}
+
+@media(min-width:768px) {
+  #appInfoLabel {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: end;
+  }
+
+  .fill-home-screen{
+    position:fixed;
+    top:50;
+    left:0;
+    text-align:center;
+    width:100%;
+    height: 100%
+  }
+  .fill-home-screen div{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-bottom: 150px;
+  }
+
 }

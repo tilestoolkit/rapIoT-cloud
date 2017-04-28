@@ -59,7 +59,7 @@ angular.module('tilesDocs.controllers', [])
 				$(window).scroll(function () { // scroll event
 					var windowTop = $(window).scrollTop(); // returns number
 
-					if (stickyTop < windowTop + stickOffset) {
+					if (stickyTop + 1 < windowTop + stickOffset) {
 						$sticky.css({ position: 'fixed', top: stickOffset });
 					} else {
 						$sticky.css({ position: 'absolute', top: 'initial' });

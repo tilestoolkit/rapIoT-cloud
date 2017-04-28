@@ -6,7 +6,7 @@ angular.module('tilesApi', ['ui.router', 'tilesApi.controllers', 'tilesApi.servi
 		$stateProvider
 			.state('home',{
 				url: '/home',
-				templateUrl: '/home.html'			
+				templateUrl: '/home.html'
 			})
 			.state('users', {
 				url: '/users',
