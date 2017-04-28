@@ -190,7 +190,7 @@ router.get('/user/:user', function (req, res, next) { // Get all applications fo
   });
 });
 
-router.get('/jsapi', function(req, res, next){ // Get JS API as zip
+router.get('/jsapi', function (req, res, next) { // Get JS API as zip
   res.sendFile(config.lib.root + '/tiles-lib.zip');
 });
 
@@ -347,7 +347,24 @@ router.post('/:app/:id', function (req, res) { // Update (pair) physical Tile to
   VirtualTile.findByIdAndUpdate(virtualTileId, { tile: tileId }, { new: true }, function (err, virtualTile) {
     if (err) return next(error);
     return res.json(virtualTile);
-  })
+  });
+});
+
+// TODO: REMOVE if not needed????
+router.post('/:app/aname/:name', function (req, res) { // Update (pair) physical Tile to Virtual Tiles by using virtual name
+  var aName = req.params.name;
+  var tileId = req.body.tile;
+  VirtualTile.findOneAndUpdate({ application: req.application._id, virtualName: aName },
+    { tile: tileId },
+    { new: true },
+    function (err, virtualTile) {
+      if (err) return next(err);
+      return res.json(virtualTile);
+    });
+  // VirtualTile.findByIdAndUpdate(virtualTileId, { tile: tileId }, { new: true }, function (err, virtualTile) {
+  //   if (err) return next(err);
+  //   return res.json(virtualTile);
+  // })
 });
 
 module.exports = router;
