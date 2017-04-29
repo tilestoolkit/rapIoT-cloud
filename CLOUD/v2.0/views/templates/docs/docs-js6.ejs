@@ -1,0 +1,84 @@
+<% var nameOfDocs = "docs-js6"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Example scenario 2</h2>
+
+                <p>
+                    <b>Description:</b>
+                    <br/> Single tap on 'tileA' will trigger IFTTT applet 'set_lights' with color 'FF00FF'.
+                    <br/> Double tap on 'tileA' will trigger IFTTT applet 'lights_off'.
+                    <br/> Single tap on 'tileB' will trigger Postman to server '192.168.1.111' port '3000' with trigger 'start_music'.
+                    <br/> Single tap on 'tileB' will trigger Postman to server '192.168.1.111' port '3000' with trigger 'stop_music'.
+                </p>
+                <br/>
+                <div class="code-template">
+                    <div> var tilesLib = require('/tiles-lib'); </div>
+                    <div> var client = new tilesLib.TilesClient('Anders', 'Scenario2', '138.68.144.206', 1883).connect(); </div>
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> var IFTTTClient = new tilesLib.IFTTTClient('-MXtrSsdb-WQxdmbW-CuA'); </div>
+                    <div> var PostmanClient = new tilesLib.PostmanClient('192.168.1.111', 3000); </div>
+                    <div><br/></div>
+                    <div>
+                        client.on('receive', function (tileId, event) {
+                    </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> var tileA = reader.getTile('Tile_9e', client); </div>
+                    </div>
+                    <div>
+                        <div> var tileB = reader.getTile('Tile_e9', client); </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div> if ( tileEvent.name === tileA.name && tileEvent.isSingleTap ) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>IFTTTClient.send('set_lights', 'FF00FF');</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } else if ( tileEvent.name === tileA.name && tileEvent.isDoubleTap ) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> IFTTTClient.send('lights_off'); </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } else if ( tileEvent.name === tileB.name && tileEvent.isSingleTap ) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>
+                                PostmanClient.get('start_music');
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } else if ( tileEvent.name === tileB.name && tileEvent.isDoubleTap ) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> PostmanClient.get('stop_music'); </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } </div>
+                    </div>
+                    <div>});</div>
+                </div>
+
+            </div>
+        </div>
+    </script>

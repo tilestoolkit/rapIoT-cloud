@@ -270,6 +270,63 @@ ul.tree li.last{
   background: #eee url("/images/tree/lastnode.png") no-repeat;
 }
 
+/* Code Template style */
+.code-template{
+  padding: 10px;
+  padding-left:0;
+  background: #1E1E1E;
+  color: #cdd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  line-height: 1.6em;
+}
+
+.code-template div {
+  padding: 0;
+  margin: 0;
+  padding-left: 30px;
+}
+.code-template div div{ padding-left: 20px; }
+.code-template .code-word{ color: #569CD6; }
+.code-template .code-numeric{ color: #ABC39F; }
+.code-template .code-string, .code-template .code-string * { color: #CB8860; }
+.code-template .code-comment, .code-template .code-comment * { color: #4B864B; }
+
+.code-template.inverse { background: #eee; color: #333; }
+.code-template.inverse .code-word{ color: #009999; font-weight: bold; }
+.code-template.inverse .code-numeric{ color: #009999; }
+.code-template.inverse .code-string, .code-template.inverse .code-string * { color: #DD1144; font-weight: normal; }
+.code-template.inverse .code-comment, .code-template.inverse .code-comment * { color: #4B864B; font-weight: normal; }
+
+.code-template-line-number{
+  position:absolute;
+  padding:0 !important;
+  margin-left: -25px !important;
+  width: 1.5em;
+  border-right:solid 1px #888;
+
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
+.object-template{ background: #eee; border-radius: 3px;}
+.object-template div{ padding: 5px; }
+
+.object-template .header{ border-radius: 3px; font-weight: bold; }
+.object-template .header-1{ background: #009999; color: #eee; font-size: 17px; }
+.object-template .header-2{ font-size: 15px; }
+
+.object-template .table-wrapper { margin: 0 15px ; padding: 10px 0; }
+.object-template .table { margin: 0; }
+.object-template .table, .object-template .table tr:hover { font-size: 13px; background-color: #fff !important; }
+.object-template .table th{ background-color: #efe; }
+
+
+
 @media(min-width:768px) {
   #appInfoLabel {
     position: absolute;
@@ -292,5 +349,4 @@ ul.tree li.last{
     transform: translateY(-50%);
     padding-bottom: 150px;
   }
-
 }

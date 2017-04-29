@@ -1,0 +1,81 @@
+<% var nameOfDocs = "docs-js4"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>IFTTT Client API</h2>
+
+                <p>
+                    The IFTTT Client API is a specialized version of the <a href="docs-js3">PostmanClient APIS</a>, and will
+                    enable you to use IFTTT to trigger a wide variety of popular web services with only a few lines of code.
+                    For this API you must create an account at <a href="https://ifttt.com/">IFTTT</a>, and configure the
+                    <a href="https://ifttt.com/services/maker_webhooks/settings">maker channel</a> to get your own personal
+                    key. This key must be used as input to the IFTTT Client API constructur as seen below.
+                </p>
+
+                <div class="code-template">
+                    <div> var tilesLib = require('{ {tilesLibHolder} }'); </div>
+                    <div><br/></div>
+                    <div> var IFTTTClient = new tilesLib.IFTTTClient('{enter-ifttt-personal-key-here}'); </div>
+                </div>
+
+                <h3>Postman Client API usage</h3>
+                <!-- IFTTT CLIENT -->
+                <div class="object-template">
+                    <div class="header header-1">IFTTTClient</div>
+                    <div class="header header-2">Methods</div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>send( String, String, String, String)</td>
+                                <td>
+                                    Will send a POST request to the target 'trigger name'. The first input parameter is the 'trigger name' configured in the
+                                    IFTTT applet, while the three next are optional input parameters to be used in the IFTTT
+                                    applet.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Example</div>
+                </div>
+                <div class="code-template inverse">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> var IFTTTClient = new tilesLib.IFTTTClient('-MXtrSsdb-WQxdmbW-CuA'); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> if ( tileEvent.tilt ){ /* If any TILE is tilted */
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>IFTTTClient.send('send_email'); /* Trigger the 'send_email' personal applet in IFTTT */ </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <div>IFTTTClient.send('lights_on', 'FF00FF', 21, '08:00'); /* Trigger the 'lights_on' personal applet
+                                in IFTTT with optional parameters */ </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>}</div>
+                    </div>
+                    <div> }); </div>
+                </div>
+            </div>
+        </div>
+    </script>

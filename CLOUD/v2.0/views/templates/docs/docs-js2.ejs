@@ -1,0 +1,255 @@
+<% var nameOfDocs = "docs-js2"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Event Reader API</h2>
+
+                <p>
+                    The Event Reader API, is an API that will help you process incomming events to determine which TILES Square is being used
+                    and what primitive is triggered on the Square. For example, if one of your connected TILES Squares are
+                    tapped, the event reader will break down the incomming event into pieces in order to make it easier for
+                    you to program the desired behavior. Below we can see how the Event Reader API is initialized.
+                </p>
+
+                <div class="code-template">
+                    <div> var tilesLib = require('{ {tilesLibHolder} }'); </div>
+                    <div><br/></div>
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                </div>
+
+                <h3>Event Reader API usage</h3>
+
+                <!-- EVENT READER -->
+                <div class="object-template">
+                    <div class="header header-1">EventReader</div>
+                    <div class="header header-2">Methods</div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Return value</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>readEvent( event, client )</td>
+                                <td>Tile</td>
+                                <td>Passing in the 'event' and 'client' will give a Tile object (described below) which simplifies
+                                    reading events.</td>
+                            </tr>
+                            <tr>
+                                <td>getTile( String, client )</td>
+                                <td>Tile</td>
+                                <td>Passing in the 'name' of the Tile and 'client' will give a Tile object (described below)
+                                    which simplifies interacting with Tiles.</td>
+                            </tr>
+                            <tr>
+                                <td>getPrinter( String, client )</td>
+                                <td>Printer</td>
+                                <td>Passing in the 'name' of the Printer and 'client' will give a Printer object (described below)
+                                    which simplifies interacting with Tiles printer</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Example</div>
+                </div>
+                <div class="code-template inverse">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> var tileA = reader.getTile('Tile_c5', client); </div>
+                    </div>
+                    <div>
+                        <div> var printer = reader.getPrinter('Tile_ab', client); </div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+                <!-- TILE -->
+                <div class="object-template">
+                    <div class="header header-1">Tile</div>
+                    <div class="header header-2">Properties</div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>name</td>
+                                <td>String</td>
+                                <td>Holds the name of the Tile.</td>
+                            </tr>
+                            <tr>
+                                <td>id</td>
+                                <td>String</td>
+                                <td>Holds the unique ID of the Tile.</td>
+                            </tr>
+                            <tr>
+                                <td>isDoubleTap</td>
+                                <td>Boolean</td>
+                                <td>Holds the 'double tap' state of the Tile when reading an event. This will be true if the
+                                    received event is a 'doble tap'</td>
+                            </tr>
+                            <tr>
+                                <td>isSingleTap</td>
+                                <td>Boolean</td>
+                                <td>Holds the 'single tap' state of the Tile when reading an event. </td>
+                            </tr>
+                            <tr>
+                                <td>isTilt</td>
+                                <td>Boolean</td>
+                                <td>Holds the 'tilt' state of the Tile when reading an event. </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Methods</div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>hapticBurst( )</td>
+                                <td>This will send a burst command to the Tile, which will make the Tile vibrate with a bursty
+                                    pattern.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>hapticLong( )</td>
+                                <td>This will send a vibrate command to the Tile, which will make the Tile vibrate for a moment.</td>
+                            </tr>
+                            <tr>
+                                <td>ledBlink( String )</td>
+                                <td>This will send a blink command to the Tile, with a color string. This will make the Tile
+                                    blink with the respective color.</td>
+                            </tr>
+                            <tr>
+                                <td>ledOn( String )</td>
+                                <td>This will send an LED-on command to the Tile, which will turn the LED on with the respective
+                                    color.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ledOff( )</td>
+                                <td>This will send an LED-off command, turning the LED of the Tile off.</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Example</div>
+                </div>
+                <div class="code-template inverse">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> var tileA = reader.getTile('Tile_c5', client); </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div> if ( tileEvent.name == tileA.name ){ /* Check if the event originates from 'tileA' */</div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>tileA.ledOn( 'FF00FF' ); /* Turn on LED on tileA to color #FF00FF */</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div> if ( tileEvent.isSingleTap ){ /* Check if the event is a 'single tap' event */ </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> tileEvent.hapticBurst(); /* Vibrate the tile that was tapped */ </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } </div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+                <!-- PRINTER -->
+                <div class="object-template">
+                    <div class="header header-1">Printer</div>
+                    <div class="header header-2">Properties</div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>name</td>
+                                <td>String</td>
+                                <td>This will hold the name of the printer.</td>
+                            </tr>
+                            <tr>
+                                <td>id</td>
+                                <td>String</td>
+                                <td>This property will hold the unique ID of the Tile that resides inside the printer.</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Methods</div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>print( String )</td>
+                                <td>This will send a print command with a string to the printer, and the input message will be
+                                    printed.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Example</div>
+                </div>
+                <div class="code-template inverse">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> var printer = reader.getPrinter('Tile_ab', client); </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div> if ( tileEvent.name == 'Tile_c5' && tileEvent.isDoubleTap ){ /* Check if 'Tile_c5' is 'double tapped'
+                            */
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>printer.print('This is a string to be printed');</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>}</div>
+                    </div>
+                    <div> }); </div>
+                </div>
+            </div>
+        </div>
+    </script>

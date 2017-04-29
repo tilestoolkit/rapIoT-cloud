@@ -9,10 +9,96 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>JavaScript API <span style="color:red;">(not finished)</span></h2>
+                <h2>Introduction to the JavaScript API</h2>
+
                 <p>
-                    Text...
+                    Whether you are using the Cloud or Local
+                    <a hreft="{{selectDevEnvUrl}}">Development Environment</a>, you will be using the TILES JavaScript API
+                    to interact witht the TILES Squares from your application code. Creating an application with either development
+                    environment will give you two template files.
+                    <ul>
+                        <li>tiles.js</li>
+                        <li>template-API.js</li>
+                    </ul>
+                    The <b>template-API.js</b> file, is a file containing some code samples and usage of the TILES JS API.
+                    The <b>tiles.js</b> is similarly an empty template file inteded for your own program code.
+                </p>
+
+                <p>
+                    Below you can see the <b>tiles.js</b> code template file. If you are new to JavaScript development, this
+                    is where you will be writing your code. Below we will break down every line of the sample code to give
+                    you a better understanding of how it works.
+                </p>
+
+                <div class="code-template">
+                    <div> var tilesLib = require( '{ {tilesLibHolder} }'); </div>
+                    <div><br/></div>
+                    <div> var client = new tilesLib.TilesClient('{ {userNameHolder} }', '{ {appNameHolder} }', '{ {ipAddressHolder}
+                        }', 1883).connect(); </div>
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> var PostmanClient = new tilesLib.PostmanClient('{enter-ip-here}', '{enter-port-here}'); </div>
+                    <div> var IFTTTClient = new tilesLib.IFTTTClient('{enter-ifttt-personal-key-here}'); </div>
+                    <div><br/></div>
+                    <div>
+                        client.on('receive', function (tileId, event) {
+                    </div>
+                    <div>
+                        <div> /* WORK HERE! */ </div>
+                    </div>
+                    <div>});</div>
+                </div>
+
+                <h3>tiles.js template explained</h3>
+
+                <div class="code-template">
+                    <div> var tilesLib = require('{ {tilesLibHolder} }'); </div>
+                </div>
+                <p>
+                    The first line of the tiles.js code template file, is a reference to the TILES JavaScript API. When you select the Cloud
+                    development environment, the reference <b>'{{tilesLibHolder}<!---->}'</b> will be
+                    substituted properly to reference the API files on the Cloud development server. Using the Local development
+                    environment, you will have to manually set the reference to the downloaded API files, which will usually
+                    be located at <b>'../api'</b>.
+                </p>
+
+                <div class="code-template">
+                    <div> var client = new tilesLib.TilesClient( '{ {userNameHolder} }', '{ {appNameHolder} }', '{ {ipAddressHolder}
+                        }', 1883).connect();
+                    </div>
+                </div>
+                <p>
+                    The next line of the tiles.js template will initialize the <b>TilesClient API</b>. Again the 'place holder'
+                    references will be automatically configured for Cloud development environment, while needs to be manually
+                    set for Local environment. See <a href="selectDevEnvUrl">development environment</a> section for more
+                    details.
+                </p>
+
+                <div class="code-template">
+                    <div> var reader = new tilesLib.EventReader();</div>
+                    <div> var PostmanClient = new tilesLib.PostmanClient( '{enter-ip-here}', '{enter-port-here}'); </div>
+                    <div> var IFTTTClient = new tilesLib.IFTTTClient( '{enter-ifttt-personal-key-here}'); </div>
+                </div>
+                <p>
+                    The next three lines will reference three additional JavaScript APIs. How to use these APIs are covered in the following
+                    three sections of this documentation:
+                    <a href="docs-js2">Event Reader API</a>,
+                    <a href="docs-js3">Postman Client API</a> and
+                    <a href="docs-js4">IFTTT Client API</a>.
+                </p>
+
+                <div class="code-template">
+                    <div> client.on( 'receive', function (tileId, event) { </div>
+                    <div>
+                        <div> /* WORK HERE! */ </div>
+                    </div>
+                    <div>});</div>
+                </div>
+                <p>
+                    The final lines of the tiles.js template file, is where you will write your application logic. The TILES infrastructure is
+                    event driven, which means that code is executed only when events are received and processed. Inside the
+                    <b>client.on('receive,...);</b> code block, we will be able to determine what type of event has occured
+                    in order to implement the reaction to the event. This is covered in more details in the
+                    <a href="docs-js2">Event Reader API</a> section.
                 </p>
             </div>
-        </div>
     </script>

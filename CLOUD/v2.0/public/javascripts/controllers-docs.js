@@ -93,4 +93,101 @@ angular.module('tilesDocs.controllers', [])
 
 		}
 		onLoad();
+
+		// Code template styling
+		var addLines = function () {
+			var templates = $(".code-template");
+			templates.each(function () {
+				var divs = $(this).children("div");
+				$.each(divs, function (i) {
+					var add = "<div class=\"code-template-line-number\"><span>" + (i+1) + "</span></div>";
+					$(divs[i]).html(add + $(divs[i]).html());
+					if(i==8) console.log(divs[i])
+					// console.log($(divs[i]).html());
+				});
+			});
+		}
+		addLines();
+
+		var colorKeyWords = function () {
+			var tempDiv = $(".code-template");
+			var aBlue = ['var', 'if', 'else', 'new', 'this', 'function'];
+			tempDiv.each(function () {
+				var array = $(this).html().split(' ');
+
+				$.each(array, function (i) {
+					if ($.inArray(array[i], aBlue) >= 0) {
+						array[i] = '<span class="code-word">' + array[i] + '</span>';
+					}
+				});
+
+				$(this).html(array.join(' '));
+			});
+		}
+		colorKeyWords();
+
+		var colorInts = function () {
+			var tempDiv = $(".code-template");
+			tempDiv.each(function () {
+				var array = $(this).html().split('');
+				var active = false;
+				$.each(array, function (i) {
+					if ($.isNumeric(array[i]) && !active) {
+						array[i] = '<span class="code-numeric">' + array[i];
+						active = true;
+					}
+					else if ((!($.isNumeric(array[i]))) && active) {
+						active = false;
+						array[i - 1] = array[i - 1] + '</span>';
+					}
+				});
+
+				$(this).html(array.join(''));
+			});
+		}
+		colorInts();
+
+		var colorString = function () {
+			var tempDiv = $(".code-template");
+			tempDiv.each(function () {
+				var array = $(this).html().split('');
+				active = false;
+				$.each(array, function (i) {
+					if (array[i] === "'" && !active) {
+						active = true;
+						array[i] = '<span class="code-string">' + array[i];
+					} else if (array[i] === "'" && active) {
+						active = false;
+						array[i] = array[i] + '</span>';
+					}
+				});
+
+				$(this).html(array.join(''));
+			});
+		}
+		colorString();
+
+		var colorComment = function () {
+			var tempDiv = $(".code-template");
+			tempDiv.each(function () {
+				var array = $(this).html().split('');
+				var sLast = 0, eLast = 0, active = false;
+				$.each(array, function (i) {
+					if (array[i] === '/') sLast = i;
+					if (array[i] === '*' && sLast === i - 1) {
+						array[i - 1] = '<span class="code-comment">' + array[i - 1];
+						active = true;
+					}
+
+					if (array[i] === '*' && sLast !== i - 1) eLast = i;
+					if (array[i] === '/' && eLast === i - 1 && active) {
+						active = false;
+						array[i] = array[i] + '</span>';
+					}
+				});
+
+				$(this).html(array.join(''));
+			});
+		}
+		colorComment();
 	}]);

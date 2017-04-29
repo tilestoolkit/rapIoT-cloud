@@ -1,0 +1,94 @@
+<% var nameOfDocs = "docs-js3"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Postman Client API</h2>
+
+                <p>
+                    The Postman Client API is an API that will make it possible to send GET and POST request to specific IP-addresses. This API
+                    is inteded to bridge your application with other web services you need to integrate into your IoT applicaiton.
+                    The PostmanClient takes two inputs upon initialization, IP-address of the web server and the port of
+                    the web services.
+                </p>
+
+                <div class="code-template">
+                    <div> var tilesLib = require('{ {tilesLibHolder} }'); </div>
+                    <div><br/></div>
+                    <div> var PostmanClient = new tilesLib.PostmanClient( '{enter-ip-here}', '{enter-port-here}' ); </div>
+                </div>
+
+                <h3>Postman Client API usage</h3>
+                <!-- POSTMAN CLIENT -->
+                <div class="object-template">
+                    <div class="header header-1">PostmanClient</div>
+                    <div class="header header-2">Methods</div>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>get( String )</td>
+                                <td>Will send a HTTP GET request to the input String URL.</td>
+                            </tr>
+                            <tr>
+                                <td>post( String, <b>function</b> )</td>
+                                <td>Will send a HTTP POST request to the input String URL, and will return the response to the
+                                    callback <b>function</b>.</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Example</div>
+                </div>
+                <div class="code-template inverse">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> var PostmanClient = new tilesLib.PostmanClient( '192.168.1.111', 8080 ); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> if ( tileEvent.isSingleTap ){ /* If any TILE is single tapped*/ </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>
+                                PostmanClient.get('url-name'); /* Will send a GET request to http://192.168.1.111:8080/url-name */
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>
+                                PostmanClient.post('url-name', function (response){ /* Will send a POST request to http://192.168.1.111:8080/url-name */
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>
+                                <div>console.log(response); /* Will log the response to the console window */ </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>});</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>}</div>
+                    </div>
+                    <div> }); </div>
+                </div>
+            </div>
+        </div>
+    </script>

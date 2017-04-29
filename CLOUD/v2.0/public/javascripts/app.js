@@ -197,6 +197,31 @@ angular.module('tilesDocs', ['ui.router', 'tilesDocs.controllers', 'tilesApi.ser
 				templateUrl: '/docs-js1.html',
 				controller: 'DocsCtrl'
 			})
+			.state('docs-js2',{
+				url: '/docs-js2',
+				templateUrl: '/docs-js2.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-js3',{
+				url: '/docs-js3',
+				templateUrl: '/docs-js3.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-js4',{
+				url: '/docs-js4',
+				templateUrl: '/docs-js4.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-js5',{
+				url: '/docs-js5',
+				templateUrl: '/docs-js5.html',
+				controller: 'DocsCtrl'
+			})
+			.state('docs-js6',{
+				url: '/docs-js6',
+				templateUrl: '/docs-js6.html',
+				controller: 'DocsCtrl'
+			})
 			
 			.state('docs-re1',{
 				url: '/docs-re1',

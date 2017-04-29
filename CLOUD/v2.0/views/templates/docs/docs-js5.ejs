@@ -1,0 +1,90 @@
+<% var nameOfDocs = "docs-js5"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Example scenario 1</h2>
+
+                <p>
+                    <b>Description:</b>
+                    <br/> Single tap on 'tileA' will set color on 'tileA'.LED from array [red, green, blue, white, 'PINK'].
+                    <br/> Double tap on 'tileA' will set color on 'tileB'.LED to the same as 'tileA'.LED, and vibrate 'tileB'.
+                    <br/> Tilting 'tileA' will turn LED on 'tileB' off.
+                </p>
+                <br/>
+
+                <div class="code-template">
+                    <div> var tilesLib = require('/tiles-lib'); </div>
+                    <div> var client = new tilesLib.TilesClient('Anders', 'Scenario1', '138.68.144.206', 1883).connect(); </div>
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div><br/></div>
+                    <div> var colors = ['red', 'green', 'blue', 'white', 'FF00FF']; </div>
+                    <div> var ct = 0; </div>
+                    <div><br/></div>
+                    <div>
+                        client.on('receive', function (tileId, event) {
+                    </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> var tileA = reader.getTile("Tile_9e", client); </div>
+                    </div>
+                    <div>
+                        <div> var tileB = reader.getTile("Tile_e9", client); </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div> if (tileEvent.name === tileA.name && tileEvent.isSingleTap ) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>ct++;</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> if (ct >= colors.length ) ct = 0; </div>
+                        </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div>
+                            <div>tileA.ledOn( colors[ct] );</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } else if ( tileEvent.name === tileA.name && tileEvent.isDoubleTap ) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>tileB.ledOn( colors[ct] );</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>tileA.hapticBurst( );</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } else if ( tileEvent.name === tileA.name && tileEvent.isTilt ) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>tileB.ledOff( );</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } </div>
+                    </div>
+                    <div>});</div>
+                </div>
+            </div>
+        </div>
+    </script>
