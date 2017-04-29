@@ -9,7 +9,7 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>TILES toolkit <span style="color:red">(not finished)</span></h2>
+                <h2>TILES toolkit</h2>
                 <h3>Architecture</h3>
                 <div class="docs-img">
                     <img style="height: 200px" src="/images/tiles-layered-architecture.png" alt="tiles_layered_architecture" />
@@ -17,16 +17,31 @@
                     <span>Layered architecture of the TILES toolkit</span>
                 </div>
                 <p>
-                    The architecture of the TILES toolkit is devided into three layers as seen on the figure above. The applicaiton logic is
-                    running in the TILES Cloud, the Gateway layer will forward all events between TILES Cloud and TILES Squares,
-                    while the end user will be interacting with the TILES Squares in a running TILES application.
+                    The architecture of the TILES toolkit is devided into three layers as seen on the figure above. Below is a short description
+                    of the responsibilities of each layer of the TILES toolkit.
                 </p>
                 <h3>TILES Squares</h3>
-                <p>text</p>
+                <p>The TILES Squares are the embedded hardware devices of the TILES toolkit, implemented as the immediate layer
+                    for end user interaction. TILES application users will tap, tilt and otherwise interact with the TILES
+                    Squares to produce events that will be sent to the TILES Gateway, which will forward the events to the
+                    TILES Cloud server for processing. TILES Squares features several
+                    <a href="docs-main5">data primitives</a> for input and output interaction with the TILES toolkit.
+                </p>
                 <h3>TILES Gateway</h3>
-                <p>text</p>
+                <p>
+                    The TILES Gateway is responsible for forwarding the events between the TILES Squares and the TILES Cloud. The Gateway will
+                    communicate with the squares through Bluetooth, while the communication with the server is performed
+                    over the Internet. The TILES Gateway runs on any regular internet enabled smartphone with Bluetooth support.
+                    This makes it easy to carry around as you interact with your TILES Square modules.
+                </p>
                 <h3>TILES Cloud</h3>
-                <p>text</p>
+                <p>
+                    The TILES Cloud is the brains behind the TILES toolkit. This is where the application logic will run, and where the program
+                    code is executed. The TILES Cloud will receive TILES Square input events from the connected Gateways,
+                    and will process the events, and reply to the Gateway with output commands that will set the output primitives
+                    of the TILES Squares. The TILES Cloud also features interfaces for connecting your TILES application
+                    to available web services, which enables your TILES application to be integrated into your everyday life.
+                </p>
             </div>
         </div>
     </script>
