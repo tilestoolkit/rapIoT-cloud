@@ -30,24 +30,25 @@
 
                 <p>
                     This step of the <i>Application Development Process</i> is inteded after the idea generation phase. In
-                    this step, you will be identifying the number of TILES Square modules to be used in your application,
-                    and allocate the Square modules with the appropriate hardware configuration. This documentation explains
-                    two different approaches. The approach you choose, depends on the idea generation phase you have employed
-                    to develop your IoT application idea. The first approach listed below requires access to the
-                    <a href="{{tilestoolkitUrl}}/cards">TILES Card</a> game, while the second approach offers support
-                    without following the structured IoT application idea generation process of the TILES Card game.
+                    this step you will be identifying the number of TILES Square to be used in your application, and allocate
+                    the Squares with the appropriate hardware configuration. This documentation explains two different approaches
+                    to identify TILES Squares. The approach you choose depends on the idea generation phase you have employed
+                    to develop your IoT application idea. The first and recomended approach listed below requires access
+                    to the
+                    <a href="{{tilestoolkitUrl}}/cards">TILES Card game</a>, while the second approach offers support without
+                    following the structured IoT application idea generation process of the TILES Card game.
                 </p>
                 <p class="text-signal-orange">
                     <span class="glyphicon glyphicon-warning-sign"></span> See the
                     <a href="{{squarePrimitivesUrl}}">TILES Square primitive section</a> for more information on the different
-                    hardware configurations of the TILES Square modules.
+                    hardware configurations of the TILES Square.
                 </p>
                 <h3>Identify squares from TILES Cards</h3>
                 <p>
-                    By employing the TILES Cards idea generation process, identifying the number of TILES Square modules is quite simple. In
-                    the TILES Card game, every <b>THINGS card</b> represents a TILES Square module in
-                    your application. Below you see an example of four THINGS cards, each representing an individual TILES
-                    Square module to be used in your application.
+                    By employing the TILES Cards idea generation process, identifying the number of TILES Squares is quite simple. In the TILES
+                    Card game, every <b>THINGS card</b> represents a TILES Square in your application.
+                    Below you see an example of four THINGS cards, each representing an individual TILES Square to be used
+                    in your application.
                 </p>
                 <div class="docs-img docs-cards">
                     <img src="/images/tiles_cards/t-4.jpg" alt="watch" />
@@ -58,11 +59,11 @@
                     <span>THINGS Cards from TILES Cards</span>
                 </div>
                 <p>
-                    To identify what hardware capabilities the Square modules must support, the
+                    To identify what hardware capabilities the Squares must support, the
                     <b>HUMAN INTERACTION</b> cards will indicate the <b>input primitive</b> capabilities, while the
-                    <b>FEEDBACK</b> cards indicate the <b>output primitive</b> to be supported by the Square module. The
-                    below cards shows an example of these cards and mapping them to the appropriate THINGS will define the
-                    hardware capabilities of the TILES Square modules to be used in your application.
+                    <b>FEEDBACK</b> cards indicate the <b>output primitive</b> to be supported by the Squares. The below
+                    cards shows an example of these cards and mapping them to the appropriate THINGS will define the hardware
+                    capabilities of the TILES Squares to be used in your application.
                 </p>
                 <div class="docs-img docs-cards">
                     <img src="/images/tiles_cards/a-6.jpg" alt="tilt" />
@@ -73,12 +74,37 @@
                     <span>HUMAN INTERACTIONS Cards and FEEDBACK Cards from TILES Cards</span>
                 </div>
 
+                <h4>Example:</h4>
+                <p>
+                    As an example, lets assume your idea generated with the TILES Cards contains the cards seen below with the following description:
+                    <br/>
+                    <i>Whenever the refridgerator door is opened, the plant in the livingroom should blink.</i>
+                </p>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/a-2.jpg" alt="tilt" />
+                    <img src="/images/tiles_cards/t-10.jpg" alt="tap" />
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <img src="/images/tiles_cards/t-20.jpg" alt="light" />
+                    <img src="/images/tiles_cards/f-7.jpg" alt="vibrate" />
+                    <br/>
+                    <span>WHEN refridgerator door is rotated THEN blink plant.</span>
+                </div>
+                <p>
+                    In the example seen above we can identify <b>two</b> TILES Squares. One in the refridgerator door, and
+                    one in the plant. The human interaction and feedback cards describes the capabilities of these Squares,
+                    thus we will need:
+                    <ul>
+                        <li>One TILES Square supporting ROTATE as input primitive</li>
+                        <li>One TILES Square supporting BLINK as output primitive</li>
+                    </ul>
+                </p>
+
                 <h3>Identifying squares without TILES Cards</h3>
                 <p>
                     If you have not employed the TILES Card game for generating your IoT application idea, you can still identify the number
-                    of TILES Square modules needed in your application. Similarly to the approach above, you will need to
-                    identify what things, or objects, you wish to use as smart devices in your application. For every smart
-                    object in your IoT application, you must allocate a TILES Square module.
+                    of TILES Squares needed in your application. Similarly to the approach above, you will need to identify
+                    what things, or objects, you wish to use as smart devices in your application. For every smart object
+                    in your IoT application you must allocate a TILES Square. 
                 </p>
             </div>
         </div>

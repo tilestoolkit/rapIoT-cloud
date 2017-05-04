@@ -362,10 +362,24 @@ router.delete('/:app/virtualTile/:id', function (req, res, next) { // Delete Vir
 router.post('/:app/:id', function (req, res) { // Update (pair) physical Tile to Virtual Tiles
   var virtualTileId = req.params.id;
   var tileId = req.body.tile;
-  VirtualTile.findByIdAndUpdate(virtualTileId, { tile: tileId }, { new: true }, function (err, virtualTile) {
-    if (err) return next(error);
-    return res.json(virtualTile);
-  });
+
+  var findVtByIdAndUpdate = function (vId, tId) {
+    VirtualTile.findByIdAndUpdate(vId, { tile: tId }, { new: true }, function (err, virtualTile) {
+      if (err) return next(error);
+      return res.json(virtualTile);
+    });
+  }
+
+  if (tileId != null) {
+    Tile.findById(tileId, function (err, tile) {
+      if (err) return next(error);
+      if (!tile) return res.json(null);
+      findVtByIdAndUpdate(virtualTileId, tileId);
+    });
+  } else {
+    findVtByIdAndUpdate(virtualTileId, null);
+  }
+
 });
 
 // TODO: REMOVE if not needed????
@@ -379,10 +393,6 @@ router.post('/:app/aname/:name', function (req, res) { // Update (pair) physical
       if (err) return next(err);
       return res.json(virtualTile);
     });
-  // VirtualTile.findByIdAndUpdate(virtualTileId, { tile: tileId }, { new: true }, function (err, virtualTile) {
-  //   if (err) return next(err);
-  //   return res.json(virtualTile);
-  // })
 });
 
 module.exports = router;

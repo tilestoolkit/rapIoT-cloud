@@ -66,12 +66,6 @@
                                 <td>Passing in the 'name' of the Tile and 'client' will give a Tile object (described below)
                                     which simplifies interacting with Tiles.</td>
                             </tr>
-                            <tr>
-                                <td>getPrinter( String, client )</td>
-                                <td>Printer</td>
-                                <td>Passing in the 'name' of the Printer and 'client' will give a Printer object (described below)
-                                    which simplifies interacting with Tiles printer</td>
-                            </tr>
                         </table>
                     </div>
                     <div class="header header-2">Example</div>
@@ -84,9 +78,6 @@
                     </div>
                     <div>
                         <div> var tileA = reader.getTile('Tile_c5', client); </div>
-                    </div>
-                    <div>
-                        <div> var printer = reader.getPrinter('Tile_ab', client); </div>
                     </div>
                     <div> }); </div>
                 </div>
@@ -198,72 +189,6 @@
                     </div>
                     <div>
                         <div> } </div>
-                    </div>
-                    <div> }); </div>
-                </div>
-
-                <!-- PRINTER -->
-                <div class="object-template">
-                    <div class="header header-1">Printer</div>
-                    <div class="header header-2">Properties</div>
-                    <div class="table-wrapper">
-                        <table class="table">
-                            <tr>
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Description</th>
-                            </tr>
-                            <tr>
-                                <td>name</td>
-                                <td>String</td>
-                                <td>This will hold the name of the printer.</td>
-                            </tr>
-                            <tr>
-                                <td>id</td>
-                                <td>String</td>
-                                <td>This property will hold the unique ID of the Tile that resides inside the printer.</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="header header-2">Methods</div>
-                    <div class="table-wrapper">
-                        <table class="table">
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                            </tr>
-                            <tr>
-                                <td>print( String )</td>
-                                <td>This will send a print command with a string to the printer, and the input message will be
-                                    printed.
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="header header-2">Example</div>
-                </div>
-                <div class="code-template inverse">
-                    <div> var reader = new tilesLib.EventReader(); </div>
-                    <div> client.on('receive', function (tileId, event) { </div>
-                    <div>
-                        <div> var tileEvent = reader.readEvent(event, client); </div>
-                    </div>
-                    <div>
-                        <div> var printer = reader.getPrinter('Tile_ab', client); </div>
-                    </div>
-                    <div><br/></div>
-                    <div>
-                        <div> if ( tileEvent.name == 'Tile_c5' && tileEvent.isDoubleTap ){ /* Check if 'Tile_c5' is 'double tapped'
-                            */
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <div>printer.print('This is a string to be printed');</div>
-                        </div>
-                    </div>
-                    <div>
-                        <div>}</div>
                     </div>
                     <div> }); </div>
                 </div>
