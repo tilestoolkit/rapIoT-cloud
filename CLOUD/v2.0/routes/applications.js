@@ -38,8 +38,8 @@ var startHostingWorkspace = function (workspace, port, applicationId, callback) 
   var uid = "wrk:" + applicationId;
 
   if (process.platform === "linux") {  // Only run on linux
-    var usr = "admin";
-    var pwd = "admin";
+    var usr = " ";
+    var pwd = " ";
     exec("sudo -H -u c9sdk bash -c 'forever start --uid " + uid + " -a "
       + config.cloud9.server + " -p " + port
       + " -w " + config.cloud9.workspace.root + workspace
