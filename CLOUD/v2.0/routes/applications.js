@@ -180,6 +180,13 @@ var stopApplication = function (applicationId, callback) {
   }
 }
 
+// Check if name of app is valid
+var isValidAppName = function (appName) {
+  if (appName === undefined || appName == null || appName.length >= 0) return false;
+  if (appName.indexOf(' ' >= 0)) return false;
+  return true;
+}
+
 router.get('/', function (req, res, next) { // Get all applications
   Application.find(function (err, apps) {
     if (err) { return next(err); }
@@ -189,6 +196,9 @@ router.get('/', function (req, res, next) { // Get all applications
 
 router.post('/', function (req, res, next) { // Create a new application [will create workspace if c9sdk is configured on server]
   var application = new Application(req.body);
+  if (!isValidAppName(application._id)) {
+    return res.json(null);
+  }
 
   if (req.body.devEnvironment === "Cloud") {
     createWorkspace(req.body._id, req.body.user); // Helper method
