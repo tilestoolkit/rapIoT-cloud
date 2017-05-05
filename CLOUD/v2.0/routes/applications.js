@@ -29,6 +29,7 @@ var exec = require('child_process').exec;
 var portfinder = require('portfinder');
 var replace = require('replace');
 var os = require('os');
+var fs = require('fs');
 
 var config = require('../config');
 
@@ -181,29 +182,48 @@ var stopApplication = function (applicationId, callback) {
 }
 // Helper: Add VirtualTile to template
 var addVirtualTileToTemplate = function (app, vt) {
-  if (process.platform === "linux") {
+  if (process.platform === 'linux') {
+    var tag = "[ERROR Replacing auto generate] "
     var replaceString = '/* AUTO GENERATED CODE START (do not remove) */';
-    console.log("replace");
-    console.log(config.cloud9.workspace.root + app);
-    replace({
-      regex: replaceString,
-      replacement: replaceString + '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);',
-      paths: [config.cloud9.workspace.root + app],
-      recursive: true,
-      silent: false
+    var newString = '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);';
+    var path = config.cloud9.workspace.root + app + '/tiles.js';
+    fs.readFile(path, 'utf-8', function (err, data) {
+      if (err) {
+        console.log(tag + "Could not read file!");
+        console.log(err);
+        return;
+      }
+      data = data.replace(replaceString, replaceString + newString);
+      fs.writeFile(path, data, function (err) {
+        if (err) {
+          console.log(tag + "Could not write file!");
+          console.log(err);
+          return;
+        }
+      })
     });
   }
 }
 // Helper: Remove VirtualTile from template
 var removeVirtualTileFromTemplate = function (app, vt) {
   if (process.platform === "linux") {
-    console.log("replace");
-    replace({
-      regex: '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);',
-      replacement: '',
-      paths: [config.cloud9.workspace.root + app],
-      recursive: true,
-      silent: true
+    var tag = "[ERROR Removing auto generated] "
+    var replaceString = '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);';
+    var path = config.cloud9.workspace.root + app + '/tiles.js';
+    fs.readFile(path, 'utf-8', function (err, data) {
+      if (err) {
+        console.log(tag + "Could not read file!");
+        console.log(err);
+        return;
+      }
+      data = data.replace(replaceString, '');
+      fs.writeFile(path, data, function (err) {
+        if (err) {
+          console.log(tag + "Could not write file!");
+          console.log(err);
+          return;
+        }
+      })
     });
   }
 }
