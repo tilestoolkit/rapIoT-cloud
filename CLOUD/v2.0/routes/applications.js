@@ -184,12 +184,13 @@ var addVirtualTileToTemplate = function (app, vt) {
   if (process.platform === "linux") {
     var replaceString = '/* AUTO GENERATED CODE START (do not remove) */';
     console.log("replace");
+    console.log(config.cloud9.workspace.root + app);
     replace({
       regex: replaceString,
       replacement: replaceString + '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);',
       paths: [config.cloud9.workspace.root + app],
       recursive: true,
-      silent: true
+      silent: false
     });
   }
 }
