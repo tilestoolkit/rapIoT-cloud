@@ -183,10 +183,10 @@ var stopApplication = function (applicationId, callback) {
 var addVirtualTileToTemplate = function (app, vt) {
   if (process.platform === "linux") {
     var replaceString = '/* AUTO GENERATED CODE START (do not remove) */';
+    console.log("replace");
     replace({
       regex: replaceString,
-      replacement: replaceString
-      + '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);',
+      replacement: replaceString + '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);',
       paths: [config.cloud9.workspace.root + app],
       recursive: true,
       silent: true
@@ -196,6 +196,7 @@ var addVirtualTileToTemplate = function (app, vt) {
 // Helper: Remove VirtualTile from template
 var removeVirtualTileFromTemplate = function (app, vt) {
   if (process.platform === "linux") {
+    console.log("replace");
     replace({
       regex: '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);',
       replacement: '',
