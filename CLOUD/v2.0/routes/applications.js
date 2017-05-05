@@ -185,7 +185,7 @@ var addVirtualTileToTemplate = function (app, vt) {
   if (process.platform === 'linux') {
     var tag = "[ERROR Replacing auto generate] "
     var replaceString = '/* AUTO GENERATED CODE START (do not remove) */';
-    var newString = '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);';
+    var newString = '\n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);';
     var path = config.cloud9.workspace.root + app + '/tiles.js';
     fs.readFile(path, 'utf-8', function (err, data) {
       if (err) {
@@ -208,7 +208,7 @@ var addVirtualTileToTemplate = function (app, vt) {
 var removeVirtualTileFromTemplate = function (app, vt) {
   if (process.platform === "linux") {
     var tag = "[ERROR Removing auto generated] "
-    var replaceString = '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);';
+    var replaceString = '\n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);';
     var path = config.cloud9.workspace.root + app + '/tiles.js';
     fs.readFile(path, 'utf-8', function (err, data) {
       if (err) {
