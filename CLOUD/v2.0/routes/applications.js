@@ -179,11 +179,37 @@ var stopApplication = function (applicationId, callback) {
     console.log(tag + "Application hosting only on linux");
   }
 }
+// Helper: Add VirtualTile to template
+var addVirtualTileToTemplate = function (app, vt) {
+  if (process.platform === "linux") {
+    var replaceString = '/* AUTO GENERATED CODE START (do not remove) */';
+    replace({
+      regex: replaceString,
+      replacement: replaceString
+      + '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);',
+      paths: [config.cloud9.workspace.root + app],
+      recursive: true,
+      silent: true
+    });
+  }
+}
+// Helper: Remove VirtualTile from template
+var removeVirtualTileFromTemplate = function (app, vt) {
+  if (process.platform === "linux") {
+    replace({
+      regex: '/n' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);',
+      replacement: '',
+      paths: [config.cloud9.workspace.root + app],
+      recursive: true,
+      silent: true
+    });
+  }
+}
 
 // Check if name of app is valid
 var isValidAppName = function (appName) {
-  if (appName === undefined || appName == null || appName.length >= 0) return false;
-  if (appName.indexOf(' ' >= 0)) return false;
+  if (appName === undefined || appName == null || appName.length <= 0) return false;
+  if (appName.indexOf(' ') >= 0) return false;
   return true;
 }
 
@@ -348,6 +374,7 @@ router.post('/:app/virtualTile', function (req, res) { // Add Virtual Tile to ap
   vt.save(function (err, vt) {
     if (err) { return next(err); }
     req.application.addVirtualTile(vt._id);
+    addVirtualTileToTemplate(req.application._id, vt); // Call helper method to add to template if it exists
     return res.json(vt);
   });
 });
@@ -358,8 +385,9 @@ router.delete('/:app/virtualTile/:id', function (req, res, next) { // Delete Vir
   Tilehook.remove({ virtualTile: vtId }, function (err) { if (err) return next(err); }) // Remove Tilehook registered to this virtual tile
   Tilehook.remove({ outputVirtualTile: vtId }, function (err) { if (err) return next(err); }) // Remove Tilehook where this virtial tile is output tile
 
-  VirtualTile.findByIdAndRemove(vtId, function (err) { // Remove virtual tile
+  VirtualTile.findByIdAndRemove(vtId, function (err, vt) { // Remove virtual tile
     if (err) return next(err);
+    removeVirtualTileFromTemplate(req.application._id, vt); // Call helper method to remove from template if it exists
   });
   Application.update({ _id: req.application._id }, { $pull: { 'virtualTiles': req.params.id } }, function (error, data) {//remove virtualTile from application
     if (data.nModified)

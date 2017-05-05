@@ -97,7 +97,8 @@ angular.module('tilesApi.controllers', [])
 				$scope.noAppOwner = true;
 			}
 			if (!$scope.env.selected || !$scope.user.selected) return;
-			if ($scope._id === undefiend || $scope._id == null || $scope._id.length >= 0) return;
+			if ($scope._id === undefined || $scope._id == null || $scope._id.length <= 0) return;
+			if ($scope._id.indexOf(' ') >= 0) return;
 
 			// Check if app with id exist
 			var check = false;
