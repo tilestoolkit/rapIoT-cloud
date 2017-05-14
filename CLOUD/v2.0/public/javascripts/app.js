@@ -141,11 +141,6 @@ angular.module('tilesDocs', ['ui.router', 'tilesDocs.controllers', 'tilesApi.ser
 				templateUrl: '/docs-main5.html',
 				controller: 'DocsCtrl'
 			})
-			.state('docs-main6', {
-				url: '/docs-main6',
-				templateUrl: '/docs-main6.html',
-				controller: 'DocsCtrl'
-			})
 
 			.state('docs-app0', {
 				url: '/docs-app0',
