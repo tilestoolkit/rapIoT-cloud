@@ -26,82 +26,244 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>Example scenario 1</h2>
+                <h2>Map SERVICES cards into TILES sources</h2>
+                <p>
+                    Mapping SERVICES cards into TILES sources is a tricky concept and it requires knowledge of external web services. If don't
+                    know any web services it is recommended that you drop the SERVICES cards from your application. If you
+                    want to learn more about web services it is recommended that you check out
+                    <a href="https://ifttt.com/">IFTTT</a>.
+
+                </p>
+                <p>
+                    Most of the SERVICES cards can be realized by creating
+                    <b>applets</b> in IFTTT and connect them with your TILES application.
+                </p>
+                <p>
+                    The following sections will introduce two TILES JavaScript APIs that can be used to map SERVICES cards into TILES sources.
+                </p>
+
+
+                <h3>Postman Client API</h3>
 
                 <p>
-                    <b>Description:</b>
-                    <br/> Single tap on 'tileA' will set color on 'tileA'.LED from array [red, green, blue, white, 'PINK'].
-                    <br/> Double tap on 'tileA' will set color on 'tileB'.LED to the same as 'tileA'.LED, and vibrate 'tileB'.
-                    <br/> Tilting 'tileA' will turn LED on 'tileB' off.
+                    The Postman Client API is an API that will make it possible to send GET and POST request to specific IP-addresses. This API
+                    is inteded to bridge your application with other web services you need to integrate into your IoT applicaiton.
+                    The PostmanClient takes two inputs upon initialization,
+                    <b>IP-address</b> of the web server and the
+                    <b>port number</b> of the web services.
                 </p>
-                <br/>
 
                 <div class="code-template">
-                    <div> var tilesLib = require('/tiles-lib'); </div>
-                    <div> var client = new tilesLib.TilesClient('Anders', 'Scenario1', '138.68.144.206', 1883).connect(); </div>
-                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> var tilesLib = require('/tiles-lib/api'); </div>
                     <div><br/></div>
-                    <div> var colors = ['red', 'green', 'blue', 'white', 'FF00FF']; </div>
-                    <div> var ct = 0; </div>
-                    <div><br/></div>
-                    <div>
-                        client.on('receive', function (tileId, event) {
+                    <div> var PostmanClient = new tilesLib.PostmanClient( '{enter-ip-here}', '{enter-port-here}' ); </div>
+                </div>
+
+                <h4>Postman Client API usage</h4>
+                <!-- POSTMAN CLIENT -->
+                <div class="object-template">
+                    <div class="header header-1">PostmanClient</div>
+                    <div class="header header-2">Methods</div>
+                    <div class="table-wrapper">
+                        <table class="table api-table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>get( String )</td>
+                                <td>Will send a HTTP GET request to the input String URL.</td>
+                            </tr>
+                            <tr>
+                                <td>post( String, <b>function</b> )</td>
+                                <td>Will send a HTTP POST request to the input String URL, and will return the response to the
+                                    callback
+                                    <b>function</b>.</td>
+                            </tr>
+                        </table>
                     </div>
+                    <div class="header header-2">Example</div>
+                </div>
+                <div class="code-template inverse">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> var PostmanClient = new tilesLib.PostmanClient( '192.168.1.111', 8080 ); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
                     <div>
                         <div> var tileEvent = reader.readEvent(event, client); </div>
                     </div>
                     <div>
-                        <div> var tileA = reader.getTile("Tile_9e", client); </div>
+                        <div> if ( tileEvent.isSingleTap ){ /* If any TILE is single tapped*/ </div>
                     </div>
                     <div>
-                        <div> var tileB = reader.getTile("Tile_e9", client); </div>
+                        <div>
+                            <div>
+                                PostmanClient.get('url-name'); /* Will send a GET request to http://192.168.1.111:8080/url-name */
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>
+                                PostmanClient.post('url-name', function (response){ /* Will send a POST request to http://192.168.1.111:8080/url-name */
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>
+                                <div>console.log(response); /* Will log the response to the console window */ </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>});</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>}</div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+
+
+
+                <h3>IFTTT Client API</h3>
+
+                <p>
+                    The IFTTT Client API is a specialized version of the PostmanClient API, and will enable you to use IFTTT to trigger a wide
+                    variety of popular web services with only a few lines of code. For this API you must create an account
+                    at
+                    <a href="https://ifttt.com/">IFTTT</a>, and configure the
+                    <a href="https://ifttt.com/services/maker_webhooks/settings">maker channel</a> to get your own personal
+                    key. This key must be used as input to the IFTTT Client API constructur as seen below.
+                </p>
+
+                <div class="code-template">
+                    <div> var tilesLib = require('/tiles-lib/api'); </div>
+                    <div><br/></div>
+                    <div> var IFTTTClient = new tilesLib.IFTTTClient('{enter-ifttt-personal-key-here}'); </div>
+                </div>
+
+                <h4>IFTTTClient API usage</h4>
+                <!-- IFTTT CLIENT -->
+                <div class="object-template">
+                    <div class="header header-1">IFTTTClient</div>
+                    <div class="header header-2">Methods</div>
+                    <div class="table-wrapper">
+                        <table class="table api-table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>send( String, String, String, String)</td>
+                                <td>
+                                    Will send a POST request to the target 'trigger name'. The first input parameter is the 'trigger name' configured in the
+                                    IFTTT applet, while the three next are optional input parameters to be used in the IFTTT
+                                    applet.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Example</div>
+                </div>
+                <div class="code-template inverse">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> var IFTTTClient = new tilesLib.IFTTTClient('-MXtrSsdb-WQxdmbW-CuA'); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> if ( tileEvent.isTilt ){ /* If any TILE is tilted */
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>IFTTTClient.send('send_email'); /* Trigger the 'send_email' personal applet in IFTTT */ </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <div>IFTTTClient.send('lights_on', 'FF00FF', 21, '08:00'); /* Trigger the 'lights_on' personal applet
+                                in IFTTT with optional parameters */ </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>}</div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+
+                <h3>Example 1: Tilt Watch to send Email</h3>
+                <p>
+                    This example shows how SERVICES <b>Mail</b> is mapped to TILES source using IFTTT. The THINGS
+                    <b>Watch</b> and HUMAN ACTIONS <b>Tilt</b> is used to show a complete scenario example.
+                </p>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/t-4.jpg" alt="watch" />
+                    <img src="/images/tiles_cards/a-6.jpg" alt="tilt" />
+                    <img src="/images/tiles_cards/s-3.jpg" alt="email" />
+                    <br/>
+                    <span>Tilt Watch to send Email (using IFTTT)</span>
+                </div>
+                <p>
+                    This sample is a bit complicated and is indeded for you if you are familiar with IFTTT or web services. To make this work
+                    you will need to set up your applet using the
+                    <a href="https://ifttt.com/services/maker_webhooks/settings">IFTTT maker channel</a> manually.
+                </p>
+                <p>
+                    In this example we have preconfigured an IFTTT maker channel with the private key
+                    <b>-MXtrSsdb-WQxdmbW-CuA</b>, and created an applet with trigger name
+                    <b>send_email</b> that accepts two custom arguments
+                    <b>email address</b> and <b>email message</b>.
+                </p>
+                <div class="code-template">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> var IFTTTClient = new tilesLib.IFTTTClient('-MXtrSsdb-WQxdmbW-CuA'); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> var watch = reader.getTile('watch', client); </div>
                     </div>
                     <div><br/></div>
                     <div>
-                        <div> if (tileEvent.name === tileA.name && tileEvent.isSingleTap ) { </div>
+                        <div> if ( tileEvent.name == watch.name ){ /* Check if the event originates from 'watch' */</div>
                     </div>
                     <div>
                         <div>
-                            <div>ct++;</div>
+                            <div> if ( tileEvent.isTilt ){ /* Check if the event is a tilt event */</div>
                         </div>
                     </div>
                     <div>
                         <div>
-                            <div> if (ct >= colors.length ) ct = 0; </div>
-                        </div>
-                    </div>
-                    <div><br/></div>
-                    <div>
-                        <div>
-                            <div>tileA.ledOn( colors[ct] );</div>
-                        </div>
-                    </div>
-                    <div>
-                        <div> } else if ( tileEvent.name === tileA.name && tileEvent.isDoubleTap ) { </div>
-                    </div>
-                    <div>
-                        <div>
-                            <div>tileB.ledOn( colors[ct] );</div>
+                            <div>
+                                <div>
+                                    IFTTTClient.send('send_email', 'tiles@tilestoolkit.io', 'This is an email sent automatically using the TILES toolkit, by
+                                    tilting my watch!');
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div>
                         <div>
-                            <div>tileA.hapticBurst( );</div>
-                        </div>
-                    </div>
-                    <div>
-                        <div> } else if ( tileEvent.name === tileA.name && tileEvent.isTilt ) { </div>
-                    </div>
-                    <div>
-                        <div>
-                            <div>tileB.ledOff( );</div>
+                            <div>}</div>
                         </div>
                     </div>
                     <div>
                         <div> } </div>
                     </div>
-                    <div>});</div>
+                    <div> }); </div>
                 </div>
+
+
+
             </div>
         </div>
     </script>

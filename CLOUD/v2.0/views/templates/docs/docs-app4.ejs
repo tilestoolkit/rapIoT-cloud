@@ -26,35 +26,48 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>Application Deployment</h2>
+                <h2>4. Launch Development Environment</h2>
                 <p>
-                    By now you should have configured your application in the TILES Cloud web portal and developed the program code in your selected
-                    development environment. This step of the process involves deploying the application, by enabeling the
-                    program code to be executed, even when you exit the hosted development environment. How to deploy your
-                    application depends on what development environment you have selected for your application.
+                    In the <a href="{{prevUrl()}}">previous step</a> you configured your application with the digital placeholders
+                    for the physical objects you will use in your application. Now you are ready to start code your application,
+                    but before you can do that, you need to start the development environment in which you will be writing
+                    the application code. Depending on what environment you selected for your application when
+                    <a href="#/docs-app2">creating the application</a>, this process varies slightly. Please find the relevant
+                    section below.
                 </p>
-                <h3><i>Cloud</i> or <i>Rule engine</i> development environments</h3>
+                <h3>Cloud Development Environment</h3>
                 <p>
-                    For both 'Cloud' and 'Rule engine' development environments, the environment is hosted in the TILES Cloud web portal. This
-                    means that your program code is already stored on the Cloud server, and deploying your application is
-                    as simple as pressing a button. In the illustration below we can see the 'garage_control_system' developed
-                    using the 'Cloud' development environment. By navigating to the
-                    <a href="/#/applications">applications</a> in the TILES Cloud web portal and selecting our application,
-                    we will be able to start the application by clicking the 'Start application' button. Once the application
-                    is started the program code will be executed on the TILES Cloud server upon incomming events.
+                    If you followed the suggested approach of this tutorial and selected the Cloud Development Environment, there is only one
+                    thing you need to do in order to start the development environment. Go to the application details by
+                    selecting your application from the
+                    <a href="/#/applications">list of applications</a>. Here you should see a button with the text
+                    <b>Start hosting</b>. Please click this button, and your Cloud Development Environment will be started.
+                    After clicking the button you should see an URL which will bring you to your Cloud Development Environment,
+                    which should be similar to the one seen in the image below.
                 </p>
                 <div class="docs-img opacity75">
-                    <img src="/images/howto/howto-deploy-application.png" alt="deploy_application" />
+                    <img src="images/howto/howto-cloud9-ide.png" alt="cloud9_ide" />
                     <br/>
-                    <span>Deploy application in TILES Cloud web portal</span>
+                    <span>Cloud Development Environment</span>
                 </div>
-                <h3><i>Local</i> development environment</h3>
+
+                <h3>Local Development Environment</h3>
                 <p>
-                    If you are using the 'Local' development environment, you are developing your application on your local machine using NodeJS.
-                    With this approach, the program code is not stored on the TILES Cloud server, and you will need to manually
-                    host and run the program code. To learn how to use NodeJS to run your application, please visit the documentation
-                    on the
-                    <a href="https://nodejs.org/en/docs/">NodeJS website</a>.
+                    If you selected the Local Development Environment, you should be familiar with NodeJS. By selecting this approach, you will
+                    be able to download the full JavaScript API by selecting your application from the <b>Download API</b>                    button. Unzip the downloaded file your local computer and open a command line interface (CLI) in the
+                    directory named API. The first thing you will need to do is run
+                    <b>npm install</b> to install all dependencies before you can start writing your code in the tiles.js
+                    file located in the templates directory. Please visit the documentation on the
+                    <a href="https://nodejs.org/en/docs/">NodeJS website</a> for more information about using NodeJS and
+                    npm.
+                </p>
+                <h3>Rule Engine Development Environment</h3>
+                <p>
+                    The Rule Engine Development Environment is the simples of the available developmen environments. After creating your application
+                    the environment will alrady be running, and there is no further steps required. Select your application
+                    from the
+                    <a href="/#/applications">list of applications</a>, and you are ready to start developing your first
+                    IoT application.
                 </p>
             </div>
         </div>

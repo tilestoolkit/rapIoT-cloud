@@ -26,10 +26,109 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>Device Appropriation <span style="color:red">(not finished)</span></h2>
+                <h2>6. Test application</h2>
                 <p>
-                    entails wireless discovery of the TILES Squares using the TILES Gateway, and pair the physical devices with the placeholders
-                    registered in step 2.
+                    If you have reached this step of the process you are ready to test your application. Don't worry if you think your application
+                    is not yet finished, you will most likely need to test your application many times before it is finished.
+                    Please go through the following steps to test your application.
+                </p>
+                <h3>a. Run application in test mode</h3>
+                <p class="text-signal-orange">
+                    <span class="glyphicon glyphicon-warning-sign"></span> This step is inteded for
+                    <b>Cloud Development Environment</b> only!
+                </p>
+                <p>
+                    To run your application in test mode using the Cloud Development Environment follow these steps:
+                    <ol>
+                        <li>
+                            Open the Cloud Development Environment as seen on the image below
+                        </li>
+                        <li>
+                            Select the <b>tiles.js</b> template file by double clicking on it in the list to the left
+                        </li>
+                        <li>
+                            Locate and click the
+                            <img src="/images/howto/howto-cloud9-ide-run.png" alt="run_cloud9_ide" /> button
+                        </li>
+                        <li>
+                            Notice the output text in the
+                            <b>bash</b> section in the bottom of the window.
+                        </li>
+                    </ol>
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-cloud9-ide.png" alt="cloud9_ide" />
+                    <br/>
+                    <span>Cloud Development Environment</span>
+                </div>
+
+                <h3>b. Procure and ready TILES Squares</h3>
+                <p>
+                    For each of the abstract placeholders you configured in your application in
+                    <a href="#/docs-app3">step three</a> of the process, you should procure one physical TIELS Square. Every
+                    abstract placeholder will soon be paired with the physical squares in your application.
+                </p>
+                <h3>c. Procure and ready physical objects</h3>
+                <p>
+                    Similarly, for each physical TILES Square you need the physical object on which you will attach the TILES Square devices.
+                    You should now procure all the physical objects that will be used in your application. The TILES Squares
+                    will detect the HUMAN ACTIONS you perform on the objects, and pass the information as events into the
+                    application code you have just written.
+                </p>
+
+                <h3>d. Open TILES Gatewy app and log in</h3>
+                <p>
+                    <ol>
+                        <li>Open up the TILES Gateway</li>
+                        <li>Enter your <b>username</b></li>
+                        <li>Enter the <b>host address</b> to the TILES Cloud server</li>
+                        <li>Enter the <b>port number</b> (should be 8080)</li>
+                        <li>Click <b>Log in!</b></li>
+                    </ol>
+                </p>
+                <div class="docs-img docs-app">
+                    <img src="/images/howto/howto-gateway-login.png" alt="gateway_login" \>
+                    <br/>
+                    <span>Log into app with server address, username and port number</span>
+                </div>
+
+                <h3>e. Select the application</h3>
+                <p>
+                    Select your applicatoin from the list of applicatoins by clicking <b>VIEW APP</b>
+                </p>
+                <div class="docs-img docs-app">
+                    <img src="/images/howto/howto-gateway-select-app.png" alt="gateway_select_app" />
+                    <br/>
+                    <span>List of available applications in gateway</span>
+                </div>
+
+                <h3>f. Pair TILES Squares with abstract placeholder</h3>
+                <p>
+                    After you have selected your application, you should see a list of all the abstract placeholders you have defined for your
+                    application. In the image below we can see that we have selected the
+                    <b>garage_control_system</b> that has three abstract placeholders defined:
+                    <b>garage_door</b>,
+                    <b>front_door</b> and
+                    <b>car</b>.
+                </p>
+                <div class="docs-img docs-app">
+                    <img src="/images/howto/howto-gateway-list-vt-in-app.png" alt="gateway_list_virtualTiles_in_app" />
+                    <br/>
+                    <span>List of abstract placeholders in application</span>
+                </div>
+                <p>
+                    For each of the abstract placeholders, click the <b>PAIR</b> button, and select an available physical
+                    TILES Square. The abstract placeholder should now move from the list <b>UNPAIRED TILES</b> to the list
+                    <b>PAIRED TILES</b>, and you have successfully paired the abstract and physical TILES Square. Last, but
+                    not least, you should attach the physical TILES Square to the physical objects.
+                </p>
+
+                <h3>g. Test/use the application</h3>
+                <p>
+                    Now you should be able to use the application by interacting with the physical objects that you have attached the TILES Squares
+                    to. In addition, you will be able to get more debug information by looking at the
+                    <b>bash</b> section, described in step a above.
+
                 </p>
             </div>
         </div>

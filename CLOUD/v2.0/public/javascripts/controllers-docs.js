@@ -15,14 +15,18 @@
 
 */
 
+// Remember collapsed state of sidebar
+var tilesDocsCollapsed = false;
 
 /* Controllers docs */
 angular.module('tilesDocs.controllers', [])
 
 	.controller('DocsCtrl', ['$scope', function ($scope) {
+
 		$scope.toggleWrapper = function () {
+			tilesDocsCollapsed = !tilesDocsCollapsed;
 			var wrapper = $(".wrapper").first();
-			if (wrapper.hasClass("toggled")) {
+			if (tilesDocsCollapsed) {
 				wrapper.removeClass("toggled");
 			} else {
 				wrapper.addClass("toggled");
@@ -68,6 +72,12 @@ angular.module('tilesDocs.controllers', [])
 
 		// On Load
 		var onLoad = function () {
+			// Remember state of sidebar collapsed
+			if (tilesDocsCollapsed) {
+				tilesDocsCollapsed = !tilesDocsCollapsed;
+				$scope.toggleWrapper();
+			}
+
 			// Make sidebar sticky
 			var $sticky = $('#sidebar-wrapper');
 			if (!!$sticky.offset()) { // make sure ".sticky" element exists
@@ -84,6 +94,7 @@ angular.module('tilesDocs.controllers', [])
 					}
 				});
 			}
+
 
 			// scroll to top on anchor click
 			$("a").click(function () {
@@ -118,9 +129,9 @@ angular.module('tilesDocs.controllers', [])
 			templates.each(function () {
 				var divs = $(this).children("div");
 				$.each(divs, function (i) {
-					var add = "<div class=\"code-template-line-number\"><span>" + (i+1) + "</span></div>";
+					var add = "<div class=\"code-template-line-number\"><span>" + (i + 1) + "</span></div>";
 					$(divs[i]).html(add + $(divs[i]).html());
-					if(i==8) console.log(divs[i])
+					if (i == 8) console.log(divs[i])
 					// console.log($(divs[i]).html());
 				});
 			});

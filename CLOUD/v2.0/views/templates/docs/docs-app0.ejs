@@ -31,13 +31,13 @@
                 <p>
                     If you have just generated an IoT application idea and you are looking for a way to rapidly transform your idea into a working
                     prototype based on everyday object augmentation, you should keep on reading about the
-                    <i>TILES toolkit Application Development Process</i> (ADP). The ADP is a process inteded to guide IoT
+                    <i>TILES toolkit Application Development Process</i> (TADP). The TADP is a process inteded to guide IoT
                     applicaiton developers through the required steps of prototyping a fully functional IoT application using
                     the TILES toolkit. Whether you are a non-expert or an expert user, this section will enable you to rapidly
                     transform your IoT applicaiton ideas into working prototypes with hardware components, message events
                     and running program code in no time.
 
-                    <br/><br/> An illustration of the ADP and a short description of the defined steps can be seen below.
+                    <br/><br/> An illustration of the TADP and a short description of the defined steps can be seen below.
                     Go through each subsection of the documentation sequentially and you will have a working prototype of
                     your IoT application operable in just a few moments. Developing IoT applicatinos have never been easier!
                 </p>
@@ -49,46 +49,65 @@
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td><a href="#/docs-app1">Identify Modules</a></td>
-                        <td>continuing from the idea generated with the TILES Cards, it involves identifying the objects or things
-                            to be used in the application, and allocate available TILES Squares with appropriate hardware
-                            configuration for each thing. (Idea generation could also occur without TILES Cards).</td>
+                        <td><a href="#/docs-app1">Create user</a></td>
+                        <td>entails creating a user in the TILES Cloud web portal.</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td><a href="#/docs-app2">Create Application</a></td>
-                        <td>involves using the TILES Cloud interface to create the application context and adding TILES Squares
-                            identified in step 1 to the application.</td>
+                        <td>involves defining an application name and create the application context and selecting development
+                            environment in the TILES Cloud web portal</td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td><a href="#/docs-app3">Application Development</a></td>
-                        <td>entails coding the application features by using the available TILES Cloud web IDE. The application
-                            developer must choose which development environment from the available options in the TILES Cloud
-                            interface.
+                        <td><a href="#/docs-app3">List Physical Objects</a></td>
+                        <td>entails using the TILES Cards to identify the physical objects needed in the application, and listing
+                            them by configuring the application from step 2 with abstract placeholders for your physical
+                            things
                         </td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td><a href="#/docs-app4">Application Deployment</a></td>
-                        <td>involves starting the application in the TILES Cloud web interface.</td>
+                        <td><a href="#/docs-app4">Launch Development Environment</a></td>
+                        <td>entails starting up the selected development environment and navigating to the starting point of
+                            the environment</td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td><a href="#/docs-app5">Application Appropriation</a></td>
-                        <td>involves selecting the application from a list of applications in the TILES Gateway.</td>
+                        <td><a href="#/docs-app5">Code Application</a></td>
+                        <td> involves coding the program behavior by mapping the TILES cards into executable program code with
+                            the steps listed below
+                            <br/><br/>
+                            <ol type="a" style="padding-left: 1em;">
+                                <li>Map HUMAN ACTIONS cards with TILES API events</li>
+                                <li>Map FEEDBACK cards with TILES API commands</li>
+                                <li>Map SERVICES cards with TILES API sources</li>
+                                <li>Use TILES API for additional application behavior</li>
+                            </ol>
+                        </td>
                     </tr>
                     <tr>
                         <td>6</td>
-                        <td><a href="#/docs-app6">Device Appropriation</a></td>
-                        <td>entails wireless discovery of the TILES Squares using the TILES Gateway, and pair the physical devices
-                            with the placeholders registered in step 2.</td>
+                        <td><a href="#/docs-app6">Test Application</a></td>
+                        <td>involves starting application and using gateway to discover and use the TIELS Squares in your application
+                            by following the steps below
+                            <br/><br/>
+                            <ol type="a" style="padding-left: 1em;">
+                                <li>Run application in test mode</li>
+                                <li>Procure and ready TILES Squares</li>
+                                <li>Procure and ready Physical Objects</li>
+                                <li>Open TILES Gateway app and log in</li>
+                                <li>Select the application in TILES Gateway</li>
+                                <li>Pair TILES Squares with abstract placeholders</li>
+                                <li>Use the application</li>
+
+                            </ol>
+                        </td>
                     </tr>
                     <tr>
                         <td>7</td>
-                        <td><a href="#/docs-app7">Application Interaction</a></td>
-                        <td>entails using the application by interacting with the connected TILES Squares and other connected
-                            services from step 3.</td>
+                        <td><a href="#/docs-app7">Iterate step 5-6</a></td>
+                        <td>entails looping through step 5 and step 6 until the desired application behavior is accomplished</td>
                     </tr>
                 </table>
                 <div class="docs-img">

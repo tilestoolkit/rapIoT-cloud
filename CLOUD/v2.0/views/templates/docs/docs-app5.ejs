@@ -26,14 +26,52 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>Application Appropriation <span style="color:red">(not finished)</span></h2>
+                <h2>5. Code Application</h2>
                 <p>
-                    In this step of the process you should be ready to start using your IoT application by setting up the TILES Gateway to communicate
-                    with your application, configured in the TILES Cloud server.
+                    In this step of the process you will be writing the actual program code of your application. This is the most complex step
+                    of the process and has been divided into four substeps for you to follow. Do not worry if this is the
+                    first time writing program code as this documentation will guide you through every step of the development
+                    process. The four steps are:
+                    <ol type="a">
+                        <li>Map HUMAN ACTIONS cards with TILES API events</li>
+                        <li>Map FEEDBACK cards with TILES API commands</li>
+                        <li>Map SERVICES cards with TILES API sources</li>
+                        <li>Use TILES API for additional application behavior</li>
+                    </ol>
+                    The first thing you need to do is to visit the section relevant for your development environment below.
                 </p>
-                <div class="docs-img">
-                    <img style="border:solid 1px red;" src="http://www.albax.fr/images/no_img_liste.gif" />
-                </div>
+                <h3>Cloud Development Environment</h3>
+                <p>
+                    If you selected the Cloud Development Environment, you will be writing your program code in JavaScript. At this point you
+                    should have the Cloud Development Environment running as described in the
+                    <a href="{{prevUrl()}}">previous step</a> of the process.
+                    <br/>
+                    <br/>
+                    <b>
+                    The <a href="#/docs-js1">JavaScript API</a> will guide you through the steps of prototyping your IoT application.
+                </b>
+                </p>
+                <h3>Local Development Environment</h3>
+                <p>
+                    If you selected the Local Development Environment, you will be writing your program code in JavaScript. You should have downloaded
+                    the JavaScript API and have your favorite IDE running on your local computer, as explained in the
+                    <a href="{{prevUrl()}}">previous step</a> of the process.
+                    <br/>
+                    <br/>
+                    <b>
+                    The <a href="#/docs-js1">JavaScript API</a> will guide you through the steps of prototyping your IoT application.
+                </b>
+                </p>
+                <h3>Rule Engine Development Environment</h3>
+                <p>
+                    If you selected the Rule Engine Development Environment, you will not be writing your application code textually. Instead
+                    you will be defining rules that will connect your physical objects together.
+                    <br/>
+                    <br/>
+                    <b>
+                    The <a href="#/docs-re1">Rule Engine API</a> will guide you through the steps of prototyping your IoT application.
+                </b>
+                </p>
             </div>
         </div>
     </script>

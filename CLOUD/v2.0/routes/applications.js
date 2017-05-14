@@ -396,7 +396,8 @@ router.post('/:app/virtualTile', function (req, res) { // Add Virtual Tile to ap
   vt.save(function (err, vt) {
     if (err) { return next(err); }
     req.application.addVirtualTile(vt._id);
-    addVirtualTileToTemplate(req.application._id, vt); // Call helper method to add to template if it exists
+    if (req.application.devEnvironment == 'Cloud')
+      addVirtualTileToTemplate(req.application._id, vt); // Call helper method to add to template if it exists
     return res.json(vt);
   });
 });
@@ -409,7 +410,8 @@ router.delete('/:app/virtualTile/:id', function (req, res, next) { // Delete Vir
 
   VirtualTile.findByIdAndRemove(vtId, function (err, vt) { // Remove virtual tile
     if (err) return next(err);
-    removeVirtualTileFromTemplate(req.application._id, vt); // Call helper method to remove from template if it exists
+    if (req.application.devEnvironment == 'Cloud')
+      removeVirtualTileFromTemplate(req.application._id, vt); // Call helper method to remove from template if it exists
   });
   Application.update({ _id: req.application._id }, { $pull: { 'virtualTiles': req.params.id } }, function (error, data) {//remove virtualTile from application
     if (data.nModified)

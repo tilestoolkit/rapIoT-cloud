@@ -41,6 +41,14 @@ body{
   background-color: #ededed !important;
 }
 
+.api-table tr > th{
+  white-space: nowrap;
+}
+
+.api-table tr > td:first-child{
+  white-space:nowrap;
+}
+
 #appInfoLabel {
     position: relative;
 }
@@ -185,7 +193,7 @@ td.unpaired{
   color: #d84a3b;
 }
 .content-navigation.top{
-  top:0;
+  top:5;
 }
 .content-navigation.bottom{
   bottom:0;
@@ -222,6 +230,13 @@ td.unpaired{
 }
 .docs-cards img{
   height: 250px;
+}
+.docs-cards.small img{
+  height: 150px;
+}
+.docs-app img{
+  width:300px;
+  border: solid 1px black;
 }
 .docs-img span{
   font-style:italic;

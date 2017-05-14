@@ -30,13 +30,15 @@
                 <p>
                     This section of the documentation is inteded to help you decide which development environment you should use to develop your
                     application. It will briefly explain the differences between the available environments and what prerequisits
-                    are needed for using them, but will not go into details about the development APIs and how to develop
-                    TILES applications. For that purpose, see the documentation on the respective API of the development
-                    environment in question.
+                    are needed for using them. This section will <b>not</b> go into details about how
+                    to develop TILES applications using the APIs of the development environments. For that purpose, see the
+                    documentation on the respective API of the development environment in question. If this is your first
+                    time developing a TILES application, we suggest the
+                    <b>Cloud Development Environment</b>.
                 </p>
                 <h3>Cloud development environment</h3>
                 <p>
-                    The Cloud development environment is running a <a href="https://c9.io/">cloud9</a> web portal for your
+                    The Cloud development environment is running a <a href="https://c9.io/">cloud9</a> web portal as your
                     IDE. When the Cloud development environment is selected for developing a TILES application, the TILES
                     API library files are created and the IDE is configured automatically. The cloud9 IDE will be running
                     in the browser, which means that no local setup is required, and you can run the development environment
@@ -44,10 +46,10 @@
                     your application using JavaScript, and the TILES toolkit <a href="{{JSdevUrl}}">JavaScript APIs</a>.
                 </p>
                 <p>
-                    When an application is created and the Cloud development environment is selected, you will be able to see your applicaiton
-                    in the <a href="/#/applications">list of applications</a>. By selecting your application
-                    you will be able to click the 'Host application', which will start a new instance of the cloud9 web IDE
-                    and display the url of the IDE as seen on the image below.
+                    To start the development environment, navigate to the
+                    <a href="/#/applications">list of applications</a> and select your application. In the application details
+                    page you will need to click the <b>Host application</b> button, which will start a new instance of the
+                    cloud9 web IDE and display the <b>Workspace URL</b> to the IDE as seen in the image below.
                 </p>
                 <div class="docs-img opacity75">
                     <img src="/images/howto/howto-startstop-cloud-ide.png" alt="start_stop_cloud_web_ide" />
@@ -56,7 +58,7 @@
                 </div>
                 <p>
                     Once the workspace environment has been hosted, you can access the IDE by navigating to the URL displayed in the application
-                    view. The username and password of the service is temporarily hardcoded to 'admin/admin'.
+                    page.
                 </p>
                 <div class="docs-img opacity75">
                     <img src="/images/howto/howto-cloud9-ide.png" alt="cloud9_web_ide" />
@@ -66,21 +68,24 @@
                 <p>
                     In the cloud workspace you will find two files:
                     <ol>
-                        <li>template-API.js - Shows code examples and API instructions</li>
-                        <li>tiles.js - Empty file where you will write your own application code</li>
+                        <li><b>template-API.js</b> - Shows code examples and API instructions</li>
+                        <li><b>tiles.js</b> - Empty file where you will write your own application code</li>
                     </ol>
                     In addition to programming the application, you will be able to select your code file, and hit 'Run' in the IDE. This will
                     start the program code in debug mode, and you will be able to see the output of your program in the bash
                     window. This way you are able to properly debug your application code directly in the Cloud IDE during
-                    development.
+                    development. For more detaile instructions, please read through the section for
+                    <a href="#/docs-app0">Application Development Process</a>.
                 </p>
+
+                <hr/>
 
                 <h3>Local development environment</h3>
                 <p>
                     When you select the Local development environment, you will have to download the JavaScript APIs with all its files and store
-                    them locally on your own machine. The local environment is intended for experienced users only and might
-                    be difficult for non-experts to properly set up. Make sure that you have installed npm and NodeJS on
-                    your system before staring. NodeJS and npm can be downloaded
+                    them locally on your development machine. The local environment is intended for experienced users only
+                    and might be difficult for non-experts to properly set up. Make sure that you have installed npm and
+                    NodeJS on your system before staring. NodeJS and npm can be downloaded
                     <a href="https://nodejs.org/en/download/">here</a>. To download the APIs and start developing, follow
                     these steps:
                     <ul>
@@ -119,11 +124,13 @@
                             Open the <b>api</b> directory with your Command-line interface, and type <b>npm install</b> to
                             install all required node packages
                         </li>
-                        <li>Open the <b>tiles.js</b> file and change the following:</li>
+                        <li>Open the <b>tiles.js</b> file in the <b>templates</b> directory and change the following:</li>
                         <ul>
-                            <li><b>{{tilesLibHolder}<!--escape angular-->}</b> - raplace with '../api'</li>
-                            <li><b>{{userNameHolder}<!--escape angular-->}</b> - replace with application owner</li>
-                            <li><b>{{appNameHolder}<!--escape angular-->}</b> - replace with name of application</li>
+                            <li><b>{{tilesLibHolder}<!--escape angular-->}</b> - replace with '../api'</li>
+                            <li><b>{{userNameHolder}<!--escape angular-->}</b> - replace with application owner of the target
+                                application
+                            </li>
+                            <li><b>{{appNameHolder}<!--escape angular-->}</b> - replace with name of the target application</li>
                             <li><b>{{ipAddressHolder}<!--escape angular-->}</b> - replace with IP address of TILES Cloud server</li>
                         </ul>
                     </ul>
@@ -131,24 +138,27 @@
                     you will be writing your application code in JavaScript (similar to Cloud development environment). Once
                     you have downloaded the API, you are free to select any IDE you want for writing the code. Using this
                     development environment requires more set up as detailed above, but once it is properly configured you
-                    will have access to the source code of the entire TILES JS API, and you will be able to integrate your
-                    TILES application into any application running NodeJS.
+                    will have access to the source code of the entire
+                    <a href="{{JSdevUrl}}">TILES JS API</a>, and you will be able to integrate your TILES application into
+                    any application running NodeJS.
                 </p>
+
+                <hr/>
 
                 <h3>Rule Engine development environment</h3>
                 <p>
-                    Similarly to the Cloud development environment, the Rule Engine is hosted in TILES Cloud web portal so there is no need for
+                    Similarly to the Cloud development environment, the Rule Engine is hosted in the TILES Cloud web portal with no need for
                     any local setup. When selecting your app from the
-                    <a href="/#/applications">list of applications</a> you will notice only a few differences in the application
-                    view from the Cloud and Local development environment. With this environment, however, you do not need
-                    to open an external IDE, or download the APIs and run them locally, but you will be able to develop your
-                    application directly in the application view. Please see <a href="REdevUrl">Rule Engine API</a> for instructions
-                    on how to develop applications with the Rule Engine development environment.
+                    <a href="/#/applications">list of applications</a> you will notice some differences in the application
+                    page from the Cloud and Local Development Environments. With this environment you do not need to open
+                    an external IDE or download the APIs and run them locally, but you will be able to develop your application
+                    directly in the application page. Please see <a href="{{REdevUrl}}">Rule Engine API</a> for instructions
+                    on how to develop applications with the Rule Engine Development Environment.
                 </p>
                 <div class="docs-img opacity75">
                     <img src="/images/howto/howto-rule-engine-ide.png" alt="rule_engine_ide" />
                     <br/>
-                    <span>Rule Engine development environment</span>
+                    <span>Rule Engine Development Environment</span>
                 </div>
 
             </div>

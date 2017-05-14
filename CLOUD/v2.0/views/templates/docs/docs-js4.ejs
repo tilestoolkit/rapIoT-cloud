@@ -26,73 +26,76 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>IFTTT Client API</h2>
+                <h2>4. Map FEEDBACK cards to TILES commands</h2>
 
                 <p>
-                    The IFTTT Client API is a specialized version of the <a href="docs-js3">PostmanClient APIS</a>, and will
-                    enable you to use IFTTT to trigger a wide variety of popular web services with only a few lines of code.
-                    For this API you must create an account at <a href="https://ifttt.com/">IFTTT</a>, and configure the
-                    <a href="https://ifttt.com/services/maker_webhooks/settings">maker channel</a> to get your own personal
-                    key. This key must be used as input to the IFTTT Client API constructur as seen below.
+                    Section <a href="#/docs-js2">2. EventReader API</a> covered how to use the EventReader API for processing
+                    events and commands in the JavaScript API. The
+                    <a href="{{prevUrl()}}">previous section</a> covered how to map the HUMAN ACTIONS cards into TILES events.
+                    In this section we will be looking into how to map the FEEDBACK cards into TILES commands. You have probably
+                    realized by now that the TILES events are input primitive messages from the TILES Squares to your code,
+                    while the TILES commands are output primitive messages from your code to the TILES Squares.
                 </p>
-
+                <h3>Example 1: Change color on Plant</h3>
+                <p>
+                    This example shows how FEEDBACK <b>Color change</b> and THINGS <b>Plant</b> is mapped to JavaScript code.
+                    This is useful if you want the color on your plant to change.
+                </p>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/f-6.jpg" alt="color_change" />
+                    <img src="/images/tiles_cards/t-20.jpg" alt="plant" />
+                    <br/>
+                    <span>Change color on Plant</span>
+                </div>
+                <p>
+                    Looking at the code snippet below, we see that the plant is defined in the JavaScript code in
+                    <b>line 3</b>. The code for sending the change color command can be seen in 
+                    <b>line 5</b>. Here we are chaning the color to 'FF00FF' or pink.
+                </p>
                 <div class="code-template">
-                    <div> var tilesLib = require('{ {tilesLibHolder} }'); </div>
-                    <div><br/></div>
-                    <div> var IFTTTClient = new tilesLib.IFTTTClient('{enter-ifttt-personal-key-here}'); </div>
-                </div>
-
-                <h3>Postman Client API usage</h3>
-                <!-- IFTTT CLIENT -->
-                <div class="object-template">
-                    <div class="header header-1">IFTTTClient</div>
-                    <div class="header header-2">Methods</div>
-                    <div class="table-wrapper">
-                        <table class="table">
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                            </tr>
-                            <tr>
-                                <td>send( String, String, String, String)</td>
-                                <td>
-                                    Will send a POST request to the target 'trigger name'. The first input parameter is the 'trigger name' configured in the
-                                    IFTTT applet, while the three next are optional input parameters to be used in the IFTTT
-                                    applet.
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="header header-2">Example</div>
-                </div>
-                <div class="code-template inverse">
                     <div> var reader = new tilesLib.EventReader(); </div>
-                    <div> var IFTTTClient = new tilesLib.IFTTTClient('-MXtrSsdb-WQxdmbW-CuA'); </div>
                     <div> client.on('receive', function (tileId, event) { </div>
                     <div>
-                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                        <div> var plant = reader.getTile('plant', client); </div>
                     </div>
+                    <div><br/></div>
                     <div>
-                        <div> if ( tileEvent.tilt ){ /* If any TILE is tilted */
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <div>IFTTTClient.send('send_email'); /* Trigger the 'send_email' personal applet in IFTTT */ </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div>
-                            <div>IFTTTClient.send('lights_on', 'FF00FF', 21, '08:00'); /* Trigger the 'lights_on' personal applet
-                                in IFTTT with optional parameters */ </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div>}</div>
+                        <div>plant.ledOn('FF00FF'); /* Set the color of plant to 'FF00FF' (pink) */</div>
                     </div>
                     <div> }); </div>
                 </div>
+
+
+                <h3>Example 2: Vibrate Refridgerator</h3>
+                <p>
+                    This example shows how FEEDBACK <b>Vibrate</b> and THINGS <b>Refridgerator</b> is mapped to JavaScript code.
+                    This is useful if you want your refridgerator to vibrate.
+                </p>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/f-8.jpg" alt="vibrate" />
+                    <img src="/images/tiles_cards/t-10.jpg" alt="refridgerator" />
+                    <br/>
+                    <span>Vibrate Refridgerator</span>
+                </div>
+                <p>
+                    Looking at the code snippet below, we see that the refridgerator is defined in the JavaScript code in
+                    <b>line 3</b>. The code for sending the vibrate command can be seen in 
+                    <b>line 5</b>. Here we are vibrating the refridgerator with short bursts.
+                </p>
+                <div class="code-template">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var refridgerator = reader.getTile('refridgerator', client); </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div>refridgerator.hapticBurst(); /* Vibrate the refridgerator with bursts */</div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+
             </div>
         </div>
     </script>

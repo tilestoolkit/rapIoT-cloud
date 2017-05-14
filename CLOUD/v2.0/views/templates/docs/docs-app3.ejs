@@ -26,27 +26,50 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>Application Development</h2>
+                <h2>3. List Physical Objects</h2>
                 <p>
-                    This step of the process entail programming the application features in your application. For the application development
-                    step you are able to select from a variety of available development environments. Development with the
-                    different environments are slightly different, and you should choose the environment that best fits your
-                    needs and expertice. For more information, please read the section about
-                    <a href="{{selectDevEnvUrl}}">development environments</a>.
+                    In this step of the process you will be identifying the physical objects of your application and registering them in the
+                    application created in the
+                    <a href="{{prevUrl()}}">previous step</a> of the process. This page will guide you through the step of
+                    using the
+                    <a href="http://tilestoolkit.io/cards">TILES Cards</a> to identify the physical objects.
                 </p>
 
-                <h3><i>Cloud</i> or <i>Local</i> development environments</h3>
+                <h3>a. Identifying physical objects</h3>
                 <p>
-                    If you have 'Cloud' or 'Local' as application development environment, you will be developing your application textually
-                    in JavaScript. Please visit the
-                    <a href="{{JSdevUrl}}">JavaScript development section</a> for more information.
+                    Using the TILES Cards makes it very easy to identify the physical objects of your application. In fact, every THINGS card
+                    used in the ideation process represents one physical object in your application. To transition from the
+                    TILES Cards you will need to write down all the THINGS Cards you have used on a piece of paper.
                 </p>
-                <h3><i>Rule engine</i> development environment</h3>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/t-4.jpg" alt="tiles_card_t-4" />
+                    <img src="/images/tiles_cards/t-9.jpg" alt="tiles_card_t-9" />
+                    <img src="/images/tiles_cards/t-10.jpg" alt="tiles_card_t-10" />
+                    <img src="/images/tiles_cards/t-13.jpg" alt="tiles_card_t-13" />
+                    <br/>
+                    <span>THINGS Cards from TILES Cards</span>
+                </div>
+
+                <h3>b. Configure <i>abstract placeholders</i> in your application</h3>
                 <p>
-                    If you have selected 'Rule engine' as your development environment, you will not be writing your program code textually,
-                    but will be defining rules that will be executed by the TILES Cloud server upon incomming events. Please
-                    visit the
-                    <a href="{{REdevUrl}}">Rule Engine development section</a> for more information.
+                    Now that you have identified all physical objects to be used in your application it is time to configure
+                    <i>abstract placeholders</i>. To do this you need to navigate to the
+                    <a href="/#/applications">applications</a> page and select your application from the list. If you cannot
+                    find your application in the list, you will need to go through the
+                    <a href="#/docs-app2">Create Application</a> step of the process. After you have selected your application
+                    from the list, you will see a similar page as in the image below.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-add-abstract-tile.png" alt="application_details" />
+                    <br/>
+                    <span>Application details, with two abstract placeholders</span>
+                </div>
+                <p>
+                    The <b>garage_control_system</b> application seen above already has two abstract placeholders registered;
+                    <b>front_door</b> and <b>garage_door</b>. By clicking the
+                    <b>+ new Abstract TILE</b> button, you will be able to add a new abstract placeholder. Make sure to do
+                    this for all the physical objects you identified previously. You should give the abstract placeholders
+                    short names as you will be using these names later in your program code.
                 </p>
             </div>
         </div>

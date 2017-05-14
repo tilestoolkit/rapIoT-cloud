@@ -26,29 +26,34 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>Event Reader API</h2>
-
+                <h2>2. EventReader API</h2>
                 <p>
-                    The Event Reader API, is an API that will help you process incomming events to determine which TILES Square is being used
-                    and what primitive is triggered on the Square. For example, if one of your connected TILES Squares are
-                    tapped, the event reader will break down the incomming event into pieces in order to make it easier for
-                    you to program the desired behavior. Below we can see how the Event Reader API is initialized.
+                    The EventReader API can be used to map HUMAN ACTIONS cards and FEEDBACK cards into TILES events and TILES commands by processing
+                    the input/output primitives for you. This section will explain how the EventReader API can be used, while
+                    the following sections will detail, with examples, how to map the HUMAN ACTIONS cards and FEEDBACK cards
+                    into JavaScript code using the EventReader API.
                 </p>
 
+                <h3>Initializing EventReader API</h3>
+                <p>
+                    Initializing the EventReader API in your application code is done with the following lines of code.
+                </p>
                 <div class="code-template">
-                    <div> var tilesLib = require('{ {tilesLibHolder} }'); </div>
-                    <div><br/></div>
+                    <div> var tilesLib = require('/tiles-lib/api'); </div>
                     <div> var reader = new tilesLib.EventReader(); </div>
                 </div>
 
                 <h3>Event Reader API usage</h3>
+                <p>
+                    The technical details of using the EventReader API is explained below.
+                </p>
 
                 <!-- EVENT READER -->
                 <div class="object-template">
                     <div class="header header-1">EventReader</div>
                     <div class="header header-2">Methods</div>
                     <div class="table-wrapper">
-                        <table class="table">
+                        <table class="table api-table">
                             <tr>
                                 <th>Name</th>
                                 <th>Return value</th>
@@ -87,7 +92,7 @@
                     <div class="header header-1">Tile</div>
                     <div class="header header-2">Properties</div>
                     <div class="table-wrapper">
-                        <table class="table">
+                        <table class="table api-table">
                             <tr>
                                 <th>Name</th>
                                 <th>Type</th>
@@ -123,7 +128,7 @@
                     </div>
                     <div class="header header-2">Methods</div>
                     <div class="table-wrapper">
-                        <table class="table">
+                        <table class="table api-table">
                             <tr>
                                 <th>Name</th>
                                 <th>Description</th>
@@ -192,6 +197,7 @@
                     </div>
                     <div> }); </div>
                 </div>
+
             </div>
         </div>
     </script>
