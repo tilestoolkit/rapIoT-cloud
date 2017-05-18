@@ -89,7 +89,7 @@ var createWorkspace = function (workspace, username) {
         console.log(error);
         return;
       }
-      var renameApp = function (error) {  // Callback for native 'exec' command below
+      var replaceTemplate = function (error) {  // Callback for native 'exec' command below
         if (error) {
           console.log(tag + "Problem copying template files to workspace on linux");
           console.log(error);
@@ -126,7 +126,7 @@ var createWorkspace = function (workspace, username) {
           silent: true
         });
       }
-      exec("sudo -H -u c9sdk bash -c 'cp " + config.lib.root + "/templates/* " + config.cloud9.workspace.root + workspace + "'", renameApp);
+      exec("sudo -H -u c9sdk bash -c 'cp " + config.lib.root + "/templates/* " + config.cloud9.workspace.root + workspace + "'", replaceTemplate);
     });
   }
   else {
@@ -181,7 +181,7 @@ var stopApplication = function (applicationId, callback) {
   }
 }
 // Helper: Add VirtualTile to template
-var addVirtualTileToTemplate = function (app, vt) {
+var addVtToTemplate = function (app, vt) {
   if (process.platform === 'linux') {
     var tag = "[ERROR Replacing auto generate] "
     var replaceString = '/* AUTO GENERATED CODE START (do not remove) */';
@@ -205,7 +205,7 @@ var addVirtualTileToTemplate = function (app, vt) {
   }
 }
 // Helper: Remove VirtualTile from template
-var removeVirtualTileFromTemplate = function (app, vt) {
+var removeVtFromTemplate = function (app, vt) {
   if (process.platform === "linux") {
     var tag = "[ERROR Removing auto generated] "
     var replaceString = '\n\t' + 'var ' + vt.virtualName + ' = reader.getTile(\'' + vt.virtualName + '\', client);';
@@ -397,7 +397,7 @@ router.post('/:app/virtualTile', function (req, res) { // Add Virtual Tile to ap
     if (err) { return next(err); }
     req.application.addVirtualTile(vt._id);
     if (req.application.devEnvironment == 'Cloud')
-      addVirtualTileToTemplate(req.application._id, vt); // Call helper method to add to template if it exists
+      addVtToTemplate(req.application._id, vt); // Call helper method to add to template if it exists
     return res.json(vt);
   });
 });
@@ -411,7 +411,7 @@ router.delete('/:app/virtualTile/:id', function (req, res, next) { // Delete Vir
   VirtualTile.findByIdAndRemove(vtId, function (err, vt) { // Remove virtual tile
     if (err) return next(err);
     if (req.application.devEnvironment == 'Cloud')
-      removeVirtualTileFromTemplate(req.application._id, vt); // Call helper method to remove from template if it exists
+      removeVtFromTemplate(req.application._id, vt); // Call helper method to remove from template if it exists
   });
   Application.update({ _id: req.application._id }, { $pull: { 'virtualTiles': req.params.id } }, function (error, data) {//remove virtualTile from application
     if (data.nModified)

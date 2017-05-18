@@ -44,10 +44,16 @@ router.post('/:app', function (req, res, next) { // Create (register) a Tilehook
 
   tilehook.save(function (err, tile) {
     if (err) return next(err);
-    Tilehook.populate(tile, [{ path: "virtualTile" }, { path: "outputVirtualTile" }, { path: "application" }], function (err, tilenew) {
-      if (err) return next(err);
-      res.json(tilenew);
-    });
+    Tilehook.populate(tile,
+      [
+        { path: "virtualTile" },
+        { path: "outputVirtualTile" },
+        { path: "application" }
+      ],
+      function (err, tilenew) {
+        if (err) return next(err);
+        res.json(tilenew);
+      });
   });
 });
 
