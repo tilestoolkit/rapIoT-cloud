@@ -146,7 +146,11 @@
                             </td>
 
                             <td><button type="button" class="btn btn-default" ng-click="removeIfttthook(hook)"><span class="glyphicon glyphicon-trash"></span></button></td>
-                            <td ng-show="!hook.outgoing">Triggered by posts to: <span style="color:grey;"><i>{{getHookUrl(hook)}}</i></span></td>
+                            <td>
+                                <div ng-show="!hook.outgoing" style="max-width:350px;">Triggered by posts to:
+                                    <span style="color:grey; word-wrap: break-word;"><i>{{getHookUrl(hook)}}</i></span>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -186,8 +190,8 @@
 
                 <hr/>
                 <!-- TILE RULES -->
-                <h3>Tile rules</h3>
-                <div ng-hide="tilehook.length">No Tile rule registered for this application.<br/><br/></div>
+                <h3>TILE rules</h3>
+                <div ng-hide="tilehooks.length">No TILE rule registered for this application.<br/><br/></div>
                 <table class="table rules-table">
                     <tbody>
                         <tr ng-repeat="hook in tilehooks">
@@ -200,7 +204,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <button ng-show="!addTilehookVisible" type="button" class="btn btn-primary" ng-click="toggleView('tilehook')">+ new Tile rule</button>
+                <button ng-show="!addTilehookVisible" type="button" class="btn btn-primary" ng-click="toggleView('tilehook')">+ new TILE rule</button>
 
                 <form ng-show="addTilehookVisible" class="form-hook" novalidate="novalidate" name="addtilehookform" ng-submit="addTilehook()">
                     <span><b> IF </b></span>

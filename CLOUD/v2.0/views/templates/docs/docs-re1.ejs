@@ -26,18 +26,41 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>Introduction to the Rule Engine API</h2>
+                <h2>1. Introduction to the Rule Engine API</h2>
                 <p>
-                    This section of the TILES toolkit documentation is relevant for you if you want to know how to develop your applicaitons
-                    using the
-                    <a href="{{selectDevEnvrionmentUrl}}">Rule Engine Development Environment</a>. Developing your application
-                    with the Rule Engine API entails that you will be defining rules for your application that will be executed
-                    by the TILES Cloud server upon incomming events from your connected TILES Squares.
+                    If you are developing your application using the Rule Engine
+                    <a href="{{selectDevEnvUrl}}">Development Environment</a>, this chapter will explain how you can use
+                    the Rule Engine API to develop your application. This chapter will guide you through the steps of transitioning
+                    from your TILES Cards ideation into a working prototype of your application. The steps of this prcesss
+                    are listed below.
+                    <ol type="a">
+                        <li>Map HUMAN ACTIONS cards with TILES API events</li>
+                        <li>Map FEEDBACK cards with TILES API commands</li>
+                        <li>Map SERVICES cards with TILES API sources</li>
+                    </ol>
+                    After you have finished this Rule Engine API chapter, you should continue with the
+                    <a href="#/docs-app6">Test Application</a> step of the <i>Application Development Process</i> to test
+                    your application.
+                </p>
+                <h3>The Rule Engine Development Environment</h3>
+                <p>
+                    When you have created an application to use the Rule Engine Development Environment, you can navigate to the environment
+                    by selecting your application from the
+                    <a href="/#/applications">list of applications</a>. Your application should look similar to the
+                    <b>garage_control_system</b> seen below.
                 </p>
                 <p>
-                    Navigating to <a href="/#/applications">applications</a> and selecting an application using the Rule
-                    Engine API will present you with a following view:
+                    At this point, you should have defined the abstract placeholders for the physical objects you want to use in your application
+                    by going through the steps of the
+                    <a href="#/docs-app3">List Physical Objects</a> step of the
+                    <i>Application Development Process</i>.
                 </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-rule-engine-ide.png" alt="rule_engine_ide" />
+                    <br/>
+                    <span>Garage Control System application using Rule Engine Dev. Env.</span>
+                </div>
+
             </div>
         </div>
     </script>

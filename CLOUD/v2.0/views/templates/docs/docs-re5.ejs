@@ -26,10 +26,61 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>Example scenario 2</h2>
+                <h2>Complete example scenario</h2>
                 <p>
-                    Text...
+                    <b>Description:</b>
+                    <ol>
+                        <li>
+                            Single tap on 'Eyewear' will set color on 'Eyewear' to pink.
+                        </li>
+                        <li>
+                            Double tap on 'Eyewear' will vibrate 'Headgear' AND set color on 'Headgear' to the yellow.
+                        </li>
+                        <li>
+                            Tilting 'Eyewear' will turn off LED on 'Headgear'.
+                        </li>
+                    </ol>
                 </p>
+
+                <p>
+                    <b>Example TILES Cards configuration:</b>
+                    <br/>
+                    <i>This is just one specific TILES Cards configuration. 
+                        There are countless ways to explain this scenario with the TILES Cards. 
+                        You should use the TILES Cards just the way that feels natural to you.
+                    </i>
+                </p>
+                <ol>
+                    <li>
+                        <div class="docs-cards small">
+                            <img src="/images/tiles_cards/a-8.jpg" alt="single_tap" />
+                            <img src="/images/tiles_cards/t-5.jpg" alt="eyewear" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img src="/images/tiles_cards/t-5.jpg" alt="eyewear" />
+                            <img src="/images/tiles_cards/f-6.jpg" alt="color_change" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="docs-cards small">
+                            <img src="/images/tiles_cards/a-8.jpg" alt="double_tap" />
+                            <img src="/images/tiles_cards/t-5.jpg" alt="eyewear" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img src="/images/tiles_cards/t-13.jpg" alt="headgear" />
+                            <img src="/images/tiles_cards/f-6.jpg" alt="color_change" />
+                            <img src="/images/tiles_cards/f-8.jpg" alt="vibrate" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="docs-cards small">
+                            <img src="/images/tiles_cards/a-6.jpg" alt="tilt" />
+                            <img src="/images/tiles_cards/t-5.jpg" alt="eyewear" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img src="/images/tiles_cards/t-13.jpg" alt="headgear" />
+                            <img src="/images/tiles_cards/f-6.jpg" alt="led_off" />
+                        </div>
+                    </li>
+                </ol>
+
+                <p><b>Rule Engine program example:</b></p>
+                <img style="opacity: 0.75;" src="/images/howto/howto-re-example1.png" alt="rule_engine_example1" />
+
             </div>
         </div>
     </script>
