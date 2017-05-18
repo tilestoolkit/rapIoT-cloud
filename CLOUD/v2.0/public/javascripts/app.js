@@ -203,6 +203,11 @@ angular.module('tilesDocs', ['ui.router', 'tilesDocs.controllers', 'tilesApi.ser
 				templateUrl: '/docs-ext3.html',
 				controller: 'DocsCtrl'
 			})
+			.state('docs-ext4', {
+				url: '/docs-ext4',
+				templateUrl: '/docs-ext4.html',
+				controller: 'DocsCtrl'
+			})
 
 			.state('docs-js1', {
 				url: '/docs-js1',
