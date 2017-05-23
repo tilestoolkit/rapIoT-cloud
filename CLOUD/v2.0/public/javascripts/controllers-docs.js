@@ -70,6 +70,11 @@ angular.module('tilesDocs.controllers', [])
 			return retVal;
 		}
 
+		/* Download API functionality */
+		$scope.downloadApi = function () {
+			window.open('/applications/jsapi', '_blank');
+		}
+
 		// On Load
 		var onLoad = function () {
 			// Remember state of sidebar collapsed
@@ -140,7 +145,7 @@ angular.module('tilesDocs.controllers', [])
 
 		var colorKeyWords = function () {
 			var tempDiv = $(".code-template");
-			var aBlue = ['var', 'if', 'else', 'new', 'this', 'function'];
+			var aBlue = ['var', 'if', 'else', 'new', 'this', 'function', 'return'];
 			tempDiv.each(function () {
 				var array = $(this).html().split(' ');
 

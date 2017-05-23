@@ -29,16 +29,61 @@
                 </div>
                 <h2>API Deployment</h2>
                 <p>
-                    <ul>
-                        <li>Make sure placeholders are correct</li>
-                        <li>Sign into TILES Cloud</li>
-                        <li>Navigate to tiles lib root directory</li>
-                        <li>Copy paste lib files</li>
-                        <li>Copy pase zip file of whole API</li>
-                        <li>Register new primitives in <b>Primitives</b></li>
-                    </ul>
+                    Deploying the extended API to the TILES Cloud server is achieved by following the steps listed below.
+                    <ol type="a">
+                        <li>Add placeholders</li>
+                        <li>Replace API in root lib</li>
+                        <li>Add zipped API to lib</li>
+                    </ol>
                 </p>
-                
+                <h3>a. Add placeholders</h3>
+                <p>
+                    The first thing you must do before you deploy the new extended TILES API is to make sure that the
+                    <b>placeholders</b> are properly added to the template files of the API. Please see the code snippet
+                    below for correct placeholders. The placeholders (tilesLibHolder, userNameHolder, appNameHolder and ipAddressHolder)
+                    will be automatically replaced by the TILES Cloud server for all TILES applications on creation. This
+                    way the non-experts will not need to configure the client templates themselved before they can get started
+                    with the application coding. Additionally, the AUTO GENERATED CODE lines should be present immediately
+                    after the client.on(...){ method as seen on the code snippet. This will enable the Cloud server to automatically
+                    add template code for abstract TILES Squares of an application.
+                </p>
+                <div class="code-template" ng-non-bindable>
+                    <div> var tilesLib = require('{{tilesLibHolder}}'); </div>
+                    <div> var client = new tilesLib.TilesClient('{{userNameHolder}}', '{{appNameHolder}}', '{{ipAddressHolder}}',
+                        1883).connect(); </div>
+                    <div><br/></div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> /* AUTO GENERATED CODE START (do not remove) */ </div>
+                    </div>
+                    <div>
+                        <div> /* AUTO GENERATED CODE END (do not remove) */ </div>
+                    </div>
+                    <div>
+                        <div>...</div>
+                    </div>
+                    <div> } </div>
+                </div>
+
+                <h3>b. Replace API in root lib</h3>
+                <p>
+                    For this step you will need access to the TILES Cloud server. On the TILES Cloud server the TILES library files are located
+                    in
+                    <b>/tiles-lib</b>. You will need to replace the files in this directory with the extended API you have
+                    just developed. Before you copy the files, make sure that you remove the
+                    <b>node_modules</b> directory. After you have replaced the API, you need to type
+                    <b>npm install</b> into the <b>api</b> directory to install all the required modules. Your extended JavaScript
+                    API is now available for the Cloud Development Environment.
+                </p>
+                <h3>c. Add zipped API to lib</h3>
+                <p>
+                    In order to make the API available for developers using the Local Development Environment, you will need to zip the whole
+                    API (except the node_modules directory), and copy it into the /tiles-lib directory on the TILES Cloud
+                    server. In the zipped API you do not need the placeholders or AUTO GENERATE CODE comments from step a.
+                    as the server will not replace the code in these files. Your extended JavaScript API is now available
+                    for the Local Development Environment.
+                </p>
+
             </div>
         </div>
     </script>

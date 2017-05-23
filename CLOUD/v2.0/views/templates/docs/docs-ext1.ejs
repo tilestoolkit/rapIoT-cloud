@@ -28,15 +28,91 @@
                 </div>
                 <h2>Device Development</h2>
                 <p>
-                    <ul>
+                    This step of the TEP consist of several substeps that can be seen below. All the substeps listed below are concerned with
+                    <b>hardware</b> and <b>firmware</b> of the physical TILES Squares. The order of the steps are not important,
+                    but some of the steps depend on each other. For example, you should obviously acquire a TILES Square
+                    before you extend its hardware..
+                    <ol type="a">
                         <li>Acquire TILES Squares</li>
-                        <li>Extend hardware (if necessary)</li>
-                        <li>Download Arduino IDE</li>
-                        <li>Acquire firmware from git....</li>
-                        <li>Extend firmware</li>
-                        <li>Example...</li>
-                   </ul>
+                        <li>Download and install the Arduino IDE</li>
+                        <li>Acquire TILES Square firmware</li>
+                        <li>Extend hardware of TILES Squares</li>
+                        <li>Extend firmware of TILES Squares</li>
+                        <li>Flash the firmware to your TILES Squares</li>
+                    </ol>
+                    At the end of this page you will find an explanation of the structure of the TILES Square firmeware together with some firmware
+                    example code.
                 </p>
+                <h3>a. Acquire TILES Squares</h3>
+                <p>
+                    The first thing you will need to do is to acquire the TILES Squares to be used in your customized project. Please visit the
+                    <a href="http://tilestoolkit.io">homepage of the TILES toolkit</a> for instructions on how to acquire
+                    TILES Squares.
+                </p>
+                <h3>b. Download and install the Arduino IDE</h3>
+                <p>
+                    To develop the firmware of the TILES Squares you need to diownload and install the
+                    <a href="https://www.arduino.cc/en/Main/Software">Arduino IDE</a>. Please follow the instructions on
+                    the Arduino homepage
+                </p>
+
+                <h3>c. Acquire TILES Square firmware</h3>
+                <p>
+                    Now that you have installed the Arduino IDE and have acquired your TILES Squares, you need to get access to and download
+                    the source code of the TILES Square firmware. Please see the
+                    <a href="http://tilestoolkit.io">homepage of the TILES toolkit</a> for instructions on how to get the
+                    firmware source code.
+                </p>
+
+                <h3>d. Extend hardware of TILES Squares</h3>
+                <p>
+                    The next thing you will need to do is to extend the hardware of the TILES Squares. This entails pluggin in the new hardware
+                    components to the I2C ports or soldering the hardware to the custom ports on the TILES Squares. Please
+                    see the hardware schematics available together with the source code of the firmware or at the
+                    <a href="http://tilestoolkit.io/">homepage of the TILES toolkit</a>.
+                </p>
+
+                <h3>e. Extend firmware of TILES Squares</h3>
+                <p>
+                    Now that you have extended the physical hardware capabilities of the TILES Squares to fit your need, you will need to implement
+                    the capabilities in the firmware. This is not inteded to teach you firmware development as you are expected
+                    to be familiar with the concept. Please visit the
+                    <a href="https://www.arduino.cc/en/Main/Docs">Arduino docs section</a> and the
+                    <a href="http://www.rfduino.com/documentation/">RFduino docs section</a> for more information about firmware
+                    development.
+                </p>
+                <h3>f. Flashing the firmware to your TILES Squares</h3>
+                <p>
+                    The last substep of this step of the process is to flash the new firmware to all the squares featuring the extended hardware
+                    capabilities in your customized toolkit. This flashing procedure can be done by attaching the TILES Squares
+                    to a computer runing the Arduino IDE and hit the
+                    <b>Upload</b> button. For more information, please visit the
+                    <a href="https://www.arduino.cc/en/guide/environment#toc9">uploading section on the Arduino IDE documentation</a>.
+                </p>
+                <h3>TILES Square firmware structure</h3>
+                <p>
+                    When you open the source code of the firmware you will notice the traditional setup-loop structure of Arduino. The
+                    <b>setup</b> function is called when the TILES Square is powered on and will initialize and set up all
+                    the hardware components of the Square. The
+                    <b>loop</b> function is called recurrently while the Square is powered on and will detect the input primitives
+                    such as tap, single tap and double tap. This is where you will be implementing your input primitives.
+                    In addition the
+                    <b>RFduinoBLE</b> library is used to handle the BLE connection. When a message is sent to the TILES Square
+                    the
+                    <b>RFduinoBLE_onReceive</b> function will be triggered. This is where you will be implementing your output
+                    primitives.
+                </p>
+                <h4>Example output primitive</h4>
+                <p>
+                    Below you can see an example of a new output primitive. This primitive will react to the
+                    <b>led, on, {color}</b> command and will turn the LED of the Square to the input hex color.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-rfduino-onreceive.png" alt="onreceive_rfduino" />
+                    <br/>
+                    <span>Command for setting output primitive LED to specific color</span>
+                </div>
+
             </div>
         </div>
     </script>
