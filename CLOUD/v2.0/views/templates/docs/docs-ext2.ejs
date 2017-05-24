@@ -51,7 +51,6 @@
                                     <li class="dir">clients
                                         <ul>
                                             <li>event-reader.js</li>
-                                            <li>hue-client.js</li>
                                             <li>ifttt-client.js</li>
                                             <li>postman-client.js</li>
                                             <li>tiles-client.js</li>
@@ -74,9 +73,6 @@
                     <ul>
                         <li> <b>event-reader.js</b> - EventReader client for reading events and sending commands to the TILES
                             Squares
-                        </li>
-                        <li><b>hue-client.js</B> - Obsolete client API for controlling HUE lights in a TILES application. This
-                            client is obsolete because the client API does not support controlling the HUE lights remotely.
                         </li>
                         <li>
                             <b>ifttt-client.js</b> - IFTTTClient for triggering applets configured in IFTTT
@@ -117,7 +113,7 @@
                     <div> } </div>
                 </div>
                 <p>
-                    In line 3 of the code snippet seen abovea new property named
+                    In line 3 of the code snippet seen above, a new property named
                     <b>isSingleTap</b> will be added to the returned
                     <b>tile</b> object. This will enable non-experts to simply check this property flag instead of using
                     the TilesClient API to parse the received event.
@@ -176,7 +172,7 @@
                     In line 10 of the code snippet above, we can see that a new function
                     <b>ledOn</b> is added to the returned
                     <b>tile</b> object. Calling this function with a string representation of a color will call the apropriate
-                    <b>send</b> instruction to trigger a command to the respective TILES Square.
+                    <b>send</b> instruction to trigger a command to the respective TILES Square. 
                 </p>
 
                 <h3>c. Add new clients to the JavaScript API</h3>

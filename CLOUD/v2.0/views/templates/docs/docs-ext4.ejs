@@ -32,19 +32,36 @@
                 <p>
                     Even though this step is optional, it is higly recommended in order to simplify the development process for
                     <i>non-experts</i> using the extended toolkit. The TILES Cards is an ideation process that has been tested
-                    and tailored to help people with little experience with programming and IoT to develop ideas for IoT
-                    applications. Following this final step of the TEP will provide non-experts with only those cards that
-                    are supported by your extended TILES toolkit, which will remove potential deadlocks and errors made by
-                    non-expert developers.
+                    and tailored to help non-expert users to develop ideas for IoT applications. Following this final step
+                    of the TEP will provide non-experts with a deck of TILES Cards that are supported by your extended TILES
+                    toolkit, and removing those cards that are not supported.
                 </p>
                 <p>
-                    The only thing you need to do in this step is to remove those cards that are not supported by your extended TILES API. For
-                    example, if there is no primitive for detecting proximity in the firmware of the TILES API, you should
-                    remove this card before giving it to non-experts. This way the non-experts are not able to use proximity
-                    detection in their application, and get confused when it is not supported by the hardware or APIs during
-                    the prototyping phase.
+                    There are only two things that needs to be done in this step:
+                    <ol type="a">
+                        <li>Remove unsupported TILES Cards</li>
+                        <li>Create new TILES Cards</li>
+                    </ol>
                 </p>
+                <h3>a. Remove unsupported TILES Cards</h3>
+                <p>
+                    Starting from the original TILES Card deck you will need to remove those cards that are not supported by your extended TILES
+                    toolkit. For example, if your TILES Square firmware does not support detecting proximity, the
+                    <b>proximity</b> sensor card should be removed from the card deck.
 
+                </p>
+                <h3>b. Create new TILES Cards</h3>
+                <p>
+                    After you have removed those cards that are not supported by your extended TILES toolkit, you need to create additional cards
+                    for the primitives that you have implemented that is not available in the original TILES Card deck. For
+                    example, if you have implemented a printer in the firmware and connected it to the TIELS Squares, you
+                    should create a card for this output primitive.
+                </p>
+                <p>
+                    By following these two steps you ensure that the non-experts only have supported operations available during the ideation
+                    phase in the TILES Cards. This way the non-experts are not able to use unsupported interaction primitives,
+                    and get confused when it is not supported by the hardware or APIs during the prototyping phase.
+                </p>
 
             </div>
         </div>
