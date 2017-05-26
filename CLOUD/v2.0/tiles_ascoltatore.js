@@ -43,34 +43,6 @@ function TilesAscoltatore(settings) {
     wildcard_some: settings.wildcardSome || '*'
   });
 
-  // // Default context
-  // this._matcher.add('tiles/evt/+/+/active', function(topic, message, options){
-  //   var splitTopic = topic.split('/');
-  //   var username = splitTopic[2];
-  //   var deviceId = splitTopic[3];
-  //   var active = (arrayBufferToString(message) === 'true');
-  //   console.log(tag + "Set active state for " + deviceId + ": " + active);
-  //   TilesApi.setDeviceState(deviceId, username, null, null, active);
-  // });
-
-  // this._matcher.add('tiles/evt/+/+/name', function(topic, message, options){
-  //   var splitTopic = topic.split('/');
-  //   var username = splitTopic[2];
-  //   var deviceId = splitTopic[3];
-  //   var name = arrayBufferToString(message);
-  //   console.log(tag + "Register device with ID: " + deviceId + " and name: " + name);
-  //   TilesApi.setDeviceState(deviceId, username, null, null, null, name);
-  // });
-
-  // this._matcher.add('tiles/evt/+/+', function(topic, message, options){
-  //   var splitTopic = topic.split('/');
-  //   var username = splitTopic[2];
-  //   var deviceId = splitTopic[3];
-  //   var state = arrayBufferToString(message);
-  //   console.log(tag + "Set event state for " + deviceId + ": " + state);
-  //   TilesApi.setDeviceState(deviceId, username, null, state, null);
-  // });
-  
   // Application context
   this._matcher.add('tiles/evt/+/+/+/active', function(topic, message, options){
     var splitTopic = topic.split('/');
@@ -97,8 +69,7 @@ function TilesAscoltatore(settings) {
     var username = splitTopic[2];
     var appid = splitTopic[3];
     var deviceId = splitTopic[4];
-    // Todo: Remove following 'if'-statement? The following will disable 'name' and 'active' to be used as _id
-    if(deviceId != 'name' && deviceId != 'active'){ //Sort out default context
+    if(deviceId != 'name' && deviceId != 'active'){ // Sort out default context from old app (can be removed when old app is no longer being used...)
       var state = arrayBufferToString(message);
       console.log(tag + "Set event state for " + deviceId + ": " + state + " (app)");
       TilesApi.setDeviceState(deviceId, username, appid, state, null);

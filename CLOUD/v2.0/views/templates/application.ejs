@@ -116,7 +116,7 @@
             <button ng-show="!addVirtualTileVisible" type="button" class="btn btn-primary" ng-click="toggleView('virtualtile')">+ new Abstract TILE</button>
 
             <form ng-show="addVirtualTileVisible" novalidate="novalidate" class="form-hook" name="virtualTile_form" ng-submit="addVirtualTile()">
-                <input type="text" name="name" placeholder="Abstract name" ng-pattern="/^[a-zA-Z0-9-_]*$/" ng-model="vtName">
+                <input type="text" name="name" placeholder="Abstract name" ng-pattern="/^[a-zA-Z]*$/" ng-model="vtName">
                 <span class="text-danger" ng-show="virtualTile_form.$submitted && virtualTile_form.name.$invalid">
 					Please select a valid name (no whitespace or special character allowed)</span>
                 <br/>
