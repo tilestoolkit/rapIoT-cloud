@@ -20,20 +20,45 @@
         <div class="col-xs-10 col-xs-offset-1">
 
             <div class="page-header">
-                <h1>{{application._id}}</h1>
+                <div style="display:inline-block">
+                    <h1>{{application._id}}</h1>
+                </div>
+                <div style="display:inline-block">
+                    <button ng-click="toggleRunApplication()" class="btn btn-fixed" ng-class="{'btn-warning': !application.appOnline, 'btn-danger': application.appOnline}"
+                        style="margin-bottom:12px; margin-left:15px;">
+                        {{applicationState()}}
+                    </button>
+                </div>
+                <br/>
+                <a href="#/users/{{application.user._id}}"><span class="glyphicon glyphicon-user"></span>&nbsp;{{application.user._id}}</a>
             </div>
             <!-- Application Info -->
             <table class="info-table">
+                <!-- List environment type -->
                 <tr>
-                    <td class="first">Application owner</td>
-                    <td class="second"><a href="#/users/{{application.user._id}}"><span class="glyphicon glyphicon-user"></span>&nbsp;{{application.user._id}}</a></td>
-                </tr>
-                <tr>
-                    <td class="first">Dev environment</td>
-                    <td class="second">{{application.devEnvironment}}</td>
+                    <td class="first">Development environment</td>
+                    <td class="second">
+                        {{application.devEnvironment}}
+                    </td>
                 </tr>
 
-                <!-- IFTTT Key -->
+                <!-- Start/stop hosting TIDE for 'Cloud' Dev.Env. -->
+                <tr ng-show="application.devEnvironment == 'Cloud'">
+                    <td class="first">
+                        Environment actions
+                    </td>
+                    <td class="second">
+                        <button ng-click="workspaceClick()" class="btn btn-fixed" ng-class="{'btn-success': !application.environmentOnline, 'btn-danger': application.environmentOnline}">
+						    {{workspaceState()}}
+                        </button>
+
+                        <a href="{{workspaceUrl()}}" class="btn btn-fixed btn-primary" target="_blank" ng-show="application.environmentOnline">
+						    Launch Environment
+                        </a>
+                    </td>
+                </tr>
+
+                <!-- IFTTT Key for 'Rule engine' Dev.Env.-->
                 <tr ng-show="application.devEnvironment == 'Rule engine'">
                     <td class="first">IFTTT key</td>
                     <td class="second">
@@ -49,6 +74,7 @@
                     </td>
                 </tr>
 
+                <!-- Download API for 'Local' Dev.Env. -->
                 <tr ng-show="application.devEnvironment == 'Local'">
                     <td class="first">
                         JavaScript API
@@ -59,40 +85,16 @@
                         </button>
                     </td>
                 </tr>
-
-                <!-- Button: Host workspace -->
-                <tr ng-show="application.devEnvironment == 'Cloud'">
-                    <td class="first">Workspace</td>
-                    <td class="second">
-                        <button ng-click="workspaceClick()" class="btn btn-fixed" ng-class="{'btn-success': !application.environmentOnline, 'btn-danger': application.environmentOnline}">
-						    {{workspaceState()}}
-                        </button>
-                    </td>
-                </tr>
-                <tr ng-show="application.devEnvironment == 'Cloud' && application.environmentOnline">
-                    <td class="first">Workspace URL</td>
-                    <td class="second"><a href="{{workspaceUrl()}}" target="_blank">{{workspaceUrl()}}</a></td>
-                </tr>
-
-                <!-- Button: Start application -->
-                <tr ng-show="application.devEnvironment == 'Cloud' || application.devEnvironment == 'Rule engine'">
-                    <td class="first">Application</td>
-                    <td class="second">
-                        <button ng-click="toggleRunApplication()" class="btn btn-fixed" ng-class="{'btn-success': !application.appOnline, 'btn-danger': application.appOnline}">
-                            {{applicationState()}}
-                        </button>
-                    </td>
-                </tr>
             </table>
 
-            <br/><br/>
+            <hr/>
 
-            <h3>Abstract TILES</h3>
-            <div ng-hide="application.virtualTiles.length">No Abtract TILES registered for this application.<br/><br/></div>
+            <h3>List of items</h3>
+            <div ng-hide="application.virtualTiles.length">No item registered for this application.<br/><br/></div>
             <table ng-show="application.virtualTiles.length" class="table">
                 <thead>
                     <tr>
-                        <th>Absctract TILE name</th>
+                        <th>Item name</th>
                         <th>TILE ID</th>
                         <th>Active</th>
                         <th>State</th>
@@ -113,10 +115,10 @@
                     </tr>
                 </tbody>
             </table>
-            <button ng-show="!addVirtualTileVisible" type="button" class="btn btn-primary" ng-click="toggleView('virtualtile')">+ new Abstract TILE</button>
+            <button ng-show="!addVirtualTileVisible" type="button" class="btn btn-primary" ng-click="toggleView('virtualtile')">+ new item</button>
 
             <form ng-show="addVirtualTileVisible" novalidate="novalidate" class="form-hook" name="virtualTile_form" ng-submit="addVirtualTile()">
-                <input type="text" name="name" placeholder="Abstract name" ng-pattern="/^[a-zA-Z]*$/" ng-model="vtName">
+                <input type="text" name="name" placeholder="Item name" ng-pattern="/^[a-zA-Z]*$/" ng-model="vtName">
                 <span class="text-danger" ng-show="virtualTile_form.$submitted && virtualTile_form.name.$invalid">
 					Please select a valid name (no whitespace or special character allowed)</span>
                 <br/>

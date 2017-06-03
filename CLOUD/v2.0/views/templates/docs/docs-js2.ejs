@@ -198,6 +198,42 @@
                     <div> }); </div>
                 </div>
 
+                <h3>TILES Client API usage</h3>
+                <p>
+                    If you are an expert user, and you need to send custom messages to the TILES Squares, you can use the TILES Client to achieve
+                    this.
+                </p>
+
+                <!-- TILES CLIENT -->
+                <div class="object-template">
+                    <div class="header header-1">TilesClient</div>
+                    <div class="header header-2">Methods</div>
+                    <div class="table-wrapper">
+                        <table class="table api-table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>send( String, String, String, String )</td>
+                                <td>Using the send method, you can send a command to a TILES Square.</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Example</div>
+                </div>
+                <div class="code-template inverse">
+                    <div> var client = new tilesLib.TilesClient('Anders', 'garage_control_system', '178.62.99.218', 1883).connect(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> /* To turn on the led to color red on TILES Square with name 'tile_c5' */ </div>
+                        <div> client.send('tile_c5', 'led', 'on', 'red') </div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+
+
             </div>
         </div>
     </script>

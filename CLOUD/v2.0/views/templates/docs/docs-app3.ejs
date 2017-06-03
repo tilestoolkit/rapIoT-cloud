@@ -26,50 +26,45 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>3. List Physical Objects</h2>
+                <h2>3. Create and configure application</h2>
                 <p>
-                    In this step of the process you will be identifying the physical objects of your application and registering them in the
-                    application created in the
-                    <a href="{{prevUrl()}}">previous step</a> of the process. This page will guide you through the step of
-                    using the
-                    <a href="http://tilestoolkit.io/cards" target="_blank">TILES Cards</a> to identify the physical objects.
+                    This step of the process involves defining an applicaiton name and create the application context by selecting a development
+                    environment in the TILES Cloud web portal. Which development environment you select depends on how you
+                    want to develop your application. See the
+                    <a href="{{selectDevEnvUrl}}" target="_blank">development environment</a> section to read more about the available environments.
+                    If this is the first time you use the TILES toolkit for your IoT application prototyping, we suggest
+                    you select the
+                    <b>Cloud development environment</b> as this is what we will be using throughout this tutorial.
                 </p>
-
-                <h3>a. Identifying physical objects</h3>
+                <h3>Creating a new application in TILES Cloud</h3>
                 <p>
-                    Using the TILES Cards makes it very easy to identify the physical objects of your application. In fact, every THINGS card
-                    used in the ideation process represents one physical object in your application. To transition from the
-                    TILES Cards you will need to write down all the THINGS Cards you have used on a piece of paper.
-                </p>
-                <div class="docs-img docs-cards">
-                    <img src="/images/tiles_cards/t-4.jpg" alt="tiles_card_t-4" />
-                    <img src="/images/tiles_cards/t-9.jpg" alt="tiles_card_t-9" />
-                    <img src="/images/tiles_cards/t-10.jpg" alt="tiles_card_t-10" />
-                    <img src="/images/tiles_cards/t-13.jpg" alt="tiles_card_t-13" />
-                    <br/>
-                    <span>THINGS Cards from TILES Cards</span>
-                </div>
-
-                <h3>b. Configure <i>abstract placeholders</i> in your application</h3>
-                <p>
-                    Now that you have identified all physical objects to be used in your application it is time to configure
-                    <i>abstract placeholders</i>. To do this you need to navigate to the
-                    <a href="/#/applications" target="_blank">applications</a> page and select your application from the
-                    list. If you cannot find your application in the list, you will need to go through the
-                    <a href="#/docs-app2">Create Application</a> step of the process. After you have selected your application
-                    from the list, you will see a similar page as in the image below.
+                    To create a new application, navigate to the <a href="/#/applications" target="_blank">applications</a> page of the TILES
+                    Cloud web portal. Here you will be able to see all registered applications together with some information
+                    about them, as seen in the image below.
                 </p>
                 <div class="docs-img opacity75">
-                    <img src="/images/howto/howto-add-abstract-tile.png" alt="application_details" />
+                    <img src="/images/howto/howto-list-applications.png" alt="list_applications" />
                     <br/>
-                    <span>Application details, with two abstract placeholders</span>
+                    <span>List of Applications in TILES Cloud web portal</span>
                 </div>
                 <p>
-                    The <b>garage_control_system</b> application seen above already has two abstract placeholders registered;
-                    <b>front_door</b> and <b>garage_door</b>. By clicking the
-                    <b>+ new Abstract TILE</b> button, you will be able to add a new abstract placeholder. Make sure to do
-                    this for all the physical objects you identified previously. You should give the abstract placeholders
-                    short names as you will be using these names later in your program code.
+                    By clicking the <b>Create new application</b> you will be prompted with the create application form,
+                    as seen below. Here you will enter a name for your application, select the development environment, and
+                    select the owner of the application. If you are unsure of which development environemnt to use, we suggest
+                    the
+                    <b>Cloud development environment</b>. As application owner, please select your username, as you defined
+                    in the <a href="{{prevUrl()}}">previous step</a>. After filling the form, hit the <b>Create</b> button,
+                    and your application will appear in the list of applicaitons.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-create-application.png" alt="create_application" />
+                    <br/>
+                    <span>Add application form in TILES Cloud web portal</span>
+                </div>
+                <p class="text-signal-orange">
+                    <span class="glyphicon glyphicon-warning-sign"></span> See
+                    <a href="{{selectDevEnvUrl}}" target="_blank">development environment</a> section for more information on the available
+                    environments.
                 </p>
             </div>
         </div>

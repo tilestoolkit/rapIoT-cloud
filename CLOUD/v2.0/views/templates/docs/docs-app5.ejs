@@ -26,54 +26,33 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>5. Code Application</h2>
+                <h2>5. Launch Development Environment</h2>
                 <p>
-                    In this step of the process you will be writing the actual program code of your application. This is the most complex step
-                    of the process and has been divided into four substeps for you to follow. Do not worry if this is the
-                    first time writing program code as this documentation will guide you through every step of the development
-                    process. The four steps are:
-                    <ol type="a">
-                        <li>Map HUMAN ACTIONS cards with TILES API events</li>
-                        <li>Map FEEDBACK cards with TILES API commands</li>
-                        <li>Map SERVICES cards with TILES API sources</li>
-                        <li>Use TILES API for additional application behavior</li>
-                    </ol>
-                    For this step you will be using a
-                    <b>separate</b> part of the documentation. When you have finished the program code you should return
-                    to this section and continue with the Application Development Process.
+                    In the <a href="{{prevUrl()}}">previous step</a> you configured your application with the digital placeholders
+                    for the physical objects you will use in your application. Now you are ready to start code your application,
+                    but before you can do that, you need to start the development environment in which you will be writing
+                    the application code. In this section we will show how to start the
+                    <b>Cloud Development Environment</b>. Please visit the
+                    <a href="{{selectDevEnvUrl}}">development environment</a> section for more information on other available
+                    development environments.
                 </p>
-                <h3>Cloud Development Environment</h3>
+                <h3>Starting Cloud Development Environment</h3>
                 <p>
-                    If you selected the Cloud Development Environment, you will be writing your program code in JavaScript. At this point you
-                    should have the Cloud Development Environment running as described in the
-                    <a href="{{prevUrl()}}">previous step</a> of the process.
-                    <br/>
-                    <br/>
-                    <b>
-                    The <a href="#/docs-js1" target="_blank">JavaScript API</a> will guide you through the steps of prototyping your IoT application.
-                </b>
+                    To start the Cloud Development Environment, there is only one thing you need to do. Go to the application details by selecting
+                    your application from the
+                    <a href="/#/applications" target="_blank">list of applications</a>. Here you should see a button with
+                    the text
+                    <b>Start hosting</b>. Please click this button, and your Cloud Development Environment will be started.
+                    After clicking the button, a second button will appear with the text
+                    <b>Launch Environment</b>. Click this button, and the Cloud Development Environment will be onpened in
+                    a new tab in your browser. The environment should resemble the image seen below.
                 </p>
-                <h3>Local Development Environment</h3>
-                <p>
-                    If you selected the Local Development Environment, you will be writing your program code in JavaScript. You should have downloaded
-                    the JavaScript API and have your favorite IDE running on your local computer, as explained in the
-                    <a href="{{prevUrl()}}">previous step</a> of the process.
+                <div class="docs-img opacity75">
+                    <img src="images/howto/howto-cloud9-ide.png" alt="cloud9_ide" />
                     <br/>
-                    <br/>
-                    <b>
-                    The <a href="#/docs-js1" target="_blank">JavaScript API</a> will guide you through the steps of prototyping your IoT application.
-                </b>
-                </p>
-                <h3>Rule Engine Development Environment</h3>
-                <p>
-                    If you selected the Rule Engine Development Environment, you will not be writing your application code textually. Instead
-                    you will be defining rules that will connect your physical objects together.
-                    <br/>
-                    <br/>
-                    <b>
-                    The <a href="#/docs-re1" target="_blank">Rule Engine API</a> will guide you through the steps of prototyping your IoT application.
-                </b>
-                </p>
+                    <span>Cloud Development Environment</span>
+                </div>
+
             </div>
         </div>
     </script>

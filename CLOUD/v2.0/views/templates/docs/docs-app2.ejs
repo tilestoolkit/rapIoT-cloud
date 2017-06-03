@@ -26,45 +26,28 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>2. Create and configure application</h2>
+                <h2>2. Create User</h2>
+
                 <p>
-                    This step of the process involves defining an applicaiton name and create the application context by selecting a development
-                    environment in the TILES Cloud web portal. Which development environment you select depends on how you
-                    want to develop your application. See the
-                    <a href="{{selectDevEnvUrl}}" target="_blank">development environment</a> section to read more about the available environments.
-                    If this is the first time you use the TILES toolkit for your IoT application prototyping, we suggest
-                    you select the
-                    <b>Cloud development environment</b> as this is what we will be using throughout this tutorial.
-                </p>
-                <h3>Creating a new application in TILES Cloud</h3>
-                <p>
-                    To create a new application, navigate to the <a href="/#/applications" target="_blank">applications</a> page of the TILES
-                    Cloud web portal. Here you will be able to see all registered applications together with some information
-                    about them, as seen in the image below.
-                </p>
-                <div class="docs-img opacity75">
-                    <img src="/images/howto/howto-list-applications.png" alt="list_applications" />
-                    <br/>
-                    <span>List of Applications in TILES Cloud web portal</span>
-                </div>
-                <p>
-                    By clicking the <b>Create new application</b> you will be prompted with the create application form,
-                    as seen below. Here you will enter a name for your application, select the development environment, and
-                    select the owner of the application. If you are unsure of which development environemnt to use, we suggest
+                    In this step of the <i>TILES toolkit Application Development Process</i> you will be creating
+                    a user account in the TILES Cloud web portal. If you have already created an account, you can skip to
                     the
-                    <b>Cloud development environment</b>. As application owner, please select your username, as you defined
-                    in the <a href="{{prevUrl()}}">previous step</a>. After filling the form, hit the <b>Create</b> button,
-                    and your application will appear in the list of applicaitons.
+                    <a href="{{nextUrl()}}">next step</a>.
+                </p>
+                <h3>Creating a user account</h3>
+                <p>
+                    To create a user account, navigate to the <a href="/#/users">Users page</a>, and enter a username in
+                    the form and click <b>Post</b> as seen in the image below.
                 </p>
                 <div class="docs-img opacity75">
-                    <img src="/images/howto/howto-create-application.png" alt="create_application" />
+                    <img src="/images/howto/howto-create-user.png" alt="create_user" />
                     <br/>
-                    <span>Add application form in TILES Cloud web portal</span>
+                    <span>Creating a new user account</span>
                 </div>
-                <p class="text-signal-orange">
-                    <span class="glyphicon glyphicon-warning-sign"></span> See
-                    <a href="{{selectDevEnvUrl}}" target="_blank">development environment</a> section for more information on the available
-                    environments.
+                <p>
+                    Once you have created a new user it will appear in the list. If you click on your username, you will be able to see a list
+                    of all your connected TILES Squares. If you just created a new account, this list will be empty, so don't
+                    worry if you can't see your TILES there yet.
                 </p>
             </div>
         </div>

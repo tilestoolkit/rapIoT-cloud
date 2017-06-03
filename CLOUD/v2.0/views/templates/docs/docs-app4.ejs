@@ -26,48 +26,50 @@
                 <div>
                     <% include docs-common-content %>
                 </div>
-                <h2>4. Launch Development Environment</h2>
+                <h2>4. List Physical Objects</h2>
                 <p>
-                    In the <a href="{{prevUrl()}}">previous step</a> you configured your application with the digital placeholders
-                    for the physical objects you will use in your application. Now you are ready to start code your application,
-                    but before you can do that, you need to start the development environment in which you will be writing
-                    the application code. Depending on what environment you selected for your application when
-                    <a href="#/docs-app2">creating the application</a>, this process varies slightly. Please find the relevant
-                    section below.
+                    In this step of the process you will be identifying the physical objects of your application and registering them in the
+                    application created in the
+                    <a href="{{prevUrl()}}">previous step</a> of the process. This page will guide you through the step of
+                    using the
+                    <a href="http://tilestoolkit.io/cards" target="_blank">TILES Cards</a> to identify the physical objects.
                 </p>
-                <h3>Cloud Development Environment</h3>
+
+                <h3>a. Identifying physical objects</h3>
                 <p>
-                    If you followed the suggested approach of this tutorial and selected the Cloud Development Environment, there is only one
-                    thing you need to do in order to start the development environment. Go to the application details by
-                    selecting your application from the
-                    <a href="/#/applications" target="_blank">list of applications</a>. Here you should see a button with the text
-                    <b>Start hosting</b>. Please click this button, and your Cloud Development Environment will be started.
-                    After clicking the button you should see an URL which will bring you to your Cloud Development Environment,
-                    which should be similar to the one seen in the image below.
+                    Using the TILES Cards makes it very easy to identify the physical objects of your application. In fact, every THINGS card
+                    used in the ideation process represents one physical object in your application. To transition from the
+                    TILES Cards you will need to write down all the THINGS Cards you have used on a piece of paper.
                 </p>
-                <div class="docs-img opacity75">
-                    <img src="images/howto/howto-cloud9-ide.png" alt="cloud9_ide" />
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/t-4.jpg" alt="tiles_card_t-4" />
+                    <img src="/images/tiles_cards/t-9.jpg" alt="tiles_card_t-9" />
+                    <img src="/images/tiles_cards/t-10.jpg" alt="tiles_card_t-10" />
+                    <img src="/images/tiles_cards/t-13.jpg" alt="tiles_card_t-13" />
                     <br/>
-                    <span>Cloud Development Environment</span>
+                    <span>THINGS Cards from TILES Cards</span>
                 </div>
 
-                <h3>Local Development Environment</h3>
+                <h3>b. Configure <i>items</i> in your application</h3>
                 <p>
-                    If you selected the Local Development Environment, you should be familiar with NodeJS. By selecting this approach, you will
-                    be able to download the full JavaScript API by selecting your application from the <b>Download API</b>                    button. Unzip the downloaded file your local computer and open a command line interface (CLI) in the
-                    directory named API. The first thing you will need to do is run
-                    <b>npm install</b> to install all dependencies before you can start writing your code in the tiles.js
-                    file located in the templates directory. Please visit the documentation on the
-                    <a href="https://nodejs.org/en/docs/" target="_blank">NodeJS website</a> for more information about using NodeJS and
-                    npm.
+                    Now that you have identified all physical objects to be used in your application it is time to configure
+                    <i>items</i> in your application. To do this you need to navigate to the
+                    <a href="/#/applications" target="_blank">applications</a> page and select your application from the
+                    list. If you cannot find your application in the list, you will need to go through the
+                    <a href="#/docs-app3">Create Application</a> step of the process. After you have selected your application
+                    from the list, you will see a similar page as in the image below.
                 </p>
-                <h3>Rule Engine Development Environment</h3>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-add-abstract-tile.png" alt="application_details" />
+                    <br/>
+                    <span>Application details, with two items</span>
+                </div>
                 <p>
-                    The Rule Engine Development Environment is the simples of the available developmen environments. After creating your application
-                    the environment will alrady be running, and there is no further steps required. Select your application
-                    from the
-                    <a href="/#/applications" target="_blank">list of applications</a>, and you are ready to start developing your first
-                    IoT application.
+                    The <b>garage_control_system</b> application seen above already has two items registered;
+                    <b>front_door</b> and <b>garage_door</b>. By clicking the
+                    <b>+ new item</b> button, you will be able to add a new item. Make sure to do this for all the physical
+                    objects you identified previously. You should give the items short names as you will be using these names
+                    later in your program code.
                 </p>
             </div>
         </div>

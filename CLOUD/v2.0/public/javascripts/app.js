@@ -182,6 +182,11 @@ angular.module('tilesDocs', ['ui.router', 'tilesDocs.controllers', 'tilesApi.ser
 				templateUrl: '/docs-app7.html',
 				controller: 'DocsCtrl'
 			})
+			.state('docs-app8', {
+				url: '/docs-app8',
+				templateUrl: '/docs-app8.html',
+				controller: 'DocsCtrl'
+			})
 
 			.state('docs-ext0', {
 				url: '/docs-ext0',
