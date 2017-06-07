@@ -50,7 +50,7 @@
                 <p>
                     Looking at the code snippet below, we see that the plant is defined in the JavaScript code in
                     <b>line 3</b>. The code for sending the change color command can be seen in 
-                    <b>line 5</b>. Here we are chaning the color to 'FF00FF' or pink.
+                    <b>line 5</b>. Here we are changing the color to 'FF00FF' or pink.
                 </p>
                 <div class="code-template">
                     <div> var reader = new tilesLib.EventReader(); </div>
@@ -66,31 +66,31 @@
                 </div>
 
 
-                <h3>Example 2: Vibrate Refridgerator</h3>
+                <h3>Example 2: Vibrate Refrigerator</h3>
                 <p>
-                    This example shows how FEEDBACK <b>Vibrate</b> and THINGS <b>Refridgerator</b> is mapped to JavaScript code.
-                    This is useful if you want your refridgerator to vibrate.
+                    This example shows how FEEDBACK <b>Vibrate</b> and THINGS <b>Refrigerator</b> is mapped to JavaScript code.
+                    This is useful if you want your refrigerator to vibrate.
                 </p>
                 <div class="docs-img docs-cards">
                     <img src="/images/tiles_cards/f-8.jpg" alt="vibrate" />
-                    <img src="/images/tiles_cards/t-10.jpg" alt="refridgerator" />
+                    <img src="/images/tiles_cards/t-10.jpg" alt="refrigerator" />
                     <br/>
-                    <span>Vibrate Refridgerator</span>
+                    <span>Vibrate Refrigerator</span>
                 </div>
                 <p>
-                    Looking at the code snippet below, we see that the refridgerator is defined in the JavaScript code in
+                    Looking at the code snippet below, we see that the refrigerator is defined in the JavaScript code in
                     <b>line 3</b>. The code for sending the vibrate command can be seen in 
-                    <b>line 5</b>. Here we are vibrating the refridgerator with short bursts.
+                    <b>line 5</b>. Here we are vibrating the refrigerator with short bursts.
                 </p>
                 <div class="code-template">
                     <div> var reader = new tilesLib.EventReader(); </div>
                     <div> client.on('receive', function (tileId, event) { </div>
                     <div>
-                        <div> var refridgerator = reader.getTile('refridgerator', client); </div>
+                        <div> var refrigerator = reader.getTile('refrigerator', client); </div>
                     </div>
                     <div><br/></div>
                     <div>
-                        <div>refridgerator.hapticBurst(); /* Vibrate the refridgerator with bursts */</div>
+                        <div>refrigerator.hapticBurst(); /* Vibrate the refrigerator with bursts */</div>
                     </div>
                     <div> }); </div>
                 </div>
