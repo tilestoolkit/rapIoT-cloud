@@ -1,0 +1,206 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-ext2"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Library Development</h2>
+                <p>
+                    Similarly to the previous step of the TEP, this step also contains several substeps that can be seen in the list below. All
+                    the steps in the list below are concerned with the
+                    <b>APIs</b> of the TILES toolkit.
+                    <ol type="a">
+                        <li>Download JavaScript API</li>
+                        <li>Add detection of primitives to the EventReader client</li>
+                        <li>Add new clients to the JavaScript API</li>
+                        <li>Add new primitives to Rule Engine API</li>
+                    </ol>
+                    At the end of this page you will find code samples on how to add primitives to the EventReader client of the JavaScript API.
+                </p>
+                <h3>a. Download JavaScript API</h3>
+                <p>
+                    The first thing you will need to do is to download the latest version of the
+                    <a><span ng-click="downloadApi()">JavaScript API</span></a>. You should familiarize yourself with the
+                    structure of the API.
+                    <div class="tree-wrapper">
+                        <ul class="tree">
+                            <li class="dir">api
+                                <ul>
+                                    <li class="dir">clients
+                                        <ul>
+                                            <li>event-reader.js</li>
+                                            <li>ifttt-client.js</li>
+                                            <li>postman-client.js</li>
+                                            <li>tiles-client.js</li>
+                                        </ul>
+                                    </li>
+                                    <li>api-client.js</li>
+                                    <li>package.json</li>
+                                </ul>
+                            </li>
+                            <li class="dir">templates
+                                <ul>
+                                    <li>example-API.js</li>
+                                    <li>tiles.js</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    The <b>clients</b> directory contains the JavaScript client APIs. Please see the list below for a short
+                    description of their responsibilities.
+                    <ul>
+                        <li> <b>event-reader.js</b> - EventReader client for reading events and sending commands to the TILES
+                            Squares
+                        </li>
+                        <li>
+                            <b>ifttt-client.js</b> - IFTTTClient for triggering applets configured in IFTTT
+                        </li>
+                        <li>
+                            <b>postman-client.js</b> - PostmanClient for sending web requests as GET or POST requests to
+                            any available web service.
+                        </li>
+                        <li>
+                            <b>tiles-client.js</b> - TilesClient is used to handle background communication with the TILES
+                            Cloud server and will be responsible for connecting to the server and forwarding the events and
+                            commands to and from the EventReader client in the background.
+                        </li>
+                    </ul>
+
+                </p>
+                <h3>b. Add detection of primitives to the EventReader client</h3>
+                <p>
+                    In order to make non-expert able to use the new primitives in their program code, the primitives should be registered to
+                    the
+                    <b>EventReader client API</b>. The
+                    <b>input primitives</b> should be added to the <i>readEvent</i> prototype function, while
+                    <b>output primitives</b> should be added to the <i>getTile</i> prototype function. Below is an example
+                    of how to read the <i>single tap</i> event and how to send <i>led on</i> command.
+                </p>
+
+                <div class="code-template">
+                    <div> EventReader.prototype.readEvent = function (event, client) { </div>
+                    <div>
+                        <div> var tile = this.getTile(event.name, client); </div>
+                    </div>
+                    <div>
+                        <div> tile.isSingleTap = (event.properties[0] === 'tap' && event.properties[1].startsWith('double')); </div>
+                    </div>
+                    <div>
+                        <div> return tile; </div>
+                    </div>
+                    <div> } </div>
+                </div>
+                <p>
+                    In line 3 of the code snippet seen above, a new property named
+                    <b>isSingleTap</b> will be added to the returned
+                    <b>tile</b> object. This will enable non-experts to simply check this property flag instead of using
+                    the TilesClient API to parse the received event.
+                </p>
+
+                <div class="code-template">
+                    <div> EventReader.prototype.getTile = function (name, client) { </div>
+                    <div>
+                        <div> var id = 0;</div>
+                    </div>
+                    <div>
+                        <div> if (client.tiles[name]) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> id = client.tiles[name]; </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } </div>
+                    </div>
+                    <div>
+                        <div> var tile = { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> name: name, </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> id: id </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> }; </div>
+                    </div>
+
+                    <div>
+                        <div> tile.ledOn = function (color){ </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> client.send(id, 'led', 'on', color); </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>}</div>
+                    </div>
+                    <div>
+                        <div> return tile; </div>
+                    </div>
+                    <div> } </div>
+                </div>
+                <p>
+                    In line 10 of the code snippet above, we can see that a new function
+                    <b>ledOn</b> is added to the returned
+                    <b>tile</b> object. Calling this function with a string representation of a color will call the appropriate
+                    <b>send</b> instruction to trigger a command to the respective TILES Square.
+                </p>
+
+                <h3>c. Add new clients to the JavaScript API</h3>
+                <p>
+                    Optionally, if a new service is to be added to the JavaScript API, you could create a new client. Adding a new client could
+                    be useful if a new specific web service should be introduced into the JavaScript API. The PostmanClient
+                    is an example of a client API that is implemented to enable TILES application developers to use RESTful
+                    services in their application. To add a new client, simply create a new file in the
+                    <b>clients</b> directory and write the code to your client here. Finally, in order to make the client
+                    available in the JavaScript API, open the file
+                    <b>api-client.js</b> and add your newly created client to expose it through the JavaScript API.
+                </p>
+
+                <h3>d. Add new primitives to the Rule Engine API</h3>
+                <p>
+                    Adding a new primitive to the RuleEngine API is very simple. All you have to do is to navigate to the
+                    <a href="/#/primitives" target="_blank">primitives page</a> in the TILES Cloud web portal and add your
+                    input/output primitive to the tables of primitives. For the input primitives, the
+                    <b>name</b> columns is the name visible in the Rule Engine development environment so you can pick any
+                    name you like. The
+                    <b>property[0]</b> and <b>property[1]</b> columns, however, must match the event property of the primitive.
+                    For the output primitive the
+                    <b>name</b> and <b>property[0]</b> are used to trigger the proper command, while selecting the custom
+                    property enables users to input a custom string to be sent with the command. Enabling the custom command
+                    will for instance enable users to enter a hexadecimal representation of the color they want to set to
+                    the LED of a TILES Square.
+                </p>
+
+            </div>
+        </div>
+    </script>

@@ -1,0 +1,101 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-js4"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>4. Map FEEDBACK cards to TILES commands</h2>
+
+                <p>
+                    Section <a href="#/docs-js2">2. EventReader API</a> covered how to use the EventReader API for processing
+                    events and commands in the JavaScript API. The
+                    <a href="{{prevUrl()}}">previous section</a> covered how to map the HUMAN ACTIONS cards into TILES events.
+                    In this section we will be looking into how to map the FEEDBACK cards into TILES commands. You have probably
+                    realized by now that the TILES events are input primitive messages from the TILES Squares to your code,
+                    while the TILES commands are output primitive messages from your code to the TILES Squares.
+                </p>
+                <h3>Example 1: Change color on Plant</h3>
+                <p>
+                    This example shows how FEEDBACK <b>Color change</b> and THINGS <b>Plant</b> is mapped to JavaScript code.
+                    This is useful if you want the color on your plant to change.
+                </p>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/f-6.jpg" alt="color_change" />
+                    <img src="/images/tiles_cards/t-20.jpg" alt="plant" />
+                    <br/>
+                    <span>Change color on Plant</span>
+                </div>
+                <p>
+                    Looking at the code snippet below, we see that the plant is defined in the JavaScript code in
+                    <b>line 3</b>. The code for sending the change color command can be seen in 
+                    <b>line 5</b>. Here we are changing the color to 'FF00FF' or pink.
+                </p>
+                <div class="code-template">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var plant = reader.getTile('plant', client); </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div>plant.ledOn('FF00FF'); /* Set the color of plant to 'FF00FF' (pink) */</div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+
+                <h3>Example 2: Vibrate Refrigerator</h3>
+                <p>
+                    This example shows how FEEDBACK <b>Vibrate</b> and THINGS <b>Refrigerator</b> is mapped to JavaScript code.
+                    This is useful if you want your refrigerator to vibrate.
+                </p>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/f-8.jpg" alt="vibrate" />
+                    <img src="/images/tiles_cards/t-10.jpg" alt="refrigerator" />
+                    <br/>
+                    <span>Vibrate Refrigerator</span>
+                </div>
+                <p>
+                    Looking at the code snippet below, we see that the refrigerator is defined in the JavaScript code in
+                    <b>line 3</b>. The code for sending the vibrate command can be seen in 
+                    <b>line 5</b>. Here we are vibrating the refrigerator with short bursts.
+                </p>
+                <div class="code-template">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var refrigerator = reader.getTile('refrigerator', client); </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div>refrigerator.hapticBurst(); /* Vibrate the refrigerator with bursts */</div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+
+            </div>
+        </div>
+    </script>

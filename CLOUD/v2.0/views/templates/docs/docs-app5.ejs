@@ -1,0 +1,58 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-app5"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>5. Launch Development Environment</h2>
+                <p>
+                    In the <a href="{{prevUrl()}}">previous step</a> you configured your application with the digital placeholders
+                    for the physical objects you will use in your application. Now you are ready to start code your application,
+                    but before you can do that, you need to start the development environment in which you will be writing
+                    the application code. In this section we will show how to start the
+                    <b>Cloud Development Environment</b>. Please visit the
+                    <a href="{{selectDevEnvUrl}}">development environment</a> section for more information on other available
+                    development environments.
+                </p>
+                <h3>Starting Cloud Development Environment</h3>
+                <p>
+                    To start the Cloud Development Environment, there is only one thing you need to do. Go to the application details by selecting
+                    your application from the
+                    <a href="/#/applications" target="_blank">list of applications</a>. Here you should see a button with
+                    the text
+                    <b>Start hosting</b>. Please click this button, and your Cloud Development Environment will be started.
+                    After clicking the button, a second button will appear with the text
+                    <b>Launch Environment</b>. Click this button, and the Cloud Development Environment will be openedgatew in
+                    a new tab in your browser. The environment should resemble the image seen below.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="images/howto/howto-cloud9-ide.png" alt="cloud9_ide" />
+                    <br/>
+                    <span>Cloud Development Environment</span>
+                </div>
+
+            </div>
+        </div>
+    </script>

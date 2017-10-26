@@ -1,0 +1,101 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-main5"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>TILES Squares Primitives</h2>
+                <p>
+                    The TILES toolkit enables the definition, implementation and manipulation of data type primitives. The TILES Square primitives
+                    allow to abstract low-level implementation details into simple primitives for bridging the digital and
+                    the physical world. The primitives are implemented in the firmware of the TILES Squares, and events containing
+                    the identifier of the primitives will traverse the layers of the toolkit infrastructure upon interacting
+                    with the Squares of an application. The TILES toolkit differentiate between two types of primitives:
+                    <ol>
+                        <li>input primitives - <i>originating from the TILES Squares</i></li>
+                        <li>output primitives - <i>targeting the TILES Squares</i></li>
+                    </ol>
+                </p>
+                <div class="docs-img">
+                    <img src="/images/primitives.png" alt="primitives" />
+                    <br/>
+                    <span>RapIoT toolkit example primitives</span>
+                </div>
+
+                <p>
+                    Example of primitives supported by the TILES Squares are listed in the table below. In addition, the Squares features custom
+                    ports to be used for extending the hardware with primitives of your own design. To extend the
+                    TILES Square primitives, see the <a href="{{extProcessUrl}}">TILES toolkit Extension Process</a>.
+                    For a complete overview of all the currently supported interaction primitives, see the list of
+                    <a href="/#/primitives" target="_blank">primitives</a> registered in the TILES Cloud web portal.
+                </p>
+
+                <table class="table table-striped docs-process-table">
+                    <tr>
+                        <td style="max-width:0;white-space:nowrap;"><b><i>INPUT PRIMITIVES:</i></b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Primitive</th>
+                        <th>Degrees of freedom</th>
+                        <th>Example mapping</th>
+                    </tr>
+                    <tr>
+                        <td>Touch/Tap</td>
+                        <td>Single, double</td>
+                        <td>Send a command, log a quantity</td>
+                    </tr>
+                    <tr>
+                        <td>Tilt</td>
+                        <td>Boolean (tilted/not tilted)</td>
+                        <td>Select a function, binary switch</td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="max-width:0;white-space:nowrap;"><b><i>OUTPUT PRIMITIVES:</i></b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Primitive</th>
+                        <th>Degrees of freedom</th>
+                        <th>Example mapping</th>
+                    </tr>
+                    <tr>
+                        <td>LED feedback</td>
+                        <td>Color, blink, fade <i>Supports hexadecimal representation of colors</i></td>
+                        <td>Continuous notification about the status of process</td>
+                    </tr>
+                    <tr>
+                        <td>Haptic feedback</td>
+                        <td>Vibration pattern <i>Supports long vibration and burs vibrations</i></td>
+                        <td>Discrete notification about the status of process</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </script>

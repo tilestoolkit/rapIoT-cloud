@@ -1,0 +1,124 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-app0"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>TILES toolkit Application Development Process</h2>
+
+                <p>
+                    If you are looking for a way to rapidly develop and prototype your IoT application ideas based on everyday object augmentation,
+                    you should keep on reading this section about the
+                    <i>TILES toolkit Application Development Process</i> (TADP). The TADP is a process intended to guide IoT
+                    application developers through the required steps of prototyping a fully functional IoT application using
+                    the TILES toolkit. Whether you are a non-expert or an expert user, this section will enable you to rapidly
+                    transform your IoT application ideas into working prototypes with hardware components, message events
+                    and running program code in no time.
+
+                    <br/><br/> An illustration of the TADP and a short description of the defined steps can be seen below.
+                    Go through each subsection of the documentation sequentially and you will have a working prototype of
+                    your IoT application operable in just a few moments. Developing IoT applications have never been easier!
+                </p>
+                <table class="table table-striped docs-process-table">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td><a href="#/docs-app1">Ideation Phase</a></td>
+                        <td>entails using the TILES Cards and ideation process to develop an IoT application idea.</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><a href="#/docs-app2">Create User</a></td>
+                        <td>entails creating a user in the TILES Cloud web portal.</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><a href="#/docs-app3">Create Application</a></td>
+                        <td>involves defining an application name and create the application context and selecting development
+                            environment in the TILES Cloud web portal.</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><a href="#/docs-app4">List Physical Objects</a></td>
+                        <td>entails using the TILES Cards to identify the physical objects needed in the application, and listing
+                            them by configuring the application from step 3 with items for your physical things.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><a href="#/docs-app5">Launch Development Environment</a></td>
+                        <td>entails starting up the selected development environment and navigating to the starting point of
+                            the environment.</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><a href="#/docs-app6">Code Application</a></td>
+                        <td> involves coding the program behavior by mapping the TILES cards into executable program code with
+                            the steps listed below.
+                            <br/><br/>
+                            <ol type="a" style="padding-left: 1em;">
+                                <li>Map HUMAN ACTIONS cards with TILES API events</li>
+                                <li>Map FEEDBACK cards with TILES API commands</li>
+                                <li>Map SERVICES cards with TILES API sources</li>
+                                <li>Use TILES API for additional application behavior</li>
+                            </ol>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><a href="#/docs-app7">Test Application</a></td>
+                        <td>involves starting application and using gateway to discover and use the TILES Squares in your application
+                            by following the steps below
+                            <br/><br/>
+                            <ol type="a" style="padding-left: 1em;">
+                                <li>Run application in test mode</li>
+                                <li>Procure and ready TILES Squares</li>
+                                <li>Procure and ready Physical Objects</li>
+                                <li>Open TILES Gateway app and log in</li>
+                                <li>Select the application in TILES Gateway</li>
+                                <li>Pair TILES Squares with items</li>
+                                <li>Use the application</li>
+
+                            </ol>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><a href="#/docs-app8">Iterate step 6-7</a></td>
+                        <td>entails looping through step 6 and step 7 until the desired application behavior is accomplished</td>
+                    </tr>
+                </table>
+                <div class="docs-img">
+                    <img src="/images/application-development-process.png" alt="application_development_process" />
+                    <br/>
+                    <span>TILES toolkit Application Development Process</span>
+                </div>
+            </div>
+        </div>
+    </script>

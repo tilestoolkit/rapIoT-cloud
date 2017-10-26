@@ -1,0 +1,142 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-js3"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>3. Map HUMAN ACTIONS cards to TILES events</h2>
+
+                <p>
+                    The <a href="{{prevUrl()}}">previous section</a> introduced the EventReader API for processing events
+                    and commands in the JavaScript API. This section will go more into details on how to use the EventReader
+                    API to map the HUMAN ACTIONS cards to the TILE events in your application code.
+
+                </p>
+                <h3>Example 1: Tap Watch</h3>
+                <p>
+                    This example shows how THINGS <b>Watch</b> and HUMAN ACTIONS <b>Tap</b> is mapped to JavaScript code.
+                </p>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/t-4.jpg" alt="watch" />
+                    <img src="/images/tiles_cards/a-8.jpg" alt="tap" />
+                    <br/>
+                    <span>Tap Watch</span>
+                </div>
+                <p>
+                    Looking at the code snippet below, we see that the watch is defined in the JavaScript code in
+                    <b>line 4</b>. In <b>line 6</b> we see how we detect the origin of the event (from 'Watch'), and in
+                    <b>line 7</b> we see how the nature of the event (double tap) is detected.
+                </p>
+                <div class="code-template">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> var watch = reader.getTile('watch', client); </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div> if ( tileEvent.name == watch.name ){ /* Check if the event originates from 'watch' */</div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> if ( tileEvent.isDoubleTap ){ /* Check if the event is a double tap event */</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>
+                                <div>/* Write your FEEDBACK here */</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } </div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+                <h3>Example 2: Tilt Headgear</h3>
+                <p>
+                    This example shows how THINGS Headgear and HUMAN ACTIONS Tilt is mapped to JavaScript code.
+                </p>
+                <div class="docs-img docs-cards">
+                    <img src="/images/tiles_cards/t-13.jpg" alt="headgear" />
+                    <img src="/images/tiles_cards/a-6.jpg" alt="tilt" />
+                    <br/>
+                    <span>Tilt Headgear</span>
+                </div>
+                <p>
+                    Looking at the code snippet below, we see that the headgear is defined in the JavaScript code in
+                    <b>line 4</b>. In <b>line 6</b> we see how we detect the origin of the event (from 'Headgear'), and in
+                    <b>line 7</b> we see how the nature of the event (tilt) is detected.
+                </p>
+                <div class="code-template">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> var headgear = reader.getTile('headgear', client); </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div> if ( tileEvent.name == headgear.name ){ /* Check if the event originates from 'headgear' */</div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> if ( tileEvent.isTilt ){ /* Check if the event is a tilt event */</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>
+                                <div>/* Write your FEEDBACK here */</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } </div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+
+            </div>
+        </div>
+    </script>

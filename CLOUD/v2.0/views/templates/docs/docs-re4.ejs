@@ -1,0 +1,112 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-re4"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>4. Map SERVICES cards to IFTTT rules</h2>
+                <p>
+                    Mapping SERVICES cards into IFTTT rules in the Rule Engine Development Environment can be a bit tricky and it requires some
+                    knowledge of external web services. The only available SERVICE in the Rule Engine Development Environment,
+                    is the IFTTT rule definition, which allows you to communicate with IFTTT in your application.
+                </p>
+                <h3>Configuring IFTTT</h3>
+                <p>
+                    The first thing you need to do is to create an account at
+                    <a href="https://ifttt.com" target="_blank">IFTTT</a> if you have not already done so. From IFTTT you need to set up
+                    the
+                    <a href="https://ifttt.com/services/maker_webhooks/settings" target="_blank">maker channel</a> and write down your
+                    <b>personal key</b>. This key must be configured in your TILES application as seen in the image below.
+                </p>
+
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-add-iftttkey.png" alt="add_iftttkey" />
+                    <br/>
+                    <span>Add IFTTT personal key to Rule Engine application</span>
+                </div>
+                <h3>Output SERVICE</h3>
+                <p>
+                    Now your Rule Engine application is ready to talk to you applets in IFTTT. The next thing you need to do is to create the
+                    rule that will trigger the IFTTT applet. Select the
+                    <img src="/images/howto/howto-new-ifttt-rule-button.png" alt="+ new IFTTT rule" /> button to see the
+                    <b>IFTTT rule form</b> below.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-ifttt-rule-form-output.png" alt="ifttt_rule_form" />
+                    <br/>
+                    <span>IFTTT rule form1</span>
+                </div>
+                <p>
+                    Select the <b>Tile</b> option in the first dropdown box to define that this rule will be triggered by
+                    a HUMAN ACTION. The next two boxes are used to define the input HUMAN ACTIONS as described in
+                    <a href="#/docs-re2">2. Map HUMAN ACTIONS</a>.
+                    <br/> <br/> In the last input box on the form you should enter the
+                    <b>IFTTT trigger name</b> of your applet and click on
+                    <b>Create</b> to create the rule. This will add the rule to the list as seen below. This specific rule
+                    will define that:<br/><br/>
+                    <i>IF the <b>car</b> TILES Square is <b>double tapped</b> THEN the <b>open_garage_door</b> applet in IFTTT is triggered</i>
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-list-ifttt-rules-output.png" alt="ifttt_rules_list" />
+                    <br/>
+                    <span>List of defined IFTTT rules with HUMAN ACTIONS and SERVICE (IFTTT)</span>
+                </div>
+
+                <h3>Input SERVICE</h3>
+                <p>
+                    To define an input SERVICE, meaning that an external SERVICE will trigger a FEEDBACK on your TILES Squares, select the
+                    <img src="/images/howto/howto-new-ifttt-rule-button.png" alt="+ new IFTTT rule" /> button to see the
+                    <b>IFTTT rule form</b> below.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-ifttt-rule-form-input.png" alt="ifttt_rule_form" />
+                    <br/>
+                    <span>IFTTT rule form2</span>
+                </div>
+                <p>
+                    This time select the <b>IFTTT</b> option in the first dropdown box to define that this rule will be triggered
+                    by a SERVICE. The remaining form are used to define the FEEDBACK as defined in
+                    <a href="#/docs-re3">3. Map FEEDBACK</a>. When you have defined the FEEDBACK for this rule, hit the
+                    <b>Create</b> button, and see your rule appear in the list as seen below. This specific rule will define
+                    that:
+                    <br/><br/>
+                    <i>IF <b>IFTTT applet</b> THEN <b>garage_door</b> TILES Square will <b>vibrate with bursts</b></i>
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-list-ifttt-rules-input.png" alt="ifttt_rules_list" />
+                    <br/>
+                    <span>List of defined IFTTT rules with SERVICE (IFTTT) and FEEDBACK</span>
+                </div>
+                <p>
+                    The last thing you need to do for this rule to be triggered, is to define your IFTTT applet to send a post request to the
+                    URL visible in line with the IFTTT rule as seen on the image above. When a POST request is detected by
+                    the TILES Cloud to this specific address, the IFTTT rule will be triggered and the FEEDBACK command will
+                    be sent to the defined TILES Square.
+                </p>
+
+
+            </div>
+        </div>
+    </script>

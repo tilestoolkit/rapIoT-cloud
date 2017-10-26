@@ -1,0 +1,57 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-app8"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>8. Iterate step 6-7</h2>
+                <p>
+                    In order to reach the desired behavior of your application, you will probably need to iterate over
+                    <a href="#/docs-app6">step 6</a> and
+                    <a href="#/docs-app7">step 7</a> many times. After going through
+                    <a href="#/docs-app7">step 7</a> for the first time you most likely notice some inconsistency with your
+                    application. Write these down, and go back to
+                    <a href="#/docs-app6">step 6</a> to fix the errors. Once you are confident that the errors have been
+                    fixed, you can revisit
+                    <a href="#/docs-app7">step 7</a> and test your application again. This time it should be easier to follow
+                    the steps of testing. If you are using the same gateway app it will remember your previous configuration,
+                    and you can skip directly to the last step
+                    <b>g. Test/use the application</b>. Again you might notice inconsistency with the behavior of your application
+                    and you will make another iteration to fix it.
+                    <br/><br/> If you are satisfied with how your application behaves;
+                </p>
+                <p class="text-color-red">
+                    <b>Congratulations!</b> You have just created an IoT application prototype supporting augmentation of
+                    physical objects!
+                </p>
+                <p>
+                    The only thing that remains is to navigate to the application page by selecting your application from the
+                    <a href="/#/applications" target="_blank">list of applicaions</a> and click the
+                    <b>Start application</b> button, next to the name of the application. This will start the application
+                    for production.
+                </p>
+            </div>
+        </div>
+    </script>

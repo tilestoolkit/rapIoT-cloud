@@ -1,5 +1,10 @@
 # Tiles API Server
 
+## Versions
+v1.0: 2016
+
+v2.0: 2017
+
 ## Installation
 
 1. Install [Node.js](http://nodejs.org/) and [MongoDB](https://www.mongodb.org/).
@@ -17,6 +22,7 @@
 2. Open a new console and navigate to the project directory and start the API server:
    ```sh
    cd "CLOUD"
+   cd "v0.0" //use 'v1.0' or 'v2.0'
    npm start
    ```
 

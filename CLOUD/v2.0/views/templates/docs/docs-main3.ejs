@@ -1,0 +1,64 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-main3"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>TILES toolkit</h2>
+                <h3>Architecture</h3>
+                <div class="docs-img">
+                    <img style="height: 200px" src="/images/tiles-layered-architecture.png" alt="tiles_layered_architecture" />
+                    <br/>
+                    <span>Layered architecture of the TILES toolkit</span>
+                </div>
+                <p>
+                    The architecture of the TILES toolkit is divided into three layers as seen on the figure above. Below is a short description
+                    of the responsibilities of each layer of the TILES toolkit.
+                </p>
+                <h3>TILES Squares</h3>
+                <p>The TILES Squares are the embedded hardware devices of the TILES toolkit, implemented as the immediate layer
+                    for end user interaction. Users of any TILES application will tap, tilt and otherwise interact with the TILES
+                    Squares to produce events that will be sent to the TILES Gateway, which will forward the events to the
+                    TILES Cloud server for processing. TILES Squares features several
+                    <a href="#/docs-main5">data primitives</a> for input and output interaction with the TILES toolkit.
+                </p>
+                <h3>TILES Gateway</h3>
+                <p>
+                    The TILES Gateway is responsible for forwarding the events between the TILES Squares and the TILES Cloud. The Gateway will
+                    communicate with the squares through Bluetooth, while the communication with the server is performed
+                    over the Internet. The TILES Gateway runs on any regular internet enabled smartphone with Bluetooth support.
+                    This makes it easy to carry around as you interact with your TILES Squares.
+                </p>
+                <h3>TILES Cloud</h3>
+                <p>
+                    The TILES Cloud is the brains behind the TILES toolkit. This is where the application logic will run, and where the program
+                    code is executed. The TILES Cloud will receive TILES Square input events from the connected Gateways,
+                    and will process the events and reply to the Gateway with output commands that will set the output primitives
+                    of the TILES Squares. The TILES Cloud also features interfaces for connecting your TILES application
+                    to available web services, which enables your TILES application to be integrated into your everyday life.
+                </p>
+            </div>
+        </div>
+    </script>

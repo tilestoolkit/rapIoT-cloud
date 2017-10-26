@@ -1,0 +1,66 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-re1"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>1. Introduction to the Rule Engine API</h2>
+                <p>
+                    If you are developing your application using the Rule Engine
+                    <a href="{{selectDevEnvUrl}}">Development Environment</a>, this chapter will explain how you can use
+                    the Rule Engine API to develop your application. This chapter will guide you through the steps of transitioning
+                    from your TILES Cards ideation into a working prototype of your application. The steps of this processs
+                    are listed below.
+                    <ol type="a">
+                        <li>Map HUMAN ACTIONS cards with TILES API events</li>
+                        <li>Map FEEDBACK cards with TILES API commands</li>
+                        <li>Map SERVICES cards with TILES API sources</li>
+                    </ol>
+                    After you have finished this Rule Engine API chapter, you should continue with the
+                    <a href="#/docs-app7">Test Application</a> step of the <i>Application Development Process</i> to test
+                    your application.
+                </p>
+                <h3>The Rule Engine Development Environment</h3>
+                <p>
+                    When you have created an application to use the Rule Engine Development Environment, you can navigate to the environment
+                    by selecting your application from the
+                    <a href="/#/applications" target="_blank">list of applications</a>. Your application should look similar
+                    to the
+                    <b>garage_control_system</b> seen below.
+                </p>
+                <p>
+                    At this point, you should have defined the items you want to use in your application by going through the steps of the
+                    <a href="#/docs-app4">List Physical Objects</a> step of the
+                    <i>Application Development Process</i>.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-rule-engine-ide.png" alt="rule_engine_ide" />
+                    <br/>
+                    <span>Garage Control System application using Rule Engine Dev. Env.</span>
+                </div>
+
+            </div>
+        </div>
+    </script>

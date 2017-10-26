@@ -1,0 +1,239 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-js2"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>2. EventReader API</h2>
+                <p>
+                    The EventReader API can be used to map HUMAN ACTIONS cards and FEEDBACK cards into TILES events and TILES commands by processing
+                    the input/output primitives for you. This section will explain how the EventReader API can be used, while
+                    the following sections will detail, with examples, how to map the HUMAN ACTIONS cards and FEEDBACK cards
+                    into JavaScript code using the EventReader API.
+                </p>
+
+                <h3>Initializing EventReader API</h3>
+                <p>
+                    Initializing the EventReader API in your application code is done with the following lines of code.
+                </p>
+                <div class="code-template">
+                    <div> var tilesLib = require('/tiles-lib/api'); </div>
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                </div>
+
+                <h3>Event Reader API usage</h3>
+                <p>
+                    The technical details of using the EventReader API is explained below.
+                </p>
+
+                <!-- EVENT READER -->
+                <div class="object-template">
+                    <div class="header header-1">EventReader</div>
+                    <div class="header header-2">Methods</div>
+                    <div class="table-wrapper">
+                        <table class="table api-table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Return value</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>readEvent( event, client )</td>
+                                <td>Tile</td>
+                                <td>Passing in the 'event' and 'client' will give a Tile object (described below) which simplifies
+                                    reading events.</td>
+                            </tr>
+                            <tr>
+                                <td>getTile( String, client )</td>
+                                <td>Tile</td>
+                                <td>Passing in the 'name' of the Tile and 'client' will give a Tile object (described below)
+                                    which simplifies interacting with Tiles.</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Example</div>
+                </div>
+                <div class="code-template inverse">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> var tileA = reader.getTile('Tile_c5', client); </div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+                <!-- TILE -->
+                <div class="object-template">
+                    <div class="header header-1">Tile</div>
+                    <div class="header header-2">Properties</div>
+                    <div class="table-wrapper">
+                        <table class="table api-table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>name</td>
+                                <td>String</td>
+                                <td>Holds the name of the Tile.</td>
+                            </tr>
+                            <tr>
+                                <td>id</td>
+                                <td>String</td>
+                                <td>Holds the unique ID of the Tile.</td>
+                            </tr>
+                            <tr>
+                                <td>isDoubleTap</td>
+                                <td>Boolean</td>
+                                <td>Holds the 'double tap' state of the Tile when reading an event. This will be true if the
+                                    received event is a 'doble tap'</td>
+                            </tr>
+                            <tr>
+                                <td>isSingleTap</td>
+                                <td>Boolean</td>
+                                <td>Holds the 'single tap' state of the Tile when reading an event. </td>
+                            </tr>
+                            <tr>
+                                <td>isTilt</td>
+                                <td>Boolean</td>
+                                <td>Holds the 'tilt' state of the Tile when reading an event. </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Methods</div>
+                    <div class="table-wrapper">
+                        <table class="table api-table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>hapticBurst( )</td>
+                                <td>This will send a burst command to the Tile, which will make the Tile vibrate with a bursty
+                                    pattern.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>hapticLong( )</td>
+                                <td>This will send a vibrate command to the Tile, which will make the Tile vibrate for a moment.</td>
+                            </tr>
+                            <tr>
+                                <td>ledBlink( String )</td>
+                                <td>This will send a blink command to the Tile, with a color string. This will make the Tile
+                                    blink with the respective color.</td>
+                            </tr>
+                            <tr>
+                                <td>ledOn( String )</td>
+                                <td>This will send an LED-on command to the Tile, which will turn the LED on with the respective
+                                    color.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ledOff( )</td>
+                                <td>This will send an LED-off command, turning the LED of the Tile off.</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Example</div>
+                </div>
+                <div class="code-template inverse">
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> var tileA = reader.getTile('Tile_c5', client); </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div> if ( tileEvent.name == tileA.name ){ /* Check if the event originates from 'tileA' */</div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>tileA.ledOn( 'FF00FF' ); /* Turn on LED on tileA to color #FF00FF */</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } </div>
+                    </div>
+                    <div><br/></div>
+                    <div>
+                        <div> if ( tileEvent.isSingleTap ){ /* Check if the event is a 'single tap' event */ </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> tileEvent.hapticBurst(); /* Vibrate the tile that was tapped */ </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } </div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+                <h3>TILES Client API usage</h3>
+                <p>
+                    If you are an expert user, and you need to send custom messages to the TILES Squares, you can use the TILES Client to achieve
+                    this.
+                </p>
+
+                <!-- TILES CLIENT -->
+                <div class="object-template">
+                    <div class="header header-1">TilesClient</div>
+                    <div class="header header-2">Methods</div>
+                    <div class="table-wrapper">
+                        <table class="table api-table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>send( String, String, String, String )</td>
+                                <td>Using the send method, you can send a command to a TILES Square.</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="header header-2">Example</div>
+                </div>
+                <div class="code-template inverse">
+                    <div> var client = new tilesLib.TilesClient('Anders', 'garage_control_system', '178.62.99.218', 1883).connect(); </div>
+                    <div> client.on('receive', function (tileId, event) { </div>
+                    <div>
+                        <div> /* To turn on the led to color red on TILES Square with name 'tile_c5' */ </div>
+                        <div> client.send('tile_c5', 'led', 'on', 'red') </div>
+                    </div>
+                    <div> }); </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </script>

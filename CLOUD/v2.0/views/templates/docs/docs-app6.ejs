@@ -1,0 +1,57 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-app6"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>6. Code Application</h2>
+                <p>
+                    In this step of the process you will be writing the actual program code of your application. This is the most complex step
+                    of the process and has been divided into four substeps for you to follow. Do not worry if this is your
+                    first time writing program code as this documentation will guide you through every step of the development
+                    process. The four steps are:
+                    <ol type="a">
+                        <li>Map HUMAN ACTIONS cards with TILES API events</li>
+                        <li>Map FEEDBACK cards with TILES API commands</li>
+                        <li>Map SERVICES cards with TILES API sources</li>
+                        <li>Use TILES API for additional application behavior</li>
+                    </ol>
+                    For this step you will be using a
+                    <b>separate</b> part of the documentation. When you have finished the program code you should return
+                    to this section and continue with the Application Development Process.
+                </p>
+                <h3>Cloud Development Environment</h3>
+                <p>
+                    For this part, you will be writing your program code in JavaScript. At this point you should have the Cloud Development Environment
+                    running as described in the
+                    <a href="{{prevUrl()}}">previous step</a> of the process.
+                    <br/>
+                    <br/>
+                    <b>The <a href="#/docs-js1" target="_blank">JavaScript API</a> will guide you through the steps of prototyping your IoT application.</b>
+                </p>
+
+            </div>
+        </div>
+    </script>

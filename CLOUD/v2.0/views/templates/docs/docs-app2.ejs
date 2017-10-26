@@ -1,0 +1,54 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-app2"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>2. Create User</h2>
+
+                <p>
+                    In this step of the <i>TILES toolkit Application Development Process</i> you will be creating
+                    a user account in the TILES Cloud web portal. If you have already created an account, you can skip to
+                    the
+                    <a href="{{nextUrl()}}">next step</a>.
+                </p>
+                <h3>Creating a user account</h3>
+                <p>
+                    To create a user account, navigate to the <a href="/#/users">Users page</a>, and enter a username in
+                    the form and click <b>Post</b> as seen in the image below.
+                </p>
+                <div class="docs-img opacity75">
+                    <img src="/images/howto/howto-create-user.png" alt="create_user" />
+                    <br/>
+                    <span>Creating a new user account</span>
+                </div>
+                <p>
+                    Once you have created a new user it will appear in the list. If you click on your username, you will be able to see a list
+                    of all your connected TILES Squares. If you just created a new account, this list will be empty, so don't
+                    worry if you can't see your TILES there yet.
+                </p>
+            </div>
+        </div>
+    </script>

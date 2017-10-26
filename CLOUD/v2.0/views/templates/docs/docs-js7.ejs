@@ -1,0 +1,177 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-js7"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>Complete example scenario 2</h2>
+                <p>
+                    <b>Context:</b>
+                    <br/> You are working in an office and you have decided to make your work station smart. You want to
+                    be able to turn on and off the lights from your desk, without getting up and hit the light switch on
+                    the other side of the room. In addition, you would like to start and stop the music on the stereo on
+                    the other side of the room without leaving your comfortable office chair.
+                </p>
+
+                <p>
+                    <b>Description:</b>
+                    <ol>
+                        <li>Single tap on 'Office desk' will set color of lights <i>(trigger IFTTT applet 'set_lights' with color 'FF00FF')</i>.</li>
+                        <li>Double tap on 'Office desk' will turn off lights <i>(trigger IFTTT applet 'lights_off')</i>.</li>
+                        <li>Single tap on 'Watch' will start music <i>(trigger Postman to server '192.168.1.111' port '3000' with
+                            trigger 'start_music')</i>.</li>
+                        <li>Double tap on 'Watch' will stop music <i>(trigger Postman to server '192.168.1.111' port '3000' with
+                            trigger 'stop_music')</i>.</li>
+                    </ol>
+                </p>
+
+                <p>
+                    <b>Example TILES Cards configuration:</b>
+                    <br/>
+                    <i>This is just one specific TILES Cards configuration. 
+                        There are countless ways to explain this scenario with the TILES Cards. 
+                        You should use the TILES Cards just the way that feels natural to you.
+                    </i>
+                </p>
+                <ol>
+                    <li>
+                        <div class="docs-cards small">
+                            <img src="/images/tiles_cards/a-8.jpg" alt="single_tap" />
+                            <img src="/images/tiles_cards/t-11.jpg" alt="office_desk" />
+                            <img src="/images/tiles_cards/s-1.jpg" alt="custom_channel" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="docs-cards small">
+                            <img src="/images/tiles_cards/a-8.jpg" alt="double_tap" />
+                            <img src="/images/tiles_cards/t-11.jpg" alt="eyewear" />
+                            <img src="/images/tiles_cards/s-1.jpg" alt="custom_channel" />
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="docs-cards small">
+                            <img src="/images/tiles_cards/a-8.jpg" alt="single_tap" />
+                            <img src="/images/tiles_cards/t-4.jpg" alt="office_desk" />
+                            <img src="/images/tiles_cards/s-18.jpg" alt="custom_channel" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="docs-cards small">
+                            <img src="/images/tiles_cards/a-8.jpg" alt="double_tap" />
+                            <img src="/images/tiles_cards/t-4.jpg" alt="eyewear" />
+                            <img src="/images/tiles_cards/s-18.jpg" alt="custom_channel" />
+                        </div>
+                    </li>
+                </ol>
+
+                <p><b>JavaScript code:</b></p>
+                <div class="code-template">
+                    <div> var tilesLib = require('/tiles-lib/api'); </div>
+                    <div> var client = new tilesLib.TilesClient('Anders', 'Scenario2', '138.68.144.206', 1883).connect(); </div>
+                    <div> var reader = new tilesLib.EventReader(); </div>
+                    <div> var IFTTTClient = new tilesLib.IFTTTClient('-MXtrSsdb-WQxdmbW-CuA'); </div>
+                    <div> var PostmanClient = new tilesLib.PostmanClient('192.168.1.111', 3000); </div>
+                    <div><br/></div>
+                    <div>
+                        client.on('receive', function (tileId, event) {
+                    </div>
+                    <div>
+                        <div> var tileEvent = reader.readEvent(event, client); </div>
+                    </div>
+                    <div>
+                        <div> var officeDesk = reader.getTile('office_desk_tile', client); </div>
+                    </div>
+                    <div>
+                        <div> var watch = reader.getTile('watch_tile', client); </div>
+                    </div>
+                    <div><br/></div>
+
+                    <div>
+                        <div>/* First instruction (first set of cards) */</div>
+                    </div>
+                    <div>
+                        <div> if ( tileEvent.name === officeDesk.name && tileEvent.isSingleTap ) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>IFTTTClient.send('set_lights', 'FF00FF');</div>
+                        </div>
+                    </div>
+                    <div><br/></div>
+
+                    <div>
+                        <div>/* Second instruction (second set of cards) */</div>
+                    </div>
+                    <div>
+                        <div> } else if ( tileEvent.name === officeDesk.name && tileEvent.isDoubleTap ) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> IFTTTClient.send('lights_off'); </div>
+                        </div>
+                    </div>
+                    <div><br/></div>
+
+                    <div>
+                        <div>/* Third instruction (third set of cards) */</div>
+                    </div>
+                    <div>
+                        <div> } else if ( tileEvent.name === watch.name && tileEvent.isSingleTap ) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div>
+                                PostmanClient.get('start_music');
+                            </div>
+                        </div>
+                    </div>
+                    <div><br/></div>
+
+                    <div>
+                        <div>/* Fourth instruction (fourth set of cards) */</div>
+                    </div>
+                    <div>
+                        <div> } else if ( tileEvent.name === watch.name && tileEvent.isDoubleTap ) { </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div> PostmanClient.get('stop_music'); </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div> } </div>
+                    </div>
+                    <div>});</div>
+                </div>
+                <p>
+                    If you are following the
+                    <b>Application Development Process</b> for prototyping your application, please return to
+                    <a href="#/docs-app7">step 7</a> of the process.
+                </p>
+
+            </div>
+        </div>
+    </script>

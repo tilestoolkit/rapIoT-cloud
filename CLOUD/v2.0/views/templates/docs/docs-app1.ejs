@@ -1,0 +1,53 @@
+<!--
+   Copyright 2017 Anders Riise Mæhlum
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+
+<% var nameOfDocs = "docs-app1"; %>
+    <script type="text/ng-template" id="/<%=nameOfDocs%>.html">
+        <div class="wrapper toggled">
+            <div id="sidebar-wrapper">
+                <% var active = nameOfDocs %>
+                    <% include docs-common-sidebar %>
+            </div>
+            <div id="page-content-wrapper">
+                <div>
+                    <% include docs-common-content %>
+                </div>
+                <h2>1. Ideation Phase</h2>
+                <p>
+                    In this initial step of the process, you will be using the TILES Card game to develop your own application idea. If you have
+                    already done this, you can continue with the
+                    <a href="{{nextUrl()}}">next step</a> of the process.
+                </p>
+                <p>
+                    For detailed instructions on how to use the TILES Card game, please visit the
+                    <a href="{{tilestoolkitUrl}}">homepage of the TILES toolkit</a>
+                </p>
+                  <div class="docs-img docs-cards small">
+                    <img src="/images/tiles_cards/t-0.jpg" alt="t-0" />
+                    <img src="/images/tiles_cards/a-0.jpg" alt="a-0" />
+                    <img src="/images/tiles_cards/c-0.jpg" alt="c-0" />
+                    <br/>
+                    <img src="/images/tiles_cards/f-0.jpg" alt="f-0" />
+                    <img src="/images/tiles_cards/m-0.jpg" alt="m-0" />
+                    <img src="/images/tiles_cards/s-0.jpg" alt="s-0" />
+                    <br/>
+                    <span>TILES Cards</span>
+                </div>
+
+            </div>
+        </div>
+    </script>
